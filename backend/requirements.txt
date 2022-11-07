@@ -65,6 +65,5 @@ tomli==2.0.1
 urllib3==1.26.12
 visitor==0.1.3
 webencodings==0.5.1
-weird-not-weird==1.0.0
 Werkzeug==0.11.15
 WTForms==2.1
