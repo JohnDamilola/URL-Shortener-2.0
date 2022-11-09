@@ -7,3 +7,5 @@
 /yarm.lock
 
 .DS_Store
+
+backend/migrations/**
