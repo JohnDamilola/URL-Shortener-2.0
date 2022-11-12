@@ -7,3 +7,5 @@
 /yarn.lock
 
 .DS_Store
+
+backend/migrations/**
