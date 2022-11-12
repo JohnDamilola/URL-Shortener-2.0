@@ -1,11 +1,10 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-from .config import config
-from .extensions import db, bcrypt
-from .routes.auth import auth_bp
-from .models.user import User, login_manager
+from backend.config import config
+from backend.extensions import db, bcrypt
+from backend.routes.auth import auth_bp
+from backend.models.user import User, login_manager
 
 def create_app():
     """Create Flask application."""
