@@ -19,4 +19,4 @@ create database url_shortener;
 8. git remote add heroku https://git.heroku.com/url-shortener-server-api.git
 
 ### Heroku deployment
-9. git subtree push --prefix backend heroku main
+9. cd ../ && git subtree push --prefix backend heroku main
