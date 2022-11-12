@@ -4,6 +4,6 @@
 /node_modules
 /frontend/public/main.js
 /frontend/package-lock.json
-/yarm.lock
+/yarn.lock
 
 .DS_Store
