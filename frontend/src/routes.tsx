@@ -3,6 +3,7 @@ import Register from 'screens/AuthScreens/Register'
 import Dashboard from 'screens/DashboardScreens/Dashboard'
 import Home from 'screens/Home'
 
+
 const homeRoutes = [
   {
     path: '/',
