@@ -20,3 +20,4 @@ create database url_shortener;
 
 ### Heroku deployment
 9. cd ../ && git subtree push --prefix backend heroku main
+10. heroku run flask db init
