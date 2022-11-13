@@ -1,7 +1,7 @@
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin
-from backend.extensions import db
+from ..extensions import db
 from sqlalchemy.dialects.postgresql import UUID
  
 login_manager = LoginManager()
