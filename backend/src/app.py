@@ -1,7 +1,16 @@
+import os, sys
+# sys.path.insert(0, os.path.abspath(".."))
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+
+# from backend.config import config
+# from backend.extensions import db, bcrypt
+# from backend.src.routes.auth import auth_bp
+# from backend.src.models.user import User, login_manager
+
 from .config import config
 from .extensions import db, bcrypt
 from .routes.auth import auth_bp

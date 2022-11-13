@@ -1,3 +1,4 @@
+import datetime
 from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
@@ -5,7 +6,7 @@ from flask_cors import cross_origin
 from flask import request
 from ..models.user import User, db
 from ..extensions import bcrypt
-
+import jwt
 
 auth_bp = Blueprint(
     'auth_bp', __name__
@@ -49,9 +50,11 @@ def login():                                        #this method is used by regi
         user = User.query.filter_by(email=email).first()
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
+                token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
                 login_user(user)
                 return jsonify(
                     user = user.to_json(),
+                    token = token,
                     message = 'Login Successful',           #if login is successful, this message is displayed
                     status = 200
                 ), 200
