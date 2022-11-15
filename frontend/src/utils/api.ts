@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 
 //To-Do
-const baseURL = ''
+const baseURL = 'https://url-shortener-server-api.herokuapp.com/'
 
 const http: AxiosInstance = axios.create({
   baseURL,
