@@ -53,7 +53,7 @@ const Register = () => {
           text: 'You have successfully created an account',
           confirmButtonColor: '#221daf',
         }).then(() => {
-          window.location.replace("/auth/login");
+          window.location.replace("/login");
         })
         setIsSubmitting(false);
       })
@@ -122,7 +122,7 @@ const Register = () => {
                     {isSubmitting ? 'Creating Account...' : 'Create Account'}
                   </button>
                   <p>
-                    Already have an account? <Link to="/auth/login">Login</Link>
+                    Already have an account? <Link to="/login">Login</Link>
                   </p>
                 </form>
               </div>
