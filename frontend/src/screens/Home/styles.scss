@@ -1,39 +1,44 @@
 .home {
     .masthead {
-        background: #221daf;
-        // background: -webkit-linear-gradient(to right, #5e130b, #a30e1f);  /* Chrome 10-25, Safari 5.1-6 */
-        // background: linear-gradient(to right, #5e130b, #a30e1f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #78d8ab;
+        background: #06612e;
+        background-image: linear-gradient(15deg, #079142 0%, #06612e 100%);
+        background: radial-gradient(circle, #06612e, #144340);
         background-size: cover;
         background-position: center center;
-        min-height: 500px;
+        min-height: 680px;
         display: flex;
         align-items: center;
-        padding: 50px 0px 100px;
+        padding: 100px 0px 100px;
         position: relative;
 
         @media (max-width: 767px) {
-            padding: 112px 20px;
+            padding: 62px 20px;
         }
 
         h1 {
-            line-height: 70px;
-            font-size: 60px;
+            line-height: 60px;
+            font-size: 56px;
             font-weight: 900;
-            margin-top: 30px;
-            margin-bottom: 8px;
+            margin-bottom: 0px;
             color: #fff;
+            margin-bottom: 8px;
             font-family: 'HW Nuckle Trial';
+            span {
+                color: #E1FFA0;
+            }
             @media (max-width: 991px) { 
-                line-height: 50px;
+                line-height: 47px;
                 font-size: 35px;
                 font-weight: 900;
                 margin-top: 0px;
             }
         }
         p {
-            font-size: 20px;
-            line-height: 32px;
+            font-size: 18px;
+            line-height: 28px;
             color: #fff;
+            margin-bottom: 32px;
         }
         img {
             @media (max-width: 991px) { 
@@ -49,14 +54,6 @@
             font-weight: 600;
             border: none;
         }
-        .btn-main {
-            background: #FFC544;
-            border-radius: 8px;
-            padding: 10px 20px;
-            height: 56px;
-            display: inline-block;
-            color: #000;
-        }
         .btn-outline {
             background: #fff;
             border-radius: 8px;
@@ -64,9 +61,46 @@
             height: 56px;
             color: #222;
         }
+        .result-pane {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            p {
+                color: #000;
+                margin-bottom: 0px;
+            }
+            button {
+                padding: 10px 20px;
+                border-radius: 8px;
+                background: #0A9957;
+                color: #fff;
+            }
+            a {
+                font-weight: 700;
+                color: #0d41b3;
+            }
+            .link {
+                background: #f2f2f2;
+                border-radius: 8px 8px 0px 0px;
+                padding: 10px 20px;
+                p {
+                    margin: 5px 0px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .detail {
+                padding: 15px 20px;
+                span {
+                    font-size: 16px;
+                }
+            }
+        }
     }
-    .explore {
-        background: #FFC544;
+    .features {
+        background: #000;
+        background: #E1FFA0;
         background-size: cover;
         background-position: center center;
         min-height: 700px;
@@ -75,119 +109,65 @@
         position: relative;
 
         @media (max-width: 767px) {
-            padding: 72px 20px;
+            padding: 36px 20px;
         }
 
         h1 {
-            line-height: 70px;
+            line-height: 60px;
             font-size: 50px;
             font-weight: 700;
             margin-top: 30px;
             margin-bottom: 0px;
+            color: #06612e;
             font-family: 'HW Nuckle Trial';
             @media (max-width: 991px) { 
-                line-height: 50px;
+                line-height: 47px;
                 font-size: 35px;
                 font-weight: 900;
-                margin-top: 0px;
+                margin-bottom: 8px;
             }
         }
         p {
             font-size: 20px;
             line-height: 32px;
             margin-bottom: 70px;
+            @media (max-width: 991px) { 
+                line-height: 28px;
+                font-size: 18px;
+            }
         }
-        .explore-card {
+        .feature-item {
             min-height: 200px;
             border-radius: 12px;
             background: #fff;
-            padding: 20px;
-            display: flex;
-            // align-items: flex-end;
+            padding: 30px 30px;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
             h4 {
-                margin-bottom: 0px;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: #06612e;
             }
-            &.red {
-                background: #AB052F;
-                h4 {
-                    color: #fff;
+            p {
+                font-size: 16px;
+                line-height: 25px;
+                margin-bottom: 16px;
+            }
+            ul {
+                padding-left: 0px;
+                li {
+                    list-style-type: none;
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    &:before {
+                        content: '⦿';
+                        margin-right: 10px;
+                        font-size: 20px;
+                        color: #06612e;
+                    }
                 }
-            }
-            &.purple {
-                background: #6C079F;
-                h4 {
-                    color: #fff;
-                }
-            }
-            &.green {
-                background: #05793C;
-                h4 {
-                    color: #fff;
-                }
-            }
-            &.explore {
-                background: #FFEAC0;
-            }
-        }
-    }
-    .how-it-works {
-        background: #FFF4E3;
-        background-size: cover;
-        background-position: center center;
-        min-height: 700px;
-        display: flex;
-        align-items: center;
-        padding: 72px 0px 140px;
-        position: relative;
-
-        @media (max-width: 767px) {
-            padding: 112px 30px;
-        }
-
-        h1 {
-            line-height: 70px;
-            font-size: 60px;
-            font-weight: 900;
-            margin-top: 30px;
-            margin-bottom: 8px;
-            color: #000;
-            font-family: 'HW Nuckle Trial';
-            @media (max-width: 991px) { 
-                line-height: 50px;
-                font-size: 35px;
-                font-weight: 900;
-                margin-top: 0px;
-            }
-        }
-        p {
-            font-size: 20px;
-            line-height: 32px;
-            color: #000;
-            margin-bottom: 40px;
-        }
-
-        .explainer-item {
-            padding: 30px 30px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fff;
-            p, i {
-                font-size: 18px;
-                line-height: 32px;
-                font-weight: 700;
-                color: #000;
-                margin: 0px;
-            }
-            i {
-                font-size: 30px;
-                font-weight: 500;
             }
         }
     }
