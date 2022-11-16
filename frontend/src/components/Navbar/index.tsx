@@ -36,12 +36,12 @@ const Navbar = ({ isDashboard }: any) => {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/login"
+                  to="/auth/login"
                 >
                   Login
                 </Link>
               </li>
-              <Link to="/register">
+              <Link to="/auth/register">
                 <button className="btn btn-main">Register</button>
               </Link>
             </div>

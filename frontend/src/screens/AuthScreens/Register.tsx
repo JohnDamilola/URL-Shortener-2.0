@@ -28,7 +28,8 @@ import http from "utils/api";
 import "./styles.scss";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,13 +37,15 @@ const Register = () => {
   const handleRegister = async (e: any) => {
     e.preventDefault();
     const payload = {
+      first_name,
+      last_name,
       email,
       password,
     };
     setIsSubmitting(true);
 
     await http
-      .post("/signup", payload)
+      .post("/auth/register", payload)
       .then((res) => {
         Swal.fire({
           icon: 'success',
@@ -50,7 +53,7 @@ const Register = () => {
           text: 'You have successfully created an account',
           confirmButtonColor: '#221daf',
         }).then(() => {
-          window.location.replace("/login");
+          window.location.replace("/auth/login");
         })
         setIsSubmitting(false);
       })
@@ -75,16 +78,26 @@ const Register = () => {
               <div className="login-card">
                 <h3>Create an account</h3>
                 <form onSubmit={handleRegister}>
-                  {/* <div className="form-group">
-                    <label>Full name</label>
+                  {<div className="form-group">
+                    <label>First name</label>
                     <input
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="John"
                       className="form-control"
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
-                  </div> */}
+                  </div>}
+                  {<div className="form-group">
+                    <label>Last name</label>
+                    <input
+                      type="text"
+                      placeholder="Doe"
+                      className="form-control"
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>}
                   <div className="form-group">
                     <label>Email address</label>
                     <input
@@ -109,7 +122,7 @@ const Register = () => {
                     {isSubmitting ? 'Creating Account...' : 'Create Account'}
                   </button>
                   <p>
-                    Already have an account? <Link to="/login">Login</Link>
+                    Already have an account? <Link to="/auth/login">Login</Link>
                   </p>
                 </form>
               </div>

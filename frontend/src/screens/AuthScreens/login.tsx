@@ -37,7 +37,7 @@ const Login = () => {
     setIsSubmitting(true);
 
     await http
-      .post("/login", payload)
+      .post("/auth/login", payload)
       .then((res) => {
         const { user } = res.data || {}
         window.localStorage.setItem('URLshortenerUser', JSON.stringify(user))

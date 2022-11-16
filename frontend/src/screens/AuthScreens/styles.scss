@@ -1,7 +1,7 @@
 .login-page, .register-page {
     background: #720b07;
     background: -webkit-linear-gradient(to right, #5e130b, #a30e1f);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5e130b, #a30e1f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #255136, #219f68); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 100vh;
     align-items: center;
     .login-card {
@@ -9,7 +9,7 @@
         background: #fff;
         border-radius: 12px;
         padding: 40px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        box-shadow: rgba(35, 187, 101, 0.497) 0px 2px 8px 0px;
         
         h3 {
             font-family: 'HW Nuckle Trial';
