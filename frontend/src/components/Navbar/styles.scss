@@ -1,6 +1,6 @@
 .navbar {
     background: #fff;
-    padding: 14px 0px;
+    padding: 10px 0px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .navbar-brand {
         padding: 8px 0px;
@@ -11,7 +11,7 @@
         }
         img {
             margin-right: 10px;
-            width: 170px;
+            width: 140px;
             @media (max-width: 500px) {
                 width: 130px;
             }
@@ -35,8 +35,8 @@
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
-        margin-right: 20px;
-        font-size: 16px;
+        // margin-right: 20px;
+        font-size: 15px;
         line-height: 150%;
         letter-spacing: -0.3px;
         color: #121212;
@@ -99,7 +99,8 @@
         margin-left: auto;
     }
     .navbar-toggler, button.btn-main {
-        padding: 10px 32px;
+        height: 48px;
+        padding: 7px 32px;
         font-size: 14px !important;
         font-weight: 600;
         font-family: Inter;
