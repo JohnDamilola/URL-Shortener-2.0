@@ -1,7 +1,11 @@
+.inner-dashboard {
+    min-height: calc(100vh - 70px);
+    overflow: scroll;
+    padding: 30px;
+    background: #FCF4F0;
+}
+
 .dashboard-commons {
-    padding: 20px 0px;
-    background: #FFFAF5;
-    min-height: calc(100vh - 75px);
     .flash-card__list {
         p.title {
             font-size: 16px;
@@ -76,31 +80,59 @@
 }
 
 .dashboard-page {
-    .welcome-card {
-        background: #221daf;
-        border: none;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        margin-top: 40px;
-        border-radius: 12px;
-        padding: 26px 30px;
+    .welcome-pane {
         margin-bottom: 30px;
+        margin-top: 10px;
         h3 {
-            color: #fff;
+            color: #000;
             font-family: 'HW Nuckle Trial';
             margin-bottom: 4px;
         }
         p {
             font-size: 16px;
-            color: #fff;
+            color: #000;
             margin-bottom: 0px;
         }
-        &.practice-deck {
-            padding-top: 13px;
-            .back-icon {
-                cursor: pointer;
-            }
-        }
     }
+    .stats-card {
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+        cursor: pointer;
+        background: #fdfafc;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FFFFFF, #fdfafc);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FFFFFF, #fdfafc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        svg {
+            fill: #000;
+        }
+        
+        p {
+            font-size: 16px;
+            color: #000 !important;
+            margin-bottom: 4px;
+        }
+
+        h3 {
+            font-weight: 600;
+            color: #000 !important;
+            font-family: 'HW Nuckle Trial';
+            margin-bottom: 0px;
+        }
+
+        &.active {
+          background: #000;
+          background: #221daf;
+          h3, p, span, i {
+            color: #fff !important;
+          }
+          svg {
+            fill: #fff;
+          }
+        }
+        &:hover {
+          // border: 1.5px solid $brand-primary-500;
+        }
+      }
 }
 
 .explore-page {

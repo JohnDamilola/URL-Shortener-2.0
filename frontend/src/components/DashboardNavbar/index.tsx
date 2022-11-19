@@ -2,18 +2,15 @@ import "./styles.scss";
 import { Link } from "react-router-dom";
 import { NavHashLink } from 'react-router-hash-link';
 
-const Navbar = ({ isDashboard }: any) => {
+const DashboardNavbar = ({ isDashboard }: any) => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('URLshortenerUser')
     window.location.replace('/')
   }
   return (
-    <nav className="navbar regular-navbar navbar-expand-lg sticky-top">
+    <nav className="navbar dashboard-navbar navbar-expand-lg sticky-top">
       <div className="container">
-        <Link className="navbar-brand" to="/">
-          <img className='img-fluids' src={require('assets/images/logo.png')} />
-        </Link>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {isDashboard ? (
             <div className="navbar-nav ml-auto navbar-centers gap-4">
@@ -52,4 +49,4 @@ const Navbar = ({ isDashboard }: any) => {
   );
 };
 
-export default Navbar;
+export default DashboardNavbar;
