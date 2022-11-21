@@ -75,6 +75,49 @@ def login():                                        #this method is used by regi
             # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed
             status = 500
         ), 500
+    
+
+@auth_bp.route('/auth/update/<id>', methods=['POST'])
+@cross_origin(supports_credentials=True)   
+def update(data):
+    '''This method is called when the user requests to update the their credentials.'''
+    try:
+        first_name = data['first_name']
+        last_name = data['last_name']
+        password = data['password']
+        email = data['email']
+        
+
+        db.session.query(User).filter_by(id=id).update(email=email, first_name=first_name, last_name=last_name, password_hash=password)
+        db.session.commit()
+
+        return jsonify(
+            message = 'Update User Successful',
+            status = 201
+        ), 201
+    except Exception as e:
+        return jsonify(
+            message = f'Update User Failed {e}',
+            status = 400
+        ), 400
+
+@auth_bp.route.route('/auth/delete/<id>', methods = ['DELETE'])
+@cross_origin(supports_credentials=True)
+def delete(id):
+    '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
+    try:
+        db.session.query(User).filter_by(id=id).delete()
+        db.session.commit()
+        return jsonify(
+            message = 'Delete User Successful',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
+            message = f'Delete User Failed {e}',
+            status = 400
+        ), 400    
+   
 
 @auth_bp.route('/auth/logout')
 @login_required
