@@ -24,8 +24,20 @@ const authRoutes = [
 
 const dashboardRoutes = [
   {
-    path: '/dashboard',
+    path: '/overview',
     element: <Dashboard />,
+  },
+  {
+    path: '/links',
+    element: <div>Links</div>,
+  },
+  {
+    path: '/analytics',
+    element: <div>Analytics</div>,
+  },
+  {
+    path: '/settings',
+    element: <div>Settings</div>,
   },
 ]
 

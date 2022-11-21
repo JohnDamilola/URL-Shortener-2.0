@@ -2,7 +2,7 @@
     min-height: calc(100vh - 70px);
     overflow: scroll;
     padding: 30px;
-    background: #FCF4F0;
+    background: #f2f2f2;
 }
 
 .dashboard-commons {
@@ -86,7 +86,7 @@
         h3 {
             color: #000;
             font-family: 'HW Nuckle Trial';
-            margin-bottom: 4px;
+            margin-bottom: 0px;
         }
         p {
             font-size: 16px;
@@ -98,6 +98,7 @@
         padding: 24px;
         border-radius: 12px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+        box-shadow: 0 4px 0 0 rgb(35 57 91 / 8%);
         cursor: pointer;
         background: #fdfafc;  /* fallback for old browsers */
         background: -webkit-linear-gradient(to right, #FFFFFF, #fdfafc);  /* Chrome 10-25, Safari 5.1-6 */
@@ -109,12 +110,18 @@
         p {
             font-size: 16px;
             color: #000 !important;
-            margin-bottom: 4px;
+            margin-bottom: 0px;
+        }
+
+        i {
+            font-weight: 900;
+            color: #06612e !important;
+            font-size: 20px;
         }
 
         h3 {
-            font-weight: 600;
-            color: #000 !important;
+            font-weight: 900;
+            color: #06612e !important;
             font-family: 'HW Nuckle Trial';
             margin-bottom: 0px;
         }
@@ -132,7 +139,45 @@
         &:hover {
           // border: 1.5px solid $brand-primary-500;
         }
-      }
+    }
+
+    .table-pane {
+        margin-top: 40px;
+        .ant-table {
+            border: 1px solid #E7EAED !important;
+            border-radius: 8px;
+        }
+        .ant-table-thead > tr > th { 
+            padding: 15px 40px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+            background: #06612e;
+            color: #fff;
+        }
+        .ant-table-tbody > tr > td {
+            padding: 20px 40px;
+            font-size: 15px;
+            .gap-2 {
+                gap: 20px;
+            }
+            i {
+                font-size: 18px;
+            }
+        }
+        .ant-table-container table > thead > tr:last-child th:first-child {
+            border-top-left-radius: 8px;
+        }
+        .ant-table-container table > thead > tr:last-child th:last-child {
+            border-top-right-radius: 8px;
+        }
+        .ant-table-container table > tbody > tr:last-child td:first-child {
+            border-bottom-left-radius: 8px;
+        }
+        .ant-table-container table > tbody > tr:last-child td:last-child {
+            border-bottom-right-radius: 8px;
+        }
+    }
 }
 
 .explore-page {

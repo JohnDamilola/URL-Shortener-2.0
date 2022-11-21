@@ -8,11 +8,21 @@
     .navbar-brand {
         padding: 15px 20px;
         margin-bottom: 30px;
-        img {
+        img.logo-big {
             margin-right: 10px;
+            transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.1s;
             width: 140px;
             @media (max-width: 500px) {
                 width: 130px;
+            }
+        }
+        img.logo-small {
+            margin-right: 10px;
+            width: 30px;
+            margin-bottom: 15px;
+            // transition: all linear 0.2s;
+            @media (max-width: 500px) {
+                width: 30px;
             }
         }
         @media (max-width: 767px) {

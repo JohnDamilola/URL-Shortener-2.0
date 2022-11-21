@@ -6,7 +6,7 @@ const AuthLayout = () => {
   const isAuth = URLshortenerUser && JSON.parse(URLshortenerUser) ? true : false;
 
   if (isAuth) {
-    return <Navigate to='/dashboard' replace />
+    return <Navigate to='/overview' replace />
   }
 
   return (
