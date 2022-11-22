@@ -161,7 +161,7 @@ const EditUser = () => {
                   </form>
                   <p>&nbsp;&nbsp;</p>
                     <div className="col-md-12">
-                      <div className="page-header-delete">
+                      <div className="page-header">
                           <h3>Delete Your Account</h3>
                       </div>
                     </div>
