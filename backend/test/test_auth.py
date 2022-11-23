@@ -2,6 +2,7 @@ import sys
 sys.path.append('backend/src')
 import unittest
 import datetime
+from flask import Flask
 from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
