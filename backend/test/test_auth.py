@@ -8,8 +8,7 @@ from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask import request
-#from models.user import User
-from models.user import db
+from models.user import User, db
 from extensions import bcrypt
 import jwt
 from routes.auth import auth_bp
@@ -21,8 +20,9 @@ class AuthTestApp(unittest.TestCase):
         self.app=self.app.test_client()
 
     def test_register_post_route(self):
-        '''Test the index route of our app'''
+        '''Test the register route of our app'''
         response=self.app.post('/register',json=dict(email='test_email@gmail.com',first_name='test_first',last_name='test_last',password='password123'))
+        print(response.status_code)
         assert response.status_code==201
     """
     def test_index_post(self):
