@@ -20,11 +20,13 @@ auth_bp = Blueprint(
 @cross_origin(supports_credentials=True)
 def register():                                       #this method is used to create new users and register them in firebase
     try:
+        print("hello")
         data = request.get_json()
         email = data['email']
         first_name = data['first_name']
         last_name = data['last_name']
         password = data['password']
+        print(email)
         
         password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(email=email, first_name=first_name, last_name=last_name, password_hash=password_hash)
@@ -37,7 +39,6 @@ def register():                                       #this method is used to cr
             status = 201
         ), 201
     except Exception as e:
-        print(e)
         db.session.rollback()
         return jsonify(
             message = f'Registration Failed {e}',        #if the registration process is not successful, this message is displayed
