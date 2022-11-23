@@ -41,7 +41,7 @@ class User(db.Model, UserMixin):
             'updated_on': self.updated_on
         }
  
- pp=Flask(__name__, instance_relative_config=True)
+app=Flask(__name__, instance_relative_config=True)
 app.config.from_object(Config)
 db=db.init_app(app)
 
