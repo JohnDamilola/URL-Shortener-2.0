@@ -14,7 +14,7 @@ from flask_cors import CORS
 from .config import config
 from .extensions import db, bcrypt
 from .routes.auth import auth_bp
-from .routes.shorten_links import shorten_links_bp
+from .routes.links import links_bp
 from .models.user import User, login_manager
 
 def create_app():
@@ -29,7 +29,7 @@ def create_app():
 def register_blueprints(app):
     with app.app_context():
         app.register_blueprint(auth_bp)
-        app.register_blueprint(shorten_links_bp)
+        app.register_blueprint(links_bp)
     return None
 
 def register_extensions(app):

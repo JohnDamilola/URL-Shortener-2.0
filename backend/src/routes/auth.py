@@ -81,18 +81,16 @@ def login():                                        #this method is used by regi
         ), 500
     
 
-@auth_bp.route('/auth/update/<id>', methods=['POST'])
+@auth_bp.route('/auth/update/<id>', methods=['PATCH'])
 @cross_origin(supports_credentials=True)   
 def update(data):
     '''This method is called when the user requests to update the their credentials.'''
     try:
         first_name = data['first_name']
         last_name = data['last_name']
-        password = data['password']
         email = data['email']
         
-
-        db.session.query(User).filter_by(id=id).update(email=email, first_name=first_name, last_name=last_name, password_hash=password)
+        db.session.query(User).filter_by(id=id).update(email=email, first_name=first_name, last_name=last_name)
         db.session.commit()
 
         return jsonify(
