@@ -8,8 +8,8 @@ from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask import request
-from models.user import User
-from extensions import bcrypt, db
+from models.user import User, db
+from extensions import bcrypt
 import jwt
 from routes.auth import auth_bp
 
@@ -18,6 +18,7 @@ class AuthTestApp(unittest.TestCase):
         self.app=Flask(__name__, instance_relative_config=False)
         self.app.register_blueprint(auth_bp)
         self.app=self.app.test_client()
+        db=db.init_app(self.app)
 
     def test_register_route(self):
         '''Test the register route of our app'''
