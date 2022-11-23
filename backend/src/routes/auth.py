@@ -105,7 +105,7 @@ def update(data):
             status = 400
         ), 400
 
-@auth_bp.route.route('/auth/delete/<id>', methods = ['DELETE'])
+@auth_bp.route('/auth/delete/<id>', methods = ['DELETE'])
 @cross_origin(supports_credentials=True)
 def delete(id):
     '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
