@@ -6,9 +6,9 @@ try:
 except ImportError:
  from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
-from app import app
+
 login_manager = LoginManager()
-db.init_app(app)
+
  
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
