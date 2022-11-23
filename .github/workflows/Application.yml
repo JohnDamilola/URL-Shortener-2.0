@@ -13,13 +13,10 @@ permissions:
   contents: read
 
 jobs:
-  postgres-job:
-    # containers must run in Linux based operating systems
-    runs-on: ubuntu-latest
-    # Docker Hub image that `postgres-job` executes in
-    container: node:latest
+  build:
 
-    # service containers to run with `postgres-job`
+    runs-on: ubuntu-latest
+    container: node:latest
     services:
       # label used to access the service container
       postgres:
@@ -46,16 +43,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Install PostgreSQL client
-      - name: Setup database
-        run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "url_shortener";'
-        env:
-          PGPASSWORD: postgres
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
@@ -68,6 +55,11 @@ jobs:
         python -m venv env
         source env/bin/activate
         if [ -f backend/test/requirements.txt ]; then pip install -r backend/test/requirements.txt; fi
+        - name: Install PostgreSQL client
+        - name: Setup database
+            run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "url_shortener";'
+            env:
+              PGPASSWORD: postgres
         flask db init
     - name: Lint with flake8
       run: |
