@@ -7,7 +7,6 @@ try:
 except ImportError:
  from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
-from config import Config
 
 login_manager = LoginManager()
  
@@ -41,9 +40,6 @@ class User(db.Model, UserMixin):
             'updated_on': self.updated_on
         }
  
-app=Flask(__name__, instance_relative_config=True)
-app.config.from_object(Config)
-db=db.init_app(app)
 
 @login_manager.user_loader
 def load_user(id):
