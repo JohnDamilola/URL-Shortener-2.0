@@ -43,6 +43,7 @@ def register():                                       #this method is used to cr
             status = 201
         ), 201
     except Exception as e:
+        print(e.args)
         db.session.rollback()
         return jsonify(
             message = f'Registration Failed {e}',        #if the registration process is not successful, this message is displayed
