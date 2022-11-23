@@ -9,7 +9,7 @@ except ImportError:
 from sqlalchemy.dialects.postgresql import UUID
 
 login_manager = LoginManager()
-app=Flask(__name__, instance_relative_config=False)
+app=Flask(__name__, instance_relative_config=True)
 db=db.init_app(app) 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
