@@ -1,3 +1,4 @@
+"""
 from flask import Flask
 import unittest
 import json
@@ -79,3 +80,4 @@ class TestViews(unittest.TestCase):
         #self.stub_url = reverse("stub", args=[stub])
         http_response = self.app.get('/stub')
         self.assertEquals(http_response.status_code, 302)
+"""
