@@ -4,8 +4,12 @@ from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask import request
-from ..models.user import User, db
-from ..extensions import bcrypt
+try:
+    from ..models.user import User, db
+    from ..extensions import bcrypt
+except ImportError:
+    from models.user import User, db
+    from extensions import bcrypt
 import jwt
 
 auth_bp = Blueprint(
