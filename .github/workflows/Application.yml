@@ -47,7 +47,6 @@ jobs:
           --health-retries 5
     steps:
       - name: Install PostgreSQL client
-        # ...
       - name: Setup database
         run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "url_shortener";'
         env:
