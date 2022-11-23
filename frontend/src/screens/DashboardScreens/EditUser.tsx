@@ -32,9 +32,7 @@ const EditUser = () => {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
-  const { localId } = URLshortenerUser && JSON.parse(URLshortenerUser) || {};
-  const { id } = useParams();
-
+  var id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
 
   const handleEditUser = async(e: any) => {
     e.preventDefault()
@@ -47,9 +45,9 @@ const EditUser = () => {
     setIsSubmitting(true);
 
     await http
-      .post(`/auth/update/${id}`, payload)
+      .patch(`/user/update/${id}`, payload)
       .then((res) => {
-        const { id } = res.data || {}
+        const { localId } = res.data;
         Swal.fire({
           icon: 'success',
           title: 'Edit Successful!',
@@ -70,10 +68,10 @@ const EditUser = () => {
         setIsSubmitting(false);
       });
   };
-  const handleDeleteDeck = async(id: any) => {
+  const handleDeleteAccount = async(id: any) => {
 
     await http
-      .delete(`/auth/delete/${id}`)
+      .delete(`/user/delete/${id}`)
       .then((res) => {
         const { id } = res.data;
         Swal.fire({
@@ -82,7 +80,8 @@ const EditUser = () => {
           text: 'You have successfully deleted your account',
           confirmButtonColor: '#221daf',
         }).then(() => {
-          window.location.replace(`/`);
+          window.localStorage.removeItem('URLshortenerUser')
+          window.location.replace('/')
         })
       })
       .catch((err) => {
@@ -168,7 +167,7 @@ const EditUser = () => {
                     <div className="form-group mt-4 text-right mb-0">
                             <Popconfirm
                               title="Are you sure to delete this account?"
-                              onConfirm={() => handleDeleteDeck(id)}
+                              onConfirm={() => handleDeleteAccount(id)}
                               okText="Yes"
                               cancelText="No"
                             >
