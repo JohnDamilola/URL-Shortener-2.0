@@ -11,7 +11,7 @@ except ImportError:
     from models.user import User, db
     from extensions import bcrypt
 import jwt
-from src.app import app
+from app import app
 db.init_app(app)
 auth_bp = Blueprint(
     'auth_bp', __name__
