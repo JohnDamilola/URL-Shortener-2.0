@@ -18,7 +18,6 @@ class AuthTestApp(unittest.TestCase):
         self.app=Flask(__name__, instance_relative_config=False)
         self.app.register_blueprint(auth_bp)
         self.app=self.app.test_client()
-        db=db.init_app(self.app)
 
     def test_register_route(self):
         '''Test the register route of our app'''
