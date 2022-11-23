@@ -1,6 +1,6 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-baseDB = os.path.join(basedir, 'app.db')
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -9,7 +9,7 @@ class Config(object):
     try:
         SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     except KeyError:
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + baseDB
+        SQLALCHEMY_DATABASE_URI = 'postgresql:///url_shortener'
 
 class ProductionConfig(Config):
     DEBUG = False
