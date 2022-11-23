@@ -12,11 +12,11 @@ from models.user import User
 from extensions import bcrypt
 import jwt
 from routes.auth import auth_bp
+from app import create_app
 
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
-        self.app=Flask(__name__, instance_relative_config=False)
-        self.app.register_blueprint(auth_bp)
+        self.app=create_app()
         self.app=self.app.test_client()
 
     def test_register_route(self):
