@@ -1,5 +1,4 @@
 import uuid
-from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin
 try:
@@ -7,13 +6,9 @@ try:
 except ImportError:
  from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
-from config import Config
 
 login_manager = LoginManager()
 
-app=Flask(__name__, instance_relative_config=False)
-app.config.from_object(Config)
-db.init_app(app)
  
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
