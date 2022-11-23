@@ -7,8 +7,13 @@ try:
 except ImportError:
  from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
+from config import Config
 
 login_manager = LoginManager()
+
+app=Flask(__name__, instance_relative_config=True)
+app.config.from_object(config)
+db=db.init_app(app)
  
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
