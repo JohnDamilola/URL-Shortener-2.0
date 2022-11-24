@@ -12,6 +12,15 @@
             color: #000;
             font-weight: 600;
         }
+        label {
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input {
+            height: 56px;
+            padding: 0px 30px;
+        }
         .flash-card__item {
             background: #fff;
             padding: 30px 30px 20px;
@@ -210,7 +219,7 @@
     // background: #221daf;
     .header-card {
         margin-top: 30px;
-        background: #221daf;
+        background: #46aa8c;
         border-radius: 8px;
         padding: 40px 40px 50px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -317,7 +326,7 @@
         }
     }
     .btn-submit {
-        background: #221daf;
+        background: #2e934c;
         color: #fff;
         margin-bottom: 120px;
     }
