@@ -51,7 +51,7 @@ jobs:
         source env/bin/activate
         sudo systemctl enable postgresql
         sudo PGPASSWORD="postgres_password" psql -U postgres_user -d postgres_db --no-password -h localhost -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
-        sudo lsof -p :5432
+        sudo lsof -p 5432
         #systemctl status postgresql
         #sudo --login --user=postgres psql
         #psql \connect postgres_db
