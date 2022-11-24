@@ -49,6 +49,8 @@ jobs:
     - name: Create Database
       run: |
         source env/bin/activate
+        sudo service postgresql-9.3 initdb
+        sudo service postgresql-9.3 start
         psql
         create database url_shortener;
         \q
