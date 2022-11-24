@@ -51,18 +51,8 @@ jobs:
         source env/bin/activate
         sudo systemctl enable postgresql
         sudo PGPASSWORD="postgres_password" psql -U postgres_user -d postgres_db --no-password -h localhost -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
-        sudo lsof -p 5432
-        #systemctl status postgresql
-        #sudo --login --user=postgres psql
-        #psql \connect postgres_db
-        #flask --app backend/src/app.py db init
-        #flask --app backend/src/app.py db migrate -m "initial migration"
-        #psql -h localhost -U postgres_user -w --no-password -c 'CREATE DATABASE "url_shortener";'
         #sudo service postgresql initdb
         #sudo service postgresql start
-        #psql
-        #create database url_shortener;
-        #\q
     - name: Lint with flake8
       run: |
         source env/bin/activate
