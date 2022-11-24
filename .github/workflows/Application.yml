@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      localhost:
         image: postgres:latest
         env:
           POSTGRES_USER: postgres_user
@@ -51,9 +51,9 @@ jobs:
         source env/bin/activate
         sudo sysctl net.ipv4.conf.all.forwarding=1
         sudo iptables -P FORWARD ACCEPT
-        psql -h localhost -U postgres_user --password postgres_password -c 'CREATE DATABASE "url_shortener";'
         env:
           PGPASSWORD: postgres_password
+        psql -h localhost -U postgres_user -c 'CREATE DATABASE "url_shortener";'
         #sudo service postgresql initdb
         #sudo service postgresql start
         #psql
