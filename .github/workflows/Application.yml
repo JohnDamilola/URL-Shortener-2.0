@@ -51,7 +51,7 @@ jobs:
         source env/bin/activate
         sudo sysctl net.ipv4.conf.all.forwarding=1
         sudo iptables -P FORWARD ACCEPT
-        psql -h localhost -U postgres_user -c 'CREATE DATABASE "url_shortener";'
+        psql -h localhost -U postgres_user --password postgres_password -c 'CREATE DATABASE "url_shortener";'
         env:
           PGPASSWORD: postgres_password
         #sudo service postgresql initdb
