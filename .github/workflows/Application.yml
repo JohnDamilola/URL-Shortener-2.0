@@ -49,11 +49,12 @@ jobs:
     - name: Create Database
       run: |
         source env/bin/activate
-        sudo service postgresql initdb
-        sudo service postgresql start
-        psql
-        create database url_shortener;
-        \q
+        psql -h postgres -U postgres_user -c 'CREATE DATABASE "url_shortener";'
+        #sudo service postgresql initdb
+        #sudo service postgresql start
+        #psql
+        #create database url_shortener;
+        #\q
     - name: Lint with flake8
       run: |
         source env/bin/activate
