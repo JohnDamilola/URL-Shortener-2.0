@@ -50,7 +50,7 @@ jobs:
       run: |
         source env/bin/activate
         sudo PGPASSWORD="postgres_password" psql -U postgres_user -d postgres_db --no-password -h localhost -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
-        psql \connect url_shortener
+        psql \connect postgres_db
         #flask --app backend/src/app.py db init
         #psql -h localhost -U postgres_user -w --no-password -c 'CREATE DATABASE "url_shortener";'
         #sudo service postgresql initdb
