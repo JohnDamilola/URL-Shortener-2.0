@@ -17,9 +17,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: test
+          POSTGRES_USER: postgres_user
+          POSTGRES_PASSWORD: postgres_password
+          POSTGRES_DB: postgres_db
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -50,6 +50,8 @@ jobs:
       run: |
         source env/bin/activate
         psql -h postgres -U postgres_user -c 'CREATE DATABASE "url_shortener";'
+        env:
+          PGPASSWORD: postgres_password
         #sudo service postgresql initdb
         #sudo service postgresql start
         #psql
