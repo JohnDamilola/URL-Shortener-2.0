@@ -49,7 +49,7 @@ jobs:
     - name: Create Database
       run: |
         source env/bin/activate
-        sudo PGPASSWORD="postgres_password" psql -u postgres_user -d pg_ldap --no-password -h postgres -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
+        sudo PGPASSWORD="postgres_password" psql -U postgres_user -d pg_ldap --no-password -h postgres -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
         #psql -h localhost -U postgres_user -w --no-password -c 'CREATE DATABASE "url_shortener";'
         #sudo service postgresql initdb
         #sudo service postgresql start
