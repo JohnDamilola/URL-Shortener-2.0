@@ -27,8 +27,8 @@ jobs:
         python-version: "3.9"
     - name: Build and run backend
       run: |
-        sudo docker build -t backend -f backend.Dockerfile .
-        sudo docker run --name backend --rm -d -p 5000:5000 -t backend
+        sudo docker build -t backend/app.py -f backend.Dockerfile .
+        sudo docker run --name backend/app.py --rm -d -p 5000:5000 -t backend/app.py
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
