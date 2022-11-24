@@ -50,9 +50,8 @@ jobs:
     - name: Create Database
       run: |
         source env/bin/activate
-        sudo sysctl net.ipv4.conf.all.forwarding=1
-        sudo iptables -P FORWARD ACCEPT
-        psql -h localhost -U postgres_user -w --no-password -c 'CREATE DATABASE "url_shortener";'
+        sudo PGPASSWORD="postgres_password" -u postgres_user psql -d pg_ldap --no-password -h localhost -p 5432 -t -c 'CREATE DATABASE "url_shortener";'
+        #psql -h localhost -U postgres_user -w --no-password -c 'CREATE DATABASE "url_shortener";'
         #sudo service postgresql initdb
         #sudo service postgresql start
         #psql
