@@ -53,8 +53,6 @@ jobs:
         python -m venv env
         python -m pip install --upgrade pip
         pip install flake8 pytest
-        python -m venv env
-        source env/bin/activate
         if [ -f backend/test/requirements.txt ]; then pip install -r backend/test/requirements.txt; fi
         - name: Install PostgreSQL client
         - name: Setup database
