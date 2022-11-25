@@ -1,17 +1,7 @@
 import sys
 sys.path.append('backend/src')
 import unittest
-#import datetime
-#from flask import Flask
-#from flask import Blueprint, jsonify               
-#from flask_login import login_required, login_user, logout_user
-#from flask_cors import cross_origin
-#from flask_cors import CORS
-#from flask import request
-#from flask_migrate import Migrate
 from models.user import User
-#from extensions import db, bcrypt
-#import jwt
 from routes.auth import auth_bp
 from app import app
 
@@ -78,13 +68,6 @@ class AuthTestApp(unittest.TestCase):
         response=self.app.delete('/auth/delete/'+str(id))
         assert response.status_code==400
         
-    def test_logout_route(self):
-        '''Test the logout route of our app for a logged in user'''
-        with self.flask_app.app_context():
-            _=self.app.get('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
-            response=self.app.post('auth/logout')
-        print("logout",response.status_code)
-        assert response.status_code==200
-
+        
 if __name__=="__main__":
     unittest.main()
