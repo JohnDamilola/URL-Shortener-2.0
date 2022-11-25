@@ -1,117 +1,33 @@
-import { Table } from 'antd';
+import { Drawer, Table } from 'antd';
+import { useState } from 'react';
 import './styles.scss';
 
 const stats = [
 	{
 		title: 'Total Links',
 		value: 12,
-    icon: <i className="fa-solid fa-lines-leaning"></i>
+		icon: <i className="fa-solid fa-lines-leaning"></i>,
 	},
 	{
 		title: 'Enabled Links',
 		value: 10,
-    icon: <i className="fa-solid fa-link"></i>
+		icon: <i className="fa-solid fa-link"></i>,
 	},
 	{
 		title: 'Disabled Links',
 		value: 2,
-    icon: <i className="fa-solid fa-link-slash"></i>
+		icon: <i className="fa-solid fa-link-slash"></i>,
 	},
 	{
 		title: 'Link Visits',
 		value: 120,
-    icon: <i className="fa-solid fa-eye"></i>
+		icon: <i className="fa-solid fa-eye"></i>,
 	},
 ];
-
-const dataSource = [
-	{
-		key: '1',
-		title: 'Members Database',
-		longURL: 'https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487c',
-		shortURL: 'bit.ly/BTHMembersDatabase',
-    status: 'active'
-	},
-	{
-		key: '2',
-		title: 'Members Database',
-		longURL: 'https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487c',
-		shortURL: 'bit.ly/BTHMembersDatabase',
-    status: 'inactive'
-	},
-  {
-		key: '3',
-		title: 'Members Database',
-		longURL: 'https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487c',
-		shortURL: 'bit.ly/BTHMembersDatabase',
-    status: 'active'
-	},
-  {
-		key: '4',
-		title: 'Members Database',
-		longURL: 'https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487c',
-		shortURL: 'bit.ly/BTHMembersDatabase',
-    status: 'inactive'
-	},
-  {
-		key: '5',
-		title: 'Members Database',
-		longURL: 'https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487c',
-		shortURL: 'bit.ly/BTHMembersDatabase',
-    status: 'active'
-	},
-];
-
-const columns = [
-  // {
-	// 	title: 'S/N',
-	// 	dataIndex: 'key',
-	// 	key: 'key',
-  //   width: '100px'
-	// },
-	{
-		title: 'Title',
-		dataIndex: 'title',
-		key: 'title',
-    // width: '250px',
-    render: (item: any) => (
-      <h6 className="m-0">{item}</h6>
-    )
-	},
-	{
-		title: 'Long URL',
-		dataIndex: 'longURL',
-		key: 'longURL',
-    // width: '300px',
-    ellipsis: true
-	},
-	{
-		title: 'Short URL',
-		dataIndex: 'shortURL',
-		key: 'shortURL',
-    // width: '300px',
-	},
-  {
-		title: 'Status',
-		dataIndex: 'status',
-		key: 'status',
-	},
-  {
-		title: 'Action',
-		key: 'action',
-    // align: 'right',
-    width: '150px',
-    render: () => (
-      <div className='d-flex gap-2 justify-content-end'>
-        <i className="lni lni-pencil-alt"></i>
-        <i className="lni lni-trash-can"></i>
-      </div>
-    )
-	},
-];
-
 
 const Dashboard = () => {
+	const [openedLink, setOpenedLink] = useState<number | null>(null);
+
 	return (
 		<div className="dashboard-page dashboard-commons">
 			<section>
@@ -139,7 +55,7 @@ const Dashboard = () => {
 										</p>
 										<div className="flex items-center justify-between">
 											<div className="d-flex gap-2 flex-row align-items-center">
-                        {icon}
+												{icon}
 												<h3>{value}</h3>
 											</div>
 										</div>
@@ -150,14 +66,68 @@ const Dashboard = () => {
 					</div>
 
 					<div className="row table-pane">
-						<div className="col-md-12">
-							<Table dataSource={dataSource} columns={columns} />;
-						</div>
+						{[1, 2, 3, 4, 5].map(() => {
+							return (
+								<div className="col-md-12">
+									<LinkCardItem setOpenedLink={setOpenedLink} />
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			</section>
+			<ViewDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
 		</div>
 	);
 };
 
 export default Dashboard;
+
+const ViewDrawer = ({ openedLink, setOpenedLink }: any) => {
+	return (
+		<Drawer title="Basic Drawer" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
+			<p>Some contents...</p>
+			<p>Some contents...</p>
+			<p>Some contents...</p>
+		</Drawer>
+	);
+};
+
+const LinkCardItem = ({ setOpenedLink }: any) => {
+	return (
+		<div className="link-card">
+			<div className="d-flex justify-content-between">
+        <div className='col-lg-10'>
+				  <h5>ATH Members Database</h5>
+        </div>
+        <div className='col-lg-2'>
+          <p className="time-text">
+            <i className="fa-solid fa-clock"></i> 2 hrs ago
+          </p>
+        </div>
+			</div>
+			<div className="url-pane">
+				<p>bit.ly/ATHMembers02</p>
+				<i className="fa-solid fa-copy"></i>
+			</div>
+			<p style={{overflowWrap: 'break-word'}}>
+				<b>Original URL:</b>{' '}
+				https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487cqwqeeq
+			</p>
+			<div className="btn-pane">
+				<button className="btn btn-outline-dark" onClick={setOpenedLink}>
+          <i className="fa-solid fa-eye"></i> View
+				</button>
+        <button className="btn btn-outline-dark">
+					<i className="fa-solid fa-share"></i> Share
+				</button>
+				<button className="btn btn-outline-primary">
+					<i className="fa-solid fa-pen-to-square"></i> Edit
+				</button>
+				<button className="btn btn-outline-danger">
+					<i className="fa-solid fa-trash"></i> Delete
+				</button>
+			</div>
+		</div>
+	);
+};

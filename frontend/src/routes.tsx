@@ -37,11 +37,7 @@ const dashboardRoutes = [
     element: <div>Analytics</div>,
   },
   {
-    path: '/settings',
-    element: <div>Settings</div>,
-  },
-  {
-    path: '/auth/update/:id',
+    path: '/account-settings',
     element: <Update_User />,
   },
 ]
