@@ -95,7 +95,7 @@ def update(id):
         print("Hello")
         print(id)
 
-        db.session.query(User).filter_by(id=id).update({'email'=email, 'first_name'=first_name, 'last_name'=last_name, 'password_hash'=password})
+        db.session.query(User).filter_by(id=id).update({'email':email, 'first_name':first_name, 'last_name':last_name, 'password_hash':password})
         print("User found")
         db.session.commit()
         print("User updated")
