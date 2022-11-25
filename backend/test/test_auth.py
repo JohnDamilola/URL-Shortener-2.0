@@ -8,6 +8,7 @@ from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask import request
+from flask_migrate import Migrate
 from models.user import User
 from extensions import bcrypt
 import jwt
