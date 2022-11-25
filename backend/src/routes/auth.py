@@ -84,9 +84,10 @@ def login():                                        #this method is used by regi
 
 @auth_bp.route('/auth/update/<id>', methods=['POST'])
 @cross_origin(supports_credentials=True)   
-def update(data):
+def update(id):
     '''This method is called when the user requests to update the their credentials.'''
     try:
+        data = request.get_json()
         first_name = data['first_name']
         last_name = data['last_name']
         password = data['password']
