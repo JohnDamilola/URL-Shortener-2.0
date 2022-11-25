@@ -105,6 +105,7 @@ def update(id):
             status = 201
         ), 201
     except Exception as e:
+        print(e)
         return jsonify(
             message = f'Update User Failed {e}',
             status = 400
