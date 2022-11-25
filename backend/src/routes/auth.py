@@ -111,8 +111,11 @@ def update(data):
 def delete(id):
     '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
     try:
+        print("hello")
         db.session.query(User).filter_by(id=id).delete()
+        print("user found")
         db.session.commit()
+        print("user deleted")
         return jsonify(
             message = 'Delete User Successful',
             status = 200
