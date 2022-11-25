@@ -7,6 +7,7 @@ from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
+from flask_cors import CORS
 from flask import request
 from flask_migrate import Migrate
 from models.user import User
@@ -14,11 +15,14 @@ from extensions import db, bcrypt
 import jwt
 from routes.auth import auth_bp
 from app import create_app
-import psycopg2
-conn=psycopg2.connect(database="postgres",user="postgres",port="5432",password="postgres",host="localhost")
+
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
+        app.config['CORS_HEADERS'] = 'Content-Type'
+        CORS(app, support_credentials=True)
+        CORS(app, resources={r"/*": {"origins": "*"}})
+        app.debug = True
         migrate = Migrate(self.app, db)
         self.app=self.app.test_client()
 
