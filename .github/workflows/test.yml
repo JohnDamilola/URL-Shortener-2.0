@@ -6,7 +6,7 @@ on:
 
 jobs:
   runner-job:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
       FLASK_APP: backend/src/app.py
     services:
