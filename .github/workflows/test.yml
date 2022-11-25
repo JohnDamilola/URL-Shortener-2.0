@@ -20,7 +20,6 @@ jobs:
         python-version: "3.9"
     - name: Install dependencies
       run: |
-        source env/bin/activate
         python3 -m pip install --upgrade pip
         python3 -m pip install flake8 pytest
         python3 -m pip install -r backend/test/requirements.txt
