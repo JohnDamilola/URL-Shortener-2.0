@@ -5,7 +5,7 @@ on:
     branches: [ "17-fix-backend-tests" ]
 
 jobs:
-  runner-job:
+  build:
     runs-on: ubuntu-18.04
     env:
       FLASK_APP: backend/src/app.py
