@@ -20,7 +20,6 @@ auth_bp = Blueprint(
 @cross_origin(supports_credentials=True)
 def register():                                       #this method is used to create new users and register them in firebase
     try:
-        print("hello")
         data = request.get_json()
         email = data['email']
         first_name = data['first_name']
@@ -53,8 +52,11 @@ def login():                                        #this method is used by regi
         data = request.get_json()
         email = data['email']
         password = data['password']
+        print(email)
+        print(password)
         
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
                 token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
