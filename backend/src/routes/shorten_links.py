@@ -106,6 +106,7 @@ def create():
             status = 201
         ), 201
     except Exception as e:
+        print(e)
         return jsonify(
             message = f'Create Link Failed {e}',
             status = 400
