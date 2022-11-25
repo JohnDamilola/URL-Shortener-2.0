@@ -1,30 +1,22 @@
 import sys
 sys.path.append('backend/src')
 import unittest
-import datetime
-from flask import Flask
-from flask import Blueprint, jsonify               #import dependancies
-#from flask import current_app as app
-from flask_login import login_required, login_user, logout_user
-from flask_cors import cross_origin
-from flask_cors import CORS
-from flask import request
-from flask_migrate import Migrate
+#import datetime
+#from flask import Flask
+#from flask import Blueprint, jsonify               
+#from flask_login import login_required, login_user, logout_user
+#from flask_cors import cross_origin
+#from flask_cors import CORS
+#from flask import request
+#from flask_migrate import Migrate
 from models.user import User
-from extensions import db, bcrypt
-import jwt
+#from extensions import db, bcrypt
+#import jwt
 from routes.auth import auth_bp
-#from app import create_app
 from app import app
 
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
-        #self.app=create_app()
-        #self.app.config['CORS_HEADERS'] = 'Content-Type'
-        #CORS(self.app, support_credentials=True)
-        #CORS(self.app, resources={r"/*": {"origins": "*"}})
-        #self.app.debug = True
-        #migrate = Migrate(self.app, db)
         self.flask_app=app
         self.app=self.flask_app.test_client()
 
@@ -66,9 +58,10 @@ class AuthTestApp(unittest.TestCase):
     
     def test_update_route_random_id(self):
         '''Test the update route of our app for a random user id'''
-        id='f74fa42c-fc00-43c2-a2f6-9c0a27f61a0e'
+        id='f74fa42c-fc00-43c2-a2f6-9c0a27g59a0e'
         response=self.app.post('/auth/update/'+str(id),json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
-        assert response.status_code==405
+        print("Update",response.status_code)
+        assert response.status_code==400
         
     def test_delete_route(self):
         '''Test the delete route of our app for an already registered user'''
@@ -88,9 +81,11 @@ class AuthTestApp(unittest.TestCase):
         
     def test_logout_route(self):
         '''Test the logout route of our app for a logged in user'''
-        _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
-        response=self.app.post('auth/logout')
-        assert response.status_code==201
+        with self.flask.app.app_context:
+            _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
+            response=self.app.post('auth/logout')
+        print("logout",response.status_code)
+        assert response.status_code==200
 
 if __name__=="__main__":
     unittest.main()
