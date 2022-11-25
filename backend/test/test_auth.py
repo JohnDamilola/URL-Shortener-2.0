@@ -31,7 +31,6 @@ class AuthTestApp(unittest.TestCase):
     def test_register_route(self):
         '''Test the register route of our app'''
         response=self.app.post('/auth/register',json=dict(email='test_email@gmail.com',first_name='test_first',last_name='test_last',password='password123'))
-        #print(response.status_code)
         assert response.status_code==201
     
     def test_login_route(self):
