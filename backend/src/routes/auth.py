@@ -92,20 +92,15 @@ def update(id):
         last_name = data['last_name']
         password = data['password']
         email = data['email']
-        print("Hello")
-        print(id)
 
         db.session.query(User).filter_by(id=id).update({'email':email, 'first_name':first_name, 'last_name':last_name, 'password_hash':password})
-        print("User found")
         db.session.commit()
-        print("User updated")
 
         return jsonify(
             message = 'Update User Successful',
             status = 201
         ), 201
     except Exception as e:
-        print(e)
         return jsonify(
             message = f'Update User Failed {e}',
             status = 400
