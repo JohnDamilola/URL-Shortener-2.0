@@ -72,8 +72,8 @@ class AuthTestApp(unittest.TestCase):
         with self.flask_app.app_context():
             user=User.query.filter_by(email='test5@gmail.com').first()
             id=user.id
-            #response=self.app.delete('/auth/delete/<id>')
             db.session.query(User).filter_by(id=id).delete()
+            response=self.app.delete('/auth/delete/<id>')
         print(id)
         print(response.status_code)
         assert response.status_code==200
