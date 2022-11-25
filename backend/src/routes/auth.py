@@ -38,7 +38,6 @@ def register():                                       #this method is used to cr
             status = 201
         ), 201
     except Exception as e:
-        print(e)
         db.session.rollback()
         return jsonify(
             message = f'Registration Failed {e}',        #if the registration process is not successful, this message is displayed
@@ -52,12 +51,9 @@ def login():                                        #this method is used by regi
         data = request.get_json()
         email = data['email']
         password = data['password']
-        print(email)
-        print(password)
         
         user = User.query.filter_by(email=email).first()
-        print(user)
-        print(db)
+        
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
                 token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
