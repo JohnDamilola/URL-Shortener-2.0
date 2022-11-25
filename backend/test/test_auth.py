@@ -65,6 +65,17 @@ class AuthTestApp(unittest.TestCase):
         print(id)
         print(response.status_code)
         assert response.status_code==201
+        
+    def test_delete_route(self):
+        '''Test the delete route of our app for an already registered user'''
+        _=self.app.post('/auth/register',json=dict(email='test5@gmail.com',first_name='test5_first',last_name='test5_last',password='password5'))
+        with self.flask_app.app_context():
+            user=User.query.filter_by(email='test5@gmail.com').first()
+            id=user.id
+            response=self.app.delete('/auth/delete/<id>')
+        print(id)
+        print(response.status_code)
+        assert response.status_code==200
 
 if __name__=="__main__":
     unittest.main()
