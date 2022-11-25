@@ -55,7 +55,7 @@ class AuthTestApp(unittest.TestCase):
         response=self.app.post('/auth/login',json=dict(email='aaronadb@gmail.com',password='password123'))
         assert response.status_code==400
         
-   def test_update_route(self):
+    def test_update_route(self):
         '''Test the update route of our app for an already registered user'''
         _=self.app.post('/auth/register',json=dict(email='test4@gmail.com',first_name='test4_first',last_name='test4_last',password='password4'))
         user=User.query.filter_by(email=email).first()
