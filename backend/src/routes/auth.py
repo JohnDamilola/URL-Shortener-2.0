@@ -112,6 +112,7 @@ def delete(id):
     '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
     try:
         print("hello")
+        print(id)
         db.session.query(User).filter_by(id=id).delete()
         print("user found")
         db.session.commit()
