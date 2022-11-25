@@ -14,7 +14,7 @@ import jwt
 from routes.auth import auth_bp
 from app import create_app
 import psycopg2
-conn=psycopg2.connect(database="postgres",user="postgres",port=process.env.POSTGRES_PORT,password="postgres",host=process.env.POSTGRES_HOST)
+conn=psycopg2.connect(database="postgres",user="postgres",port="5432",password="postgres",host="localhost")
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
