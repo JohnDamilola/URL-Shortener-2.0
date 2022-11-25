@@ -1,9 +1,10 @@
 import './styles.scss';
 import { Sidebar as ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useProSidebar } from 'react-pro-sidebar';
 
 const Sidebar = ({ isDashboard }: any) => {
+  const location = useLocation()
 	const handleLogout = () => {
 		window.localStorage.removeItem('URLshortenerUser');
 		window.location.replace('/');
@@ -12,6 +13,7 @@ const Sidebar = ({ isDashboard }: any) => {
 
   const { collapsed } = useProSidebar();
 
+  const isActivePath = (path: string) => location.pathname.includes(path)
 
 	return (
 		<ProSidebar className="dashboard-sidebar">
@@ -23,16 +25,16 @@ const Sidebar = ({ isDashboard }: any) => {
           }
 				</Link>
 				<div className="spacebar" />
-				<MenuItem routerLink={<Link to="/overview" />} active icon={<i className="lni lni-dashboard"></i> }>
+				<MenuItem routerLink={<Link to="/overview" />} active={isActivePath('/overview')} icon={<i className="fa-solid fa-gauge"></i> }>
 					Overview
 				</MenuItem>
-				<MenuItem routerLink={<Link to="/links" />} icon={<i className="lni lni-unlink"></i>}>
+				<MenuItem routerLink={<Link to="/links" />} active={isActivePath('/links')} icon={<i className="fa-solid fa-link"></i>}>
 					Links
 				</MenuItem>
-				<MenuItem routerLink={<Link to="/analytics" />} icon={<i className="lni lni-pie-chart"></i>}>
+				<MenuItem routerLink={<Link to="/analytics" />} active={isActivePath('/analytics')} icon={<i className="fa-solid fa-chart-simple"></i>}>
 					Analytics
 				</MenuItem>
-				<MenuItem routerLink={<Link to="/settings" />} icon={<i className="lni lni-cog"></i>}>
+				<MenuItem routerLink={<Link to="/account-settings" />} active={isActivePath('/account-settings')} icon={<i className="fa-solid fa-gear"></i>}>
 					Account Settings
 				</MenuItem>
 			</Menu>
