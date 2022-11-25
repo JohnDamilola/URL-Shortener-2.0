@@ -80,7 +80,7 @@ def login():                                        #this method is used by regi
                 status = 400
             ), 400
     except Exception as e:
-        
+        print(e)
         return jsonify(
             message = f"An error occurred {e}",
             # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed
