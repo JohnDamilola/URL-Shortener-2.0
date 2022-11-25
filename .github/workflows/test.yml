@@ -41,3 +41,6 @@ jobs:
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
+      env: 
+        POSTGRES_HOST: localhost
+        POSTGRE_PORT: 5432
