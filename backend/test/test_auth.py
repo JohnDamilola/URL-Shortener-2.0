@@ -4,7 +4,7 @@ import unittest
 import datetime
 from flask import Flask
 from flask import Blueprint, jsonify               #import dependancies
-from flask import current_app as app
+#from flask import current_app as app
 from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask_cors import CORS
@@ -14,16 +14,18 @@ from models.user import User
 from extensions import db, bcrypt
 import jwt
 from routes.auth import auth_bp
-from app import create_app
+#from app import create_app
+from app import app
 
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
-        self.app=create_app()
-        self.app.config['CORS_HEADERS'] = 'Content-Type'
-        CORS(self.app, support_credentials=True)
-        CORS(self.app, resources={r"/*": {"origins": "*"}})
-        self.app.debug = True
-        migrate = Migrate(self.app, db)
+        #self.app=create_app()
+        #self.app.config['CORS_HEADERS'] = 'Content-Type'
+        #CORS(self.app, support_credentials=True)
+        #CORS(self.app, resources={r"/*": {"origins": "*"}})
+        #self.app.debug = True
+        #migrate = Migrate(self.app, db)
+        self.app=app
         self.app=self.app.test_client()
 
     def test_register_route(self):
