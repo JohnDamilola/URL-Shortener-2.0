@@ -7,8 +7,6 @@ on:
 jobs:
   runner-job:
     runs-on: ubuntu-latest
-    env:
-      FLASK_APP: backend/src/app.py
     services:
       postgres:
         image: postgres
