@@ -80,7 +80,7 @@ class AuthTestApp(unittest.TestCase):
         
     def test_logout_route(self):
         '''Test the logout route of our app for a logged in user'''
-        with self.flask_app.app_context:
+        with self.flask_app.app_context():
             _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
             response=self.app.post('auth/logout')
         print("logout",response.status_code)
