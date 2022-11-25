@@ -70,6 +70,7 @@ class AuthTestApp(unittest.TestCase):
         '''Test the delete route of our app for an already registered user'''
         _=self.app.post('/auth/register',json=dict(email='test5@gmail.com',first_name='test5_first',last_name='test5_last',password='password5'))
         with self.flask_app.app_context():
+            _=self.app.post('/auth/login',json=dict(email='test5@gmail.com',password='password5'))
             user=User.query.filter_by(email='test5@gmail.com').first()
             id=user.id
             response=self.app.delete('/auth/delete/'+str(id))
