@@ -25,8 +25,8 @@ class AuthTestApp(unittest.TestCase):
         #CORS(self.app, resources={r"/*": {"origins": "*"}})
         #self.app.debug = True
         #migrate = Migrate(self.app, db)
-        self.app=app
-        self.app=self.app.test_client()
+        self.flask_app=app
+        self.app=self.flask_app.test_client()
 
     def test_register_route_new_user(self):
         '''Test the register route of our app with an unregistered user'''
@@ -58,7 +58,7 @@ class AuthTestApp(unittest.TestCase):
     def test_update_route(self):
         '''Test the update route of our app for an already registered user'''
         _=self.app.post('/auth/register',json=dict(email='test4@gmail.com',first_name='test4_first',last_name='test4_last',password='password4'))
-        with self.app.app_context():
+        with self.flask_app.app_context():
             user=User.query.filter_by(email='test4@gmail.com').first()
             id=user.id
         response=self.app.post('/auth/login/id',json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
