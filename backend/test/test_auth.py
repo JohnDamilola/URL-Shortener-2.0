@@ -19,6 +19,7 @@ class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
         self.app=self.app.test_client()
+        migrate = Migrate(self.app, db)
 
     def test_register_route(self):
         '''Test the register route of our app'''
