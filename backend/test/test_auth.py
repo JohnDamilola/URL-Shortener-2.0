@@ -19,8 +19,8 @@ conn=psycopg2.connect(database="postgres",user="postgres",port="5432",password="
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
-        self.app=self.app.test_client()
         migrate = Migrate(self.app, db)
+        self.app=self.app.test_client()
 
     def test_register_route(self):
         '''Test the register route of our app'''
