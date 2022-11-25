@@ -74,7 +74,10 @@ def getalllinks():
 
 def create_shortlink(long_url):
     print("hello")
-    url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
+    try:
+        url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
+    except Exception as e:
+        url_shortener=Shortener(bitly_token = 'ACCESS_TOKEN')
     print("done")
     return url_shortener.short(long_url)
 
