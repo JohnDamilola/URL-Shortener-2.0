@@ -35,6 +35,7 @@ class AuthTestApp(unittest.TestCase):
     
     def test_login_route(self):
         '''Test the login route of our app'''
+        _=self.app.post('/auth/register',json=dict(email='test_email@gmail.com',first_name='test_first',last_name='test_last',password='password123'))
         response=self.app.post('/auth/login',json=dict(email='test_email@gmail.com',password='password123'),follow_redirects=True)
         print(response.status_code)
         assert response.status_code==200
