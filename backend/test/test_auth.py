@@ -62,6 +62,8 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test4@gmail.com').first()
             id=user.id
         response=self.app.post('/auth/login/id',json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
+        print(id)
+        print(response.status_code)
         assert response.status_code==201
 
 if __name__=="__main__":
