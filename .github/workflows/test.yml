@@ -40,7 +40,7 @@ jobs:
         flask db migrate -m "initial migration"
       env:
         FLASK_APP: backend/src/app.py
-        DATABASE_URL: postgresql://postgres:docker@localhost:5432/postgres-db
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres-db
       #run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
       #env: 
         #POSTGRES_HOST: localhost
