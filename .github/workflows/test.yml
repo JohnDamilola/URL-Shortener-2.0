@@ -33,7 +33,7 @@ jobs:
         python3 -m pip install flake8 pytest
         python3 -m pip install -r backend/test/requirements.txt
         python3 -m pip install postgres
-    - name: Database
+    #- name: Database
       #run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
       #env: 
         #POSTGRES_HOST: localhost
