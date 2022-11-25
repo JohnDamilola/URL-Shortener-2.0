@@ -73,7 +73,7 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test5@gmail.com').first()
             id=user.id
             db.session.query(User).filter_by(id=id).delete()
-            response=self.app.delete('/auth/delete/id')
+            response=self.app.delete('/auth/delete/id',id=id)
         print(id)
         print(response.status_code)
         assert response.status_code==200
