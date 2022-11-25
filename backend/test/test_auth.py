@@ -92,7 +92,7 @@ class AuthTestApp(unittest.TestCase):
         _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
         response=self.app.post('auth/logout')
         print(response.status_code)
-        assert status_code==200
+        assert response.status_code==200
 
 if __name__=="__main__":
     unittest.main()
