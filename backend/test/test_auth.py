@@ -68,6 +68,7 @@ class AuthTestApp(unittest.TestCase):
         '''Test the update route of our app for a random user id'''
         id='f74fa42c-fc00-43c2-a2f6-9c0a27f61a0e'
         response=self.app.post('/auth/update/'+str(id),json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
+        print(response.status_code)
         assert response.status_code==400
         
     def test_delete_route(self):
@@ -85,6 +86,13 @@ class AuthTestApp(unittest.TestCase):
         id='f74fa42c-fc00-43c2-a2f6-9c0a27g59a0e'
         response=self.app.delete('/auth/delete/'+str(id))
         assert response.status_code==400
+        
+    def test_logout_route(self):
+        '''Test the logout route of our app for a logged in user'''
+        _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
+        response=self.app.post('auth/logout')
+        print(response.status_code)
+        assert status_code==200
 
 if __name__=="__main__":
     unittest.main()
