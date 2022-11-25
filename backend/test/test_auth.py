@@ -10,7 +10,7 @@ from flask_cors import cross_origin
 from flask import request
 from flask_migrate import Migrate
 from models.user import User
-from extensions import bcrypt
+from extensions import db, bcrypt
 import jwt
 from routes.auth import auth_bp
 from app import create_app
