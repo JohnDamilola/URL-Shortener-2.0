@@ -26,8 +26,8 @@ jobs:
         python3 -m pip install postgres
     - name: Database
       run: |
-        systemctl start postgresql
         sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+        systemctl status postgresql.service
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
