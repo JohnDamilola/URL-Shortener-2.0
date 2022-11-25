@@ -9,7 +9,7 @@ class Config(object):
     try:
         SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     except KeyError:
-        SQLALCHEMY_DATABASE_URI = 'postgresql:///url_shortener'
+        SQLALCHEMY_DATABASE_URI = 'postgres://postgres:postgres@localhost:5432/postgres'
 
 class ProductionConfig(Config):
     DEBUG = False
