@@ -38,6 +38,7 @@ jobs:
         #python3 backend/src/app.py
         flask db init
         flask db migrate -m "initial migration"
+        flask db upgrade
       env:
         FLASK_APP: backend/src/app.py
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
