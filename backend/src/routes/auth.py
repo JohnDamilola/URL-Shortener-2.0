@@ -26,16 +26,12 @@ def register():                                       #this method is used to cr
         first_name = data['first_name']
         last_name = data['last_name']
         password = data['password']
-        print(email)
+        
         
         password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-        print("password hash done")
         new_user = User(email=email, first_name=first_name, last_name=last_name, password_hash=password_hash)
-        print("new user created")
         db.session.add(new_user)
-        print("new user added")
         db.session.commit()
-        print("session committed")
     
         return jsonify(
             user = new_user.to_json(),                            
