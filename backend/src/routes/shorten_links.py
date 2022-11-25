@@ -77,7 +77,7 @@ def create_shortlink(long_url):
         url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN')
         return url_shortener.short(long_url)
     except Exception as e:
-        url_shortener=Shortener(bitly_token = 'ACCESS_TOKEN')
+        url_shortener=Shortener(api_key = 'ACCESS_TOKEN')
         return url_shortener.bitly.short(long_url)
 
 
