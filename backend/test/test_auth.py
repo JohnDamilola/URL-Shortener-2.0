@@ -19,10 +19,10 @@ from app import create_app
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
-        app.config['CORS_HEADERS'] = 'Content-Type'
-        CORS(app, support_credentials=True)
-        CORS(app, resources={r"/*": {"origins": "*"}})
-        app.debug = True
+        self.app.config['CORS_HEADERS'] = 'Content-Type'
+        CORS(self.app, support_credentials=True)
+        CORS(self.app, resources={r"/*": {"origins": "*"}})
+        self.app.debug = True
         migrate = Migrate(self.app, db)
         self.app=self.app.test_client()
 
