@@ -5,7 +5,7 @@ on:
     branches: [ "17-fix-backend-tests" ]
 
 jobs:
-  build:
+  runner-job:
     runs-on: ubuntu-18.04
     env:
       FLASK_APP: backend/src/app.py
@@ -36,12 +36,10 @@ jobs:
         python3 -m pip install -r backend/test/requirements.txt
         python3 -m pip install postgres
     - name: Database
-      run: |
-        sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+      run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
       env: 
         POSTGRES_HOST: localhost
         POSTGRE_PORT: 5432
-        #systemctl status postgresql.service
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
