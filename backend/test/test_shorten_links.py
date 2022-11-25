@@ -15,6 +15,7 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test6@gmail.com').first()
             id=user.id
             response=self.app.get('/link/'+str(id))
+      print(response.status_code)
       assert response.status_code==200
       
       
