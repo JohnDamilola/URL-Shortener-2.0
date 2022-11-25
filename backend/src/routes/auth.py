@@ -56,7 +56,9 @@ def login():                                        #this method is used by regi
         print(password)
         
         user = User.query.filter_by(email=email).first()
+        user1 = db.query.filter_by(email=email).first()
         print(user)
+        print(user1)
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
                 token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
