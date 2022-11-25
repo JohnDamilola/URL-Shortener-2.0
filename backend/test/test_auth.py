@@ -13,6 +13,7 @@ from extensions import bcrypt
 import jwt
 from routes.auth import auth_bp
 from app import create_app
+import psycopg2
 conn=psycopg2.connect(
   database="postgres-db",
   user="postgres",
