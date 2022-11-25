@@ -28,30 +28,32 @@ class AuthTestApp(unittest.TestCase):
         self.app=app
         self.app=self.app.test_client()
 
-    def test_register_route(self):
-        '''Test the register route of our app'''
-        response1=self.app.post('/auth/register',json=dict(email='test_email@gmail.com',first_name='test_first',last_name='test_last',password='password123'))
-        response2=self.app.post('/auth/login',json=dict(email='test_email@gmail.com',password='password123'),follow_redirects=True)
-        assert response1.status_code==201
-        assert response2.status_code==200
-    """
+    def test_register_route_new_user(self):
+        '''Test the register route of our app with an unregistered user'''
+        response=self.app.post('/auth/register',json=dict(email='test1@gmail.com',first_name='test1_first',last_name='test1_last',password='password1'))
+        assert response.status_code==201
+        
+    def test_register_route_old_user(self):
+        '''Test the register route of our app with an already registered user'''
+        response=self.app.post('/auth/register',json=dict(email='test1@gmail.com',first_name='test1_first',last_name='test1_last',password='password1'))
+        assert response.status_code==400
+  
     def test_login_route(self):
-        '''Test the login route of our app'''
-        _=self.app.post('/auth/register',json=dict(email='test_email@gmail.com',first_name='test_first',last_name='test_last',password='password123'))
-        response=self.app.post('/auth/login',json=dict(email='test_email@gmail.com',password='password123'),follow_redirects=True)
-        print(response.status_code)
+        '''Test the login route of our app with a registered user'''
+        _=self.app.post('/auth/register',json=dict(email='test2@gmail.com',first_name='test2_first',last_name='test2_last',password='password2'))
+        response=self.app.post('/auth/login',json=dict(email='test2@gmail.com',password='password2'),follow_redirects=True)
         assert response.status_code==200
       
     def test_login_route_wrong_password(self):
         '''Test the login route of our app with a registered user with a wrong password'''
-        response=self.app.post('/login',json=dict(email='aaronadb@gmail.com',password='flashcards'))
+        _=self.app.post('/auth/register',json=dict(email='test3@gmail.com',first_name='test3_first',last_name='test3_last',password='password3'))
+        response=self.app.post('/auth/login',json=dict(email='test3@gmail.com',password='password'))
         assert response.status_code==400
         
     def test_login_route_unregistered_user(self):
         '''Test the login route of our app with an unregistered user'''
-        response=self.app.post('/login',json=dict(email='aarondiasbarreto@gmail.com',password='flashcards123'))
-        assert response.status_code==400
-    """ 
+        response=self.app.post('/auth/login',json=dict(email='aaronadb@gmail.com',password='password123'))
+        assert response.status_code==400 
 
 if __name__=="__main__":
     unittest.main()
