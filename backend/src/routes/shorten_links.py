@@ -82,24 +82,38 @@ def create_shortlink(long_url):
 def create():
     '''This method is routed when the user requests to create a new link.'''
     try:
+        print("Hello")
         data = request.get_json()
         id =data['id']
+        print(id)
         localId = data['user_id']
-        long_url=data['long_url'] 
+        print(localId)
+        long_url=data['long_url']
+        print(long_url)
         stub=create_shortlink(long_url)
+        print("shortlink created")
         disabled=data['disabled']
-        utm_source=data['utm_source'] 
-        utm_medium=data['utm_medium'] 
-        utm_campaign=data['utm_campaign'] 
-        utm_term=data['utm_term'] 
-        utm_content=data['utm_content'] 
-        utm_term=data['utm_term'] 
-        password_hash=data['password_hash'] 
-        expire_on=data['expire_on'] 
+        print(disabled)
+        utm_source=data['utm_source']
+        print(utm_source)
+        utm_medium=data['utm_medium']
+        print(utm_medium)
+        utm_campaign=data['utm_campaign']
+        print(utm_campaign)
+        utm_term=data['utm_term']
+        print(utm_term)
+        utm_content=data['utm_content']
+        print(utm_connect)
+        #password_hash=data['password_hash'] 
+        expire_on=data['expire_on']
+        print(expire_on)
 
         new_link = Link(id=id, user_id=localId, stub=stub,long_url=long_url,disabled=disabled,utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content,expire_on=expire_on)
+        print("new link created")
         db.session.add(new_link)
+        print("new link added")
         db.session.commit()
+        print("new link committed")
 
         return jsonify(
             message = 'Create Link Successful',
