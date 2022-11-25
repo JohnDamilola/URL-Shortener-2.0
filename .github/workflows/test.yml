@@ -54,7 +54,7 @@ jobs:
         #POSTGRE_PORT: 5432
     - name: Run tests
       run: |
-        python3 backend/test/test_auth.py
+        python3 backend/test/test_shorten_links.py
       env: 
         POSTGRES_HOST: localhost
         POSTGRE_PORT: 5432
