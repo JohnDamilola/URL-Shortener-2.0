@@ -4,32 +4,30 @@ on:
   push:
     branches: [ "17-fix-backend-tests" ]
 
-# defaults:
-#   run:
-#     working-directory: Backend
-
 jobs:
   build:
 
     runs-on: ubuntu-18.04
-    # strategy:
-    #   matrix:
-    #     python-version: ["3.10"]
 
     env:
       FLASK_APP: backend/src/app.py
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
         python-version: "3.9"
-    - name: Build and run backend
+    - name: Install dependencies
       run: |
-        sudo docker build -t backend/app.py -f backend.Dockerfile .
-        sudo docker run --name backend/app.py --rm -d -p 5000:5000 -t backend/app.py
+        source env/bin/activate
+        python3 -m pip install --upgrade pip
+        python3 -m pip install flake8 pytest
+        python3 -m pip install -r backend/test/requirements.txt
+        python3 -m pip install postgres
+    - name: Database
+      run: |
+        sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
-        #sudo docker exec backend coverage run --source Backend -m pytest
