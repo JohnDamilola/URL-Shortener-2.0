@@ -56,9 +56,8 @@ def login():                                        #this method is used by regi
         print(password)
         
         user = User.query.filter_by(email=email).first()
-        user1 = db.query.filter_by(email=email).first()
         print(user)
-        print(user1)
+        print(db)
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
                 token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
@@ -80,7 +79,6 @@ def login():                                        #this method is used by regi
                 status = 400
             ), 400
     except Exception as e:
-        print(e)
         return jsonify(
             message = f"An error occurred {e}",
             # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed
