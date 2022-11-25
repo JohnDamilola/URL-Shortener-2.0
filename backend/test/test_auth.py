@@ -13,7 +13,12 @@ from extensions import bcrypt
 import jwt
 from routes.auth import auth_bp
 from app import create_app
-
+conn=psycopg2.connect(
+  database="postgres-db",
+  user="postgres",
+  host="/tmp/",
+  password="docker"
+)
 class AuthTestApp(unittest.TestCase):
     def setUp(self):
         self.app=create_app()
