@@ -103,7 +103,7 @@ def create():
         utm_term=data['utm_term']
         print(utm_term)
         utm_content=data['utm_content']
-        print(utm_connect)
+        print(utm_content)
         #password_hash=data['password_hash'] 
         expire_on=data['expire_on']
         print(expire_on)
