@@ -5,14 +5,25 @@ on:
     branches: [ "17-fix-backend-tests" ]
 
 jobs:
-  build:
-
+  runner-job:
     runs-on: ubuntu-18.04
-
     env:
       FLASK_APP: backend/src/app.py
+    services:
+      postgres:
+        image: postgres
+        env: 
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health_interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: 
+         - 5432:5432
 
     steps:
+    - name: Check out Repository
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
@@ -27,6 +38,9 @@ jobs:
     - name: Database
       run: |
         sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+      env: 
+        POSTGRES_HOST: localhost
+        POSTGRE_PORT: 5432
         #systemctl status postgresql.service
     - name: Run tests
       run: |
