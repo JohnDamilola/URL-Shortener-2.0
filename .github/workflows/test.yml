@@ -35,9 +35,9 @@ jobs:
         python3 -m pip install postgres
     - name: Database
       #run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
-      env: 
-        POSTGRES_HOST: localhost
-        POSTGRE_PORT: 5432
+      #env: 
+        #POSTGRES_HOST: localhost
+        #POSTGRE_PORT: 5432
     - name: Run tests
       run: |
         python3 backend/test/test_auth.py
