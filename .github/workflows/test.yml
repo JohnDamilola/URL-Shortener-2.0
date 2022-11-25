@@ -35,8 +35,10 @@ jobs:
         python3 -m pip install postgres
     - name: Database
       run: |
-        python3 backend/src/app.py
+        #python3 backend/src/app.py
         flask db init
+      env:
+        FLASK_APP: backend/src/app.py
       #run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
       #env: 
         #POSTGRES_HOST: localhost
