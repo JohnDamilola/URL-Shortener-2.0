@@ -9,7 +9,7 @@ class Link(db.Model):
     __tablename__ = 'links'
  
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    stub = db.Column(db.String(10), unique=True, nullable=False)
+    stub = db.Column(db.String(100), unique=True, nullable=False)
     long_url = db.Column(db.String(2083), nullable=False)
     disabled = db.Column(db.Boolean, default=False, nullable=False)
     utm_source = db.Column(db.String(100), nullable=True)
