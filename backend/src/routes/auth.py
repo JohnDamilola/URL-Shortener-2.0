@@ -5,10 +5,10 @@ from flask_login import login_required, login_user, logout_user
 from flask_cors import cross_origin
 from flask import request
 try:
-    from ..models.user import User, db
+    from ..models.user import User, db, load_user
     from ..extensions import bcrypt
 except ImportError:
-    from models.user import User, db
+    from models.user import User, db, load_user
     from extensions import bcrypt
 import jwt
 
@@ -90,13 +90,17 @@ def update(id):
         data = request.get_json()
         first_name = data['first_name']
         last_name = data['last_name']
-        password = data['password']
         email = data['email']
-
-        db.session.query(User).filter_by(id=id).update({'email':email, 'first_name':first_name, 'last_name':last_name, 'password_hash':password})
+        user = load_user(id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        # user = User.query.filter_by(id=id).first()
+        # db.session.update(first_name=first_name, last_name=last_name)
         db.session.commit()
 
         return jsonify(
+            user = user.to_json(),
             message = 'Update User Successful',
             status = 201
         ), 201
