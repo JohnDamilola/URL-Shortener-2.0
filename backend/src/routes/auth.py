@@ -26,6 +26,7 @@ def register():                                       #this method is used to cr
         last_name = data['last_name']
         password = data['password']
         
+        
         password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(email=email, first_name=first_name, last_name=last_name, password_hash=password_hash)
         db.session.add(new_user)
@@ -52,6 +53,7 @@ def login():                                        #this method is used by regi
         password = data['password']
         
         user = User.query.filter_by(email=email).first()
+        
         if user:
             if bcrypt.check_password_hash(user.password_hash, password):
                 token = jwt.encode({'public_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
@@ -73,7 +75,6 @@ def login():                                        #this method is used by regi
                 status = 400
             ), 400
     except Exception as e:
-        
         return jsonify(
             message = f"An error occurred {e}",
             # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed

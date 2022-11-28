@@ -2,7 +2,10 @@ from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
 from flask_cors import cross_origin
 from flask import request
-from ..models.links import Link, db
+try:
+    from ..models.links import Link, db
+except ImportError:
+    from models.links import Link, db
 
 links_bp = Blueprint(
     'links_bp', __name__
@@ -74,19 +77,19 @@ def create():
         data = request.get_json()
         id =data['id']
         localId = data['user_id']
-        long_url=data['long_url'] 
+        long_url=data['long_url']
         stub=create_shortlink(long_url)
         title=data['title'] 
         disabled=data['disabled']
-        utm_source=data['utm_source'] 
-        utm_medium=data['utm_medium'] 
-        utm_campaign=data['utm_campaign'] 
-        utm_term=data['utm_term'] 
-        utm_content=data['utm_content'] 
+        utm_source=data['utm_source']
+        utm_medium=data['utm_medium']
+        utm_campaign=data['utm_campaign']
+        utm_term=data['utm_term']
+        utm_content=data['utm_content']
         password_hash=data['password_hash'] 
-        expire_on=data['expire_on'] 
+        expire_on=data['expire_on']
 
-        new_link = Link(id=id, user_id=localId, stub=stub, long_url=long_url, title=title, disabled=disabled,utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
+        new_link = Link(id=id, user_id=localId, stub=stub, long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
         db.session.add(new_link)
         db.session.commit()
 
@@ -109,7 +112,7 @@ def update(id):
         id =data['id']
         localId = data['user_id']
         stub=data['stub']
-        long_url=data['long_url'] 
+        long_url=data['long_url']
         title=data['title']
         disabled=data['disabled']
         utm_source=data['utm_source'] 

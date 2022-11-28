@@ -6,8 +6,9 @@ try:
 except ImportError:
  from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
- 
+
 login_manager = LoginManager()
+
  
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -39,7 +40,7 @@ class User(db.Model, UserMixin):
             'updated_on': self.updated_on
         }
  
- 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)

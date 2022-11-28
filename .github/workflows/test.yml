@@ -1,0 +1,60 @@
+name: Backend unit test
+
+on:
+  push:
+    branches: [ "17-fix-backend-tests" ]
+
+jobs:
+  runner-job:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env: 
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: 
+         - 5432:5432
+
+    steps:
+    - name: Check out Repository
+      uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install flake8 pytest
+        python3 -m pip install -r backend/test/requirements.txt
+        python3 -m pip install postgres
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Database
+      run: |
+        #python3 backend/src/app.py
+        flask db init
+        flask db migrate -m "initial migration"
+        flask db upgrade
+      env:
+        FLASK_APP: backend/src/app.py
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+      #run: sudo docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+      #env: 
+        #POSTGRES_HOST: localhost
+        #POSTGRE_PORT: 5432
+    - name: Run tests
+      run: |
+        python3 backend/test/test_auth.py
+      env: 
+        POSTGRES_HOST: localhost
+        POSTGRE_PORT: 5432

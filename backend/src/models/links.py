@@ -1,5 +1,8 @@
 import uuid
-from ..extensions import db
+try:
+	from ..extensions import db
+except ImportError:
+	from extensions import db
 from sqlalchemy.dialects.postgresql import UUID
 
 class Link(db.Model):
