@@ -79,7 +79,10 @@ def create():
         id =data['id']
         localId = data['user_id']
         long_url=data['long_url'] 
-        stub=create_shortlink(long_url)
+        if data['stub']:
+            stub = data['stub']
+        else:
+            stub = create_shortlink(long_url)
         title=data['title'] 
         disabled=data['disabled']
         utm_source=data['utm_source'] 
@@ -112,8 +115,8 @@ def update(id):
         data = request.get_json()
         id =data['id']
         localId = data['user_id']
-        stub=data['stub']
         long_url=data['long_url'] 
+        stub=create_shortlink(long_url) 
         title=data['title']
         disabled=data['disabled']
         utm_source=data['utm_source'] 
