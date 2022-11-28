@@ -28,7 +28,7 @@ class Link(db.Model):
         self.user_id=user_id
         self.stub=stub
         self.long_url = long_url
-	self.title = title
+        self.title = title
         self.disabled=disabled
         self.utm_source=utm_source
         self.utm_medium=utm_medium
