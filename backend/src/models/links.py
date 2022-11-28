@@ -35,7 +35,7 @@ class Link(db.Model):
         self.utm_campaign=utm_campaign
         self.utm_term=utm_term
         self.utm_content=utm_content
-	self.password_hash = password_hash
+        self.password_hash = password_hash
         self.expire_on=expire_on
 
     def to_json(self):
