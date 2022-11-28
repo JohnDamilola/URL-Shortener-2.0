@@ -11,6 +11,7 @@ class Link(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     stub = db.Column(db.String(100), unique=True, nullable=False)
     long_url = db.Column(db.String(2083), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     disabled = db.Column(db.Boolean, default=False, nullable=False)
     utm_source = db.Column(db.String(100), nullable=True)
     utm_medium = db.Column(db.String(100), nullable=True)
@@ -21,7 +22,7 @@ class Link(db.Model):
     expire_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=True)
     created_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
     updated_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False, server_onupdate=db.func.now())
-		# make a relationship with 'User' model
+	# make a relationship with 'User' model
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
 
     def __init__(self, user_id, stub, long_url, title, disabled, utm_source, utm_medium, utm_campaign, utm_term, utm_content, password_hash, expire_on):
@@ -44,7 +45,7 @@ class Link(db.Model):
         'user_id':self.user_id,
         'stub':self.stub,
         'long_url' : self.long_url,
-	'title':self.title,
+        'title':self.title,
         'disabled':self.disabled,
         'utm_source':self.utm_source,
         'utm_medium':self.utm_medium,

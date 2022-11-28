@@ -81,8 +81,7 @@ def login():                                        #this method is used by regi
             status = 500
         ), 500
     
-
-@auth_bp.route('/auth/update/<id>', methods=['POST'])
+@auth_bp.route('/user/update/<id>', methods=['PATCH'])
 @cross_origin(supports_credentials=True)   
 def update(id):
     '''This method is called when the user requests to update the their credentials.'''
@@ -91,6 +90,7 @@ def update(id):
         first_name = data['first_name']
         last_name = data['last_name']
         email = data['email']
+        
         user = load_user(id)
         user.first_name = first_name
         user.last_name = last_name
@@ -110,7 +110,7 @@ def update(id):
             status = 400
         ), 400
 
-@auth_bp.route('/auth/delete/<id>', methods = ['DELETE'])
+@auth_bp.route('/user/delete/<id>', methods = ['DELETE'])
 @cross_origin(supports_credentials=True)
 def delete(id):
     '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
@@ -127,14 +127,12 @@ def delete(id):
             status = 400
         ), 400    
    
-
 @auth_bp.route('/auth/logout')
 @login_required
 @cross_origin(supports_credentials=True)
 def logout():
     logout_user()
-    
-    
+      
 if __name__ == '__main__':
     app.debug = True
     app.run()

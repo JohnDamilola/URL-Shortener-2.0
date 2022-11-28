@@ -8,15 +8,21 @@ const Navbar = ({ isDashboard }: any) => {
     window.localStorage.removeItem('URLshortenerUser')
     window.location.replace('/')
   }
+  const handleEditUser = () => {
+    window.location.replace('/auth/update/${id}')
+  }
   return (
-    <nav className="navbar navbar-expand-lg sticky-top">
+    <nav className="navbar regular-navbar navbar-expand-lg sticky-top">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          URL Shortener
+          <img className='img-fluids' src={require('assets/images/logo.png')} />
         </Link>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {isDashboard ? (
             <div className="navbar-nav ml-auto navbar-centers gap-4">
+               <li className="nav-item" onClick={handleEditUser} style={{cursor: 'pointer', fontWeight: '600'}}>
+                  <i className="lni lni-cross-circle mr-2" style={{fontWeight: '600'}}></i> Edit Account
+              </li>
               <li className="nav-item" onClick={handleLogout} style={{cursor: 'pointer', fontWeight: '600'}}>
                   <i className="lni lni-cross-circle mr-2" style={{fontWeight: '600'}}></i> Logout
               </li>

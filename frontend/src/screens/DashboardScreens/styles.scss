@@ -1,12 +1,26 @@
+.inner-dashboard {
+    min-height: calc(100vh - 70px);
+    overflow: scroll;
+    padding: 30px;
+    background: #F3F6FA;
+    font-family: 'Inter';
+}
+
 .dashboard-commons {
-    padding: 20px 0px;
-    background: #FFFAF5;
-    min-height: calc(100vh - 75px);
     .flash-card__list {
         p.title {
             font-size: 16px;
             color: #000;
             font-weight: 600;
+        }
+        label {
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            font-weight: 600;
+        }
+        input {
+            height: 56px;
+            padding: 0px 30px;
         }
         .flash-card__item {
             background: #fff;
@@ -76,29 +90,194 @@
 }
 
 .dashboard-page {
-    .welcome-card {
-        background: #221daf;
-        border: none;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        margin-top: 40px;
-        border-radius: 12px;
-        padding: 26px 30px;
+    .welcome-pane {
         margin-bottom: 30px;
+        margin-top: 10px;
         h3 {
-            color: #fff;
+            color: #000;
             font-family: 'HW Nuckle Trial';
-            margin-bottom: 4px;
+            margin-bottom: 0px;
         }
         p {
             font-size: 16px;
-            color: #fff;
+            color: #000;
             margin-bottom: 0px;
         }
-        &.practice-deck {
-            padding-top: 13px;
-            .back-icon {
-                cursor: pointer;
+    }
+    .stats-card {
+        padding: 20px 24px;
+        border-radius: 12px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+        box-shadow: 0 4px 0 0 rgb(35 57 91 / 8%);
+        cursor: pointer;
+        margin-bottom: 15px;
+        border: 1px solid #dbe0eb !important;
+        background: #fdfafc;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FFFFFF, #fdfafc);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FFFFFF, #fdfafc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        svg {
+            fill: #000;
+        }
+        
+        p {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000 !important;
+            margin-bottom: 0px;
+        }
+
+        i {
+            font-weight: 900;
+            // color: #06612e !important;
+            font-size: 20px;
+        }
+
+        h3 {
+            font-weight: 900;
+            // color: #06612e !important;
+            font-family: 'HW Nuckle Trial';
+            margin-bottom: 0px;
+        }
+
+        &.active {
+          background: #000;
+          background: #221daf;
+          h3, p, span, i {
+            color: #fff !important;
+          }
+          svg {
+            fill: #fff;
+          }
+        }
+        &:hover {
+          // border: 1.5px solid $brand-primary-500;
+        }
+    }
+
+    .link-card {
+        padding: 20px 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+        box-shadow: 0 4px 0 0 rgb(35 57 91 / 8%);
+        border: 1px solid #dbe0eb !important;
+        background: #fdfafc;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FFFFFF, #fdfafc);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FFFFFF, #fdfafc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        svg {
+            fill: #000;
+        }
+        
+        p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000 !important;
+            margin-bottom: 0px;
+        }
+
+        h5 {
+            font-weight: 900;
+            font-size: 20px;
+            font-family: 'HW Nuckle Trial';
+            margin-bottom: 8px;
+            // color: #221daf;
+            color: #06612e;
+        }
+
+        .time-text {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+            font-size: 14px;
+            color: #333;
+            i {
+                color: #333;
             }
+        }
+
+        .url-pane {
+            background: #F3F6FA;
+            border: 0.1rem solid #dbe0eb !important;
+            display: inline-flex;
+            padding: 10px 15px 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            gap: 20px;
+            p {
+                color: #000 !important;
+            }
+            i {
+                color: #000 !important;;
+                font-weight: 900;
+                color: #333;
+                font-size: 20px;
+            }
+        }
+
+        .btn-pane {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            button {
+                font-size: 14px;
+                i {
+                    font-size: 15px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        &.active {
+          background: #000;
+          background: #221daf;
+          h3, p, span, i {
+            color: #fff !important;
+          }
+          svg {
+            fill: #fff;
+          }
+        }
+        &:hover {
+          // border: 1.5px solid $brand-primary-500;
+        }
+    }
+
+    .table-pane {
+        margin-top: 40px;
+        .ant-table {
+            border: 1px solid #E7EAED !important;
+            border-radius: 8px;
+        }
+        .ant-table-thead > tr > th { 
+            padding: 15px 40px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+            background: #06612e;
+            color: #fff;
+        }
+        .ant-table-tbody > tr > td {
+            padding: 20px 40px;
+            font-size: 14px;
+            .gap-2 {
+                gap: 20px;
+            }
+            i {
+                font-size: 18px;
+            }
+        }
+        .ant-table-container table > thead > tr:last-child th:first-child {
+            border-top-left-radius: 8px;
+        }
+        .ant-table-container table > thead > tr:last-child th:last-child {
+            border-top-right-radius: 8px;
+        }
+        .ant-table-container table > tbody > tr:last-child td:first-child {
+            border-bottom-left-radius: 8px;
+        }
+        .ant-table-container table > tbody > tr:last-child td:last-child {
+            border-bottom-right-radius: 8px;
         }
     }
 }
@@ -133,7 +312,7 @@
     // background: #221daf;
     .header-card {
         margin-top: 30px;
-        background: #221daf;
+        background: #46aa8c;
         border-radius: 8px;
         padding: 40px 40px 50px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -240,7 +419,7 @@
         }
     }
     .btn-submit {
-        background: #221daf;
+        background: #2e934c;
         color: #fff;
         margin-bottom: 120px;
     }

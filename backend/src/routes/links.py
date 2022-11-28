@@ -5,7 +5,7 @@ from flask import request
 try:
     from ..models.links import Link, db
 except ImportError:
-    from models.links import Link, db 
+    from models.links import Link, db
 
 links_bp = Blueprint(
     'links_bp', __name__
@@ -118,7 +118,6 @@ def update(id):
         utm_source=data['utm_source'] 
         utm_medium=data['utm_medium'] 
         utm_campaign=data['utm_campaign'] 
-        utm_term=data['utm_term'] 
         utm_content=data['utm_content'] 
         utm_term=data['utm_term'] 
         password_hash=data['password_hash'] 

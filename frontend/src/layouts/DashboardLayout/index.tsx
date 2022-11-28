@@ -1,29 +1,29 @@
-import Navbar from '../../components/Navbar'
-import { Navigate, Outlet } from 'react-router-dom'
-import './styles.scss'
+import Sidebar from '../../components/Sidebar';
+import { Navigate, Outlet } from 'react-router-dom';
+import './styles.scss';
+import DashboardNavbar from 'components/DashboardNavbar';
 
 const DashboardLayout = () => {
-  const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
-  const isAuth = URLshortenerUser && JSON.parse(URLshortenerUser) ? true : false;
+	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
+	const isAuth = URLshortenerUser && JSON.parse(URLshortenerUser) ? true : false;
 
-  if (!isAuth) {
-    return <Navigate to='/login' replace />
-  }
+	if (!isAuth) {
+		return <Navigate to="/login" replace />;
+	}
 
-  return (
-    <div className='flex w-full h-screen bg-white relative '>
-      <div className='main flex-row w-[calc(100vw)] lg:w-[calc(100vw - 287px)] md:ml-0 lg:ml-[287px] h-full bg-[#F9F9F9]'>
-        <div className='flex w-full'>
-          <div className='flex-col w-full'>
-            <div className='overflow-scroll px-[40px] lg:pt-12s'>
-              <Navbar isDashboard={true} />
-              <Outlet />
-            </div>
+	return (
+		<div>
+			<div className="flex" style={{ display: 'flex', height: '100%' }}>
+				<Sidebar />
+				<div className="main" style={{ width: '100%' }}>
+					<DashboardNavbar isDashboard={true} />
+          <div className="inner-dashboard">
+					  <Outlet />
           </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+				</div>
+			</div>
+		</div>
+	);
+};
 
-export default DashboardLayout
+export default DashboardLayout;

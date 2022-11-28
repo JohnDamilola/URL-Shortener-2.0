@@ -48,7 +48,7 @@ const Login = () => {
           confirmButtonColor: '#221daf',
         }).then(() => {
           setIsSubmitting(false);
-          window.location.replace("/dashboard");
+          window.location.replace("/overview");
         })
       })
       .catch((err) => {

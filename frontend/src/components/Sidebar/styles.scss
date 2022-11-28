@@ -1,50 +1,62 @@
-.regular-navbar {
+.dashboard-sidebar {
     background: #fff;
-    padding: 10px 0px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px 0px;
+    height: 100vh;
+    border-right: 0.1rem solid #dbe0eb !important;
+    .sidebar-inner {
+        background: transparent;
+    }
     .navbar-brand {
-        padding: 8px 0px;
-        color: #000;
-        i {
+        padding: 15px 20px;
+        margin-bottom: 30px;
+        img.logo-big {
             margin-right: 10px;
-            color: #06612e;
-        }
-        img {
-            margin-right: 10px;
+            transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.1s;
             width: 140px;
             @media (max-width: 500px) {
                 width: 130px;
             }
         }
-        font-size: 18px;
-        font-weight: 900;
-        font-family: 'arial';
-        span {
-            color: #06612e;
+        img.logo-small {
+            margin-right: 10px;
+            width: 30px;
+            margin-bottom: 15px;
+            // transition: all linear 0.2s;
+            @media (max-width: 500px) {
+                width: 30px;
+            }
         }
         @media (max-width: 767px) {
             font-size: 20px;
         }
     }
-    .navbar-nav {
-        display: flex;
-        align-items: center;
-        gap: 30px;
+    .spacebar {
+        height: 30px;
     }
-    .nav-link {
-        font-family: 'Poppins';
+    .menu-item {
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
-        // margin-right: 20px;
         font-size: 15px;
         line-height: 150%;
         letter-spacing: -0.3px;
-        color: #121212;
-        color: #000;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        color: #4b4b4b;
+        &.active .menu-anchor {
+            background-color: #fff !important;
+            color: #06612e;
+        }
+        .menu-anchor {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            &:hover, &:active {
+                background-color: #fff !important;
+                color: #06612e;
+            }
+        }
+        i {
+            margin-right: 5px;
+            font-weight: 900;
+        }
         img {
             margin-left: 10px;
         }
@@ -125,7 +137,7 @@
         }
     }
     @media (max-width: 767px) {
-        padding: 5px 20px;
+        padding: 5px 0px;
     }
 }
 .btn {
