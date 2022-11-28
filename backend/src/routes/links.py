@@ -61,9 +61,13 @@ def getalllinks():
         ), 400
 
 def create_shortlink(long_url):
-    # url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
-    # return "url_shortener.short(long_url)"
-    return "url_shortener"
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    key = "".join(secrets.choice(chars) for _ in range(5))
+    secret_key = "".join(secrets.choice(chars) for _ in range(8))
+    short_url = request.host_url + key
+    #db_url = models.URL(
+    #   target_url=url.target_url, key=key, secret_key=secret_key)
+    return short_url
 
 
 @links_bp.route('/link/create', methods = ['POST'])
