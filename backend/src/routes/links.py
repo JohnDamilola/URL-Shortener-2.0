@@ -18,7 +18,7 @@ def getlink(id):
     try:
         single_link = Link.query.get(id)
         return jsonify(
-            single_link = single_link.val(),
+            single_link = single_link.stub,
             message = 'Fetched link successfully',
             status = 200
         ), 200
