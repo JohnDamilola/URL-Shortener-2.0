@@ -146,7 +146,6 @@ def update(id):
             status = 201
         ), 201
     except Exception as e:
-        print(e)
         return jsonify(
             message = f'Update Link Failed {e}',
             status = 400
