@@ -3,9 +3,9 @@ from flask import current_app as app
 from flask_cors import cross_origin
 from flask import request
 try:
-    from ..models.links import Link, db
+    from ..models.links import Link, db, load_link
 except ImportError:
-    from models.links import Link, db
+    from models.links import Link, db, load_link
 
 links_bp = Blueprint(
     'links_bp', __name__
@@ -18,7 +18,7 @@ def getlink(id):
     try:
         single_link = Link.query.get(id)
         return jsonify(
-            single_link = single_link.val(),
+            single_link = single_link.stub,
             message = 'Fetched link successfully',
             status = 200
         ), 200
@@ -39,11 +39,13 @@ def getalllinks():
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
-            links = []
-            for l in all_links.each():
-                obj = l.val()
-                obj['id'] = l.key()
-                links.append(obj)
+            links=[]
+            for link in all_links:
+                links.append(link.stub)
+            #for l in all_links.each():
+                #obj = l.val()
+                #obj['id'] = l.key()
+                #links.append(obj)
                 
             return jsonify(
                 links = links,
@@ -66,7 +68,7 @@ def getalllinks():
 def create_shortlink(long_url):
     # url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
     # return "url_shortener.short(long_url)"
-    return "url_shortener"
+    return "url_shortener"+long_url[-5:]
 
 
 @links_bp.route('/link/create', methods = ['POST'])
@@ -123,7 +125,20 @@ def update(id):
         password_hash=data['password_hash'] 
         expire_on=data['expire_on'] 
 
-        db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
+        link = load_link(id)
+        link.user_id=localId
+        link.stub=stub
+        link.long_url=long_url
+        link.title=title
+        link.disabled=disabled
+        link.utm_source=utm_source 
+        link.utm_medium=utm_medium 
+        link.utm_campaign=utm_campaign 
+        link.utm_content=utm_content 
+        link.utm_term=utm_term 
+        link.password_hash=password_hash 
+        link.expire_on=expire_on 
+        #db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
         db.session.commit()
 
         return jsonify(
