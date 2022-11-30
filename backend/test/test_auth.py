@@ -44,12 +44,14 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test4@gmail.com').first()
             id=user.id
             response=self.app.patch('/auth/update/'+str(id),json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
+        print("Update 201",response.status_code)
         assert response.status_code==201
     
     def test_update_route_random_id(self):
         '''Test the update route of our app for a random user id'''
         id='f74fa42c-fc00-43c2-a2f6-9c0a27g59a0e'
         response=self.app.patch('/auth/update/'+str(id),json=dict(email='new_test4@gmail.com',first_name='test4_first',last_name='new_test4_last',password='new_password4'))
+        print("Update 400",response.status_code)
         assert response.status_code==400
         
     def test_delete_route(self):
@@ -60,12 +62,14 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test5@gmail.com').first()
             id=user.id
             response=self.app.delete('/auth/delete/'+str(id))
+        print("Delete 200",response.status_code)
         assert response.status_code==200
         
     def test_delete_route_random_id(self):
         '''Test the delete route of our app for a random user id'''
         id='f74fa42c-fc00-43c2-a2f6-9c0a27g59a0e'
         response=self.app.delete('/auth/delete/'+str(id))
+        print("Delete 400",response.status_code)
         assert response.status_code==400
         
         
