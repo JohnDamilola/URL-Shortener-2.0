@@ -41,8 +41,9 @@ def getalllinks():
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
-            links = all_links
-            #links = []
+            links=[]
+            for link in all_links:
+                links.append(link.stub)
             #for l in all_links.each():
                 #obj = l.val()
                 #obj['id'] = l.key()
