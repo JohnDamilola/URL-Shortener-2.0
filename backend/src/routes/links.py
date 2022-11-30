@@ -34,10 +34,8 @@ def getlink(id):
 def getalllinks():
     '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
     if yes show all the decks made by the user.'''
-    print("Hello")
     args = request.args
     localId = args and args['localId']
-    print(localId)
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
@@ -61,7 +59,6 @@ def getalllinks():
                 status = 200
             ), 200
     except Exception as e:
-        print(e)
         return jsonify(
             decks = [],
             message = f"An error occurred {e}",
