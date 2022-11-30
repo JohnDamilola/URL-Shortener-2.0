@@ -27,7 +27,7 @@ class Link(db.Model):
 
     def __init__(self, id, user_id, stub, long_url, title, disabled, utm_source, utm_medium, utm_campaign, utm_term, utm_content, password_hash, expire_on):
         self.id=id
-	self.user_id=user_id
+        self.user_id=user_id
         self.stub=stub
         self.long_url = long_url
         self.title = title
