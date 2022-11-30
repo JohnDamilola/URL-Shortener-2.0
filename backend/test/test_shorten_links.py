@@ -27,8 +27,8 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test7@gmail.com').first()
             id=user.id
             uid=user.id
-            _=self.app.post('/link/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
-            _=self.app.post('/link/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.com',title='Yahoo2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            link_id=uuid.uuid4()
+            _=self.app.post('/link/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/link/'+str(link_id))
         assert response.status_code==200
     
@@ -39,9 +39,9 @@ class AuthTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test8@gmail.com').first()
             id=user.id
             uid=user.id
-            link_id=uuid.uuid4()
             _=self.app.post('/auth/login',json=dict(email='test8@gmail.com',password='password8'))
-            _=self.app.post('/link/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            _=self.app.post('/link/create',json=dict(id=uuid.uuid4,user_id=uid,long_url='https://google.in',title='Google2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            _=self.app.post('/link/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.com',title='Yahoo2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/link/all',json=dict(localId=id))
             print(response.status_code)
         assert response.status_code==200
