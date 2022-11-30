@@ -5,7 +5,7 @@ from flask import request
 try:
     from ..models.links import Link, db, load_link
 except ImportError:
-    from models.links import Link, db
+    from models.links import Link, db, load_link
 
 links_bp = Blueprint(
     'links_bp', __name__
