@@ -62,4 +62,4 @@ class Link(db.Model):
         return '<id {}>'.format(self.id)
 
 def load_link(id):
-    return Link.query.get(int(id))
+    return Link.query.get(id)
