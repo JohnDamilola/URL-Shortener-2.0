@@ -40,7 +40,7 @@ class AuthTestApp(unittest.TestCase):
             id=user.id
             uid=user.id
             _=self.app.post('/auth/login',json=dict(email='test8@gmail.com',password='password8'))
-            _=self.app.post('/link/create',json=dict(id=uuid.uuid4,user_id=uid,long_url='https://google.in',title='Google2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            _=self.app.post('/link/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.in',title='Google2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             _=self.app.post('/link/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.com',title='Yahoo2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/link/all',json=dict(localId=id))
             print(response.status_code)
