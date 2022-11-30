@@ -76,17 +76,6 @@ class AuthTestApp(unittest.TestCase):
             response=self.app.delete('/link/delete/'+str(link_id))
         print(response.status_code)
         assert response.status_code==200
-        
-    def test_link_delete_route_invalid(self):
-        """Test the delete link route of our app with an invalid link id"""
-        _=self.app.post('/auth/register',json=dict(email='test12@gmail.com',first_name='test12_first',last_name='test12_last',password='password12'))
-        with self.flask_app.app_context():
-            user=User.query.filter_by(email='test12@gmail.com').first()
-            uid=user.id
-            link_id=uuid.uuid4()
-            response=self.app.delete('/link/delete/'+str(link_id))
-        print(response.status_code)
-        assert response.status_code==400   
       
       
 if __name__=="__main__":
