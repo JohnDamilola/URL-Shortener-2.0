@@ -42,7 +42,7 @@ class Link(db.Model):
 
     def to_json(self):
         return {
-        'id': str(self.id),
+        'id': self.id,
         'user_id':self.user_id,
         'stub':self.stub,
         'long_url' : self.long_url,
