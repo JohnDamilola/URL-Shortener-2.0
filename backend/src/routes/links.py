@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask_cors import cross_origin
 from flask import request
 try:
-    from ..models.links import Link, db
+    from ..models.links import Link, db, load_link
 except ImportError:
     from models.links import Link, db
 
@@ -125,8 +125,20 @@ def update(id):
         password_hash=data['password_hash'] 
         expire_on=data['expire_on'] 
 
+        link = load_link(id)
+        link.user_id=localId
+        link.stub=stub
+        link.long_url=long_url
+        link.title=title
+        link.disabled=disabled
+        link.utm_source=utm_source 
+        link.utm_medium=utm_medium 
+        link.utm_campaign=utm_campaign 
+        link.utm_content=utm_content 
+        link.utm_term=utm_term 
+        link.password_hash=password_hash 
+        link.expire_on=expire_on 
         #db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
-        db.session.query(Link).filter_by(id=id).update(user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
         db.session.commit()
 
         return jsonify(
