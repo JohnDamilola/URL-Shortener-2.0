@@ -74,7 +74,6 @@ def create_shortlink(long_url):
 def create():
     '''This method is routed when the user requests to create a new link.'''
     try:
-        print("Hello")
         data = request.get_json()
         id =data['id']
         localId = data['user_id']
@@ -89,21 +88,16 @@ def create():
         utm_content=data['utm_content']
         password_hash=data['password_hash'] 
         expire_on=data['expire_on']
-        print("Data read")
 
         new_link = Link(id=id, user_id=localId, stub=stub, long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
-        print("link created")
         db.session.add(new_link)
-        print("link added")
         db.session.commit()
-        print("link committed")
 
         return jsonify(
             message = 'Create Link Successful',
             status = 201
         ), 201
     except Exception as e:
-        print(e)
         return jsonify(
             message = f'Create Link Failed {e}',
             status = 400
