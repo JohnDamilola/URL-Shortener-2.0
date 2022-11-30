@@ -36,6 +36,7 @@ def getalllinks():
     if yes show all the decks made by the user.'''
     args = request.args
     localId = args and args['localId']
+    print(localId)
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
@@ -57,6 +58,7 @@ def getalllinks():
                 status = 200
             ), 200
     except Exception as e:
+        print(e)
         return jsonify(
             decks = [],
             message = f"An error occurred {e}",
