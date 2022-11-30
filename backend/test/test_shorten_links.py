@@ -52,7 +52,6 @@ class AuthTestApp(unittest.TestCase):
             link_id=uuid.uuid4()
             _=self.app.post('/link/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.com',title='Facebook',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.patch('/link/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
-        print(response.status_code)
         assert response.status_code==201
    
     def test_link_update_route_invalid(self):
@@ -63,8 +62,31 @@ class AuthTestApp(unittest.TestCase):
             uid=user.id
             link_id=uuid.uuid4()
             response=self.app.patch('/link/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
-        print(response.status_code)
         assert response.status_code==400     
+        
+    
+    def test_link_delete_route_valid(self):
+        """Test the delete link route of our app with a valid link id"""
+        _=self.app.post('/auth/register',json=dict(email='test11@gmail.com',first_name='test11_first',last_name='test11_last',password='password11'))
+        with self.flask_app.app_context():
+            user=User.query.filter_by(email='test11@gmail.com').first()
+            uid=user.id
+            link_id=uuid.uuid4()
+            _=self.app.post('/link/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.in',title='Facebook2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            response=self.app.delete('/link/delete/'+str(link_id))
+        print(response.status_code)
+        assert response.status_code==200
+        
+    def test_link_delete_route_invalid(self):
+        """Test the delete link route of our app with an invalid link id"""
+        _=self.app.post('/auth/register',json=dict(email='test12@gmail.com',first_name='test12_first',last_name='test12_last',password='password12'))
+        with self.flask_app.app_context():
+            user=User.query.filter_by(email='test12@gmail.com').first()
+            uid=user.id
+            link_id=uuid.uuid4()
+            response=self.app.delete('/link/delete/'+str(link_id))
+        print(response.status_code)
+        assert response.status_code==400   
       
       
 if __name__=="__main__":
