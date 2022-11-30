@@ -23,6 +23,7 @@ def getlink(id):
             status = 200
         ), 200
     except Exception as e:
+        print(e)
         return jsonify(
             decks = [],
             message = f"An error occurred: {e}",
