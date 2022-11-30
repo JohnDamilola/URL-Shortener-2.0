@@ -125,7 +125,8 @@ def update(id):
         password_hash=data['password_hash'] 
         expire_on=data['expire_on'] 
 
-        db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
+        #db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
+        db.session.query(Link).filter_by(id=id).update(user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
         db.session.commit()
 
         return jsonify(
