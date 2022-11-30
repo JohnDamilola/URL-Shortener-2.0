@@ -41,11 +41,12 @@ def getalllinks():
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
-            links = []
-            for l in all_links.each():
-                obj = l.val()
-                obj['id'] = l.key()
-                links.append(obj)
+            links = all_links
+            #links = []
+            #for l in all_links.each():
+                #obj = l.val()
+                #obj['id'] = l.key()
+                #links.append(obj)
                 
             return jsonify(
                 links = links,
