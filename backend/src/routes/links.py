@@ -67,7 +67,7 @@ def getalllinks():
 def create_shortlink(long_url):
     # url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
     # return "url_shortener.short(long_url)"
-    return "url_shortener"+long_url[:5]
+    return "url_shortener"+long_url[-5:]
 
 
 @links_bp.route('/link/create', methods = ['POST'])
