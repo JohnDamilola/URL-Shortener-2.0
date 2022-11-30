@@ -6,7 +6,7 @@ from app import app
 import datetime
 import uuid
 
-class AuthTestApp(unittest.TestCase):
+class LinkTestApp(unittest.TestCase):
     def setUp(self):
         self.flask_app=app
         self.app=self.flask_app.test_client()
