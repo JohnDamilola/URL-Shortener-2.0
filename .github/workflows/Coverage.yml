@@ -8,28 +8,50 @@ permissions:
     contents: read
 
 jobs:
-    build:
+    runner-job:
         runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres
+                env: 
+                    POSTGRES_PASSWORD: postgres
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+                ports:
+                    - 5432:5432
 
         steps:
-            - uses: actions/checkout@v3
+            - name: Check out Repository 
+              uses: actions/checkout@v3
             - name: Set up Python 3.9
               uses: actions/setup-python@v3
               with:
                   python-version: "3.9"
             - name: Install dependencies
               run: |
-                  python -m pip install --upgrade pip
-                  pip install coverage
-                  pip install pytest
-                  if [ -f backend/test/requirements.txt ]; then pip install -r backend/test/requirements.txt; fi
+                  python3 -m pip install --upgrade pip
+                  python3 -m pip install coverage
+                  python3 -m pip install pytest
+                  python3 -m pip install -r backend/test/requirements.txt
+                  python3 -m pip install postgres
             - name: Add folders to Python Path
               run: |
                   echo "PYTHONPATH=tests:code:data" >> $GITHUB_ENV
+            - name: Database
+              run: |
+                flask db init
+                flask db migrate -m "initial migration"
+                flask db upgrade
+              env:
+                FLASK_APP: backend/src/app.py
+                DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres 
             - name: Generate Coverage
               run: |
                   export CI=GITHUB_ACTIONS
-                  coverage run -m backend.test.Test
+                  coverage run -m backend.test.test_auth
                   coverage xml
             - name: Upload to CodeCov
               run: |
