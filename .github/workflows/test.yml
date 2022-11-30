@@ -2,7 +2,7 @@ name: Backend unit test
 
 on:
   push:
-    branches: [ "17-fix-backend-tests" ]
+    branches: [ "main" ]
 
 jobs:
   runner-job:
