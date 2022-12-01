@@ -77,5 +77,5 @@ class LinkTestApp(unittest.TestCase):
         assert response.status_code==200
       
       
-if __name__=="__main__":
-    unittest.main()
+#if __name__=="__main__":
+    #unittest.main()
