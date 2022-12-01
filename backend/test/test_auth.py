@@ -69,5 +69,5 @@ class AuthTestApp(unittest.TestCase):
         assert response.status_code==400
         
         
-if __name__=="__main__":
-    unittest.main()
+#if __name__=="__main__":
+    #unittest.main()
