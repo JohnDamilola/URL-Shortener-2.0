@@ -1,6 +1,12 @@
 import { Drawer, Table } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './styles.scss';
+import Swal from "sweetalert2";
+import http from "utils/api";
+import validator from 'validator'
+
+
+
 
 const stats = [
 	{
@@ -24,6 +30,72 @@ const stats = [
 		icon: <i className="fa-solid fa-eye"></i>,
 	},
 ];
+
+const urll = 
+	{
+		stub: 'stub',
+		long_url: 'https://github.com/JohnDamilola/URL-Shortener-2.0/issues/26',
+		disabled: false,
+		password_hash: '123',
+		expire_on: '2024-05-10'
+	};
+
+const fetchURL = async () => {
+	// const [fetchingURL, setFetchingURL] = useState(false);
+	// const [url, setURL] = useState<URL>();
+	// setFetchingURL(true);
+	const params = "";
+	await http
+		// .get("/links/stub", {
+		// params,
+		// })
+		.get("")
+		.then((res) => {
+		const {url} = res.data || {};
+		let dateTime = new Date()
+		if(urll.disabled == false && urll.password_hash == "" && new Date(urll.expire_on) > dateTime){
+        	window.location.assign(urll.long_url);
+		}
+		if(urll.disabled == true){
+			Swal.fire({
+				icon: 'error',
+				title: 'Original Link is disable!',
+				text: 'An error occurred, please try again',
+				confirmButtonColor: '#221daf',
+			  })
+		}
+		if(urll.password_hash != ""){
+			Swal.fire({
+				title: 'Enter password for authetication',
+				input: 'text',
+				inputAttributes: {
+				  autocapitalize: 'off'
+				},
+				showCancelButton: true,
+				confirmButtonText: 'Submit',
+				showLoaderOnConfirm: true,
+				preConfirm: (password) => {
+					if(password == urll.password_hash){
+						window.location.assign(urll.long_url);
+					}
+					else{
+						Swal.showValidationMessage(
+							`Incorect password. Request failed!`
+						  )
+					}
+				},
+			})
+		}
+		})
+		.catch((err) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'URL Redirect Failed!',
+				text: 'An error occurred, please try again',
+				confirmButtonColor: '#221daf',
+			  })
+		});
+};
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<number | null>(null);
@@ -124,6 +196,9 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 				<button className="btn btn-outline-primary">
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
+				<button className="btn btn-outline-primary" onClick={() => fetchURL()}>
+					<i className="fa-solid fa-pen-to-square"></i> Redirect
+				</button>
 				<button className="btn btn-outline-danger">
 					<i className="fa-solid fa-trash"></i> Delete
 				</button>
@@ -131,3 +206,4 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 		</div>
 	);
 };
+
