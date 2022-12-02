@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import './styles.scss';
 import Swal from "sweetalert2";
 import http from "utils/api";
-import validator from 'validator'
 
 
 
@@ -35,11 +34,13 @@ const urll =
 	{
 		stub: 'stub',
 		long_url: 'https://github.com/JohnDamilola/URL-Shortener-2.0/issues/26',
-		disabled: false,
+		disabled: true,
 		password_hash: '123',
-		expire_on: '2024-05-10'
+		expire_on: '2022-05-10'
 	};
-
+let dateTime = new Date()
+export const isDisabled = urll.disabled;
+export const isExpired = new Date(urll.expire_on) < dateTime;
 const fetchURL = async () => {
 	// const [fetchingURL, setFetchingURL] = useState(false);
 	// const [url, setURL] = useState<URL>();
@@ -52,17 +53,13 @@ const fetchURL = async () => {
 		.get("")
 		.then((res) => {
 		const {url} = res.data || {};
-		let dateTime = new Date()
-		if(urll.disabled == false && urll.password_hash == "" && new Date(urll.expire_on) > dateTime){
+		
+		
+		if(isDisabled == false && urll.password_hash == "" && !isExpired){
         	window.location.assign(urll.long_url);
 		}
-		if(urll.disabled == true){
-			Swal.fire({
-				icon: 'error',
-				title: 'Original Link is disable!',
-				text: 'An error occurred, please try again',
-				confirmButtonColor: '#221daf',
-			  })
+		if(isDisabled == true || isExpired){
+			window.location.assign("/dsfasdfasdf");
 		}
 		if(urll.password_hash != ""){
 			Swal.fire({
