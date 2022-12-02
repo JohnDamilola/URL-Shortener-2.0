@@ -193,74 +193,71 @@ def delete(id):
         ), 400
     
     
-@links_bp.route('/links/stats', methods = ['GET'])
-@login_required2()
+@shorten_links_bp.route('/links/engagements', methods = ['GET'])
 @cross_origin(supports_credentials=True)
-def get_link_stats():
-    '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
-    if yes show all the decks made by the user.'''
+def getlinksengagement():
+    '''This method is called when we want to fetch the analytics of the links'''
     args = request.args
     user_id = args and args['user_id']
     try:
-        total_count = db.session.query(Link).join(User).filter(User.id==user_id).count()
-        total_enabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==False)).count()
-        total_disabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==True)).count()
-        total_engagements = db.session.query(Engagements).join(Link).filter(Link.user_id==user_id).count()
-         
-        return jsonify(
-            links = ({'total_count': total_count, 'total_enabled': total_enabled, 'total_disabled': total_disabled, 'total_engagements': total_engagements}),
-            message = 'Fetching links successfully',
-            status = 200
-        ), 200
+        if localId:
+            all_links = db.session.query(Link).filter_by(user_id=localId).all()
+            links = []
+            for link in all_links:
+                links.append(link.stub)
+                links.append(link.utm_source)
+                links.append(link.utm_medium) 
+                links.append(link.utm_campaign)
+                links.append(link.utm_term)
+                links.append(link.utm_content)
+                links.append(link.created_on)
+                
+            return jsonify(
+                links = links,
+                message = 'Fetching Analytics data successfully',
+                status = 200
+            ), 200
+        else:
+             return jsonify(
+                links = "",
+                message = 'Please login to see analytics data',
+                status = 200
+            ), 200
     except Exception as e:
         return jsonify(
-            message = f"An error occurred {e}",
+            decks = [],
+            message = f"Fetching Analytics data failed {e}",
             status = 400
         ), 400
-        
-@links_bp.route('/links/<link_id>/engagements', methods = ['GET'])
-@login_required2()
+
+@shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
-def get_single_link_engagements(link_id):
+def getsinglelinkengagements():
     '''This method is routed when the user requests analytics for a single link.'''
     try:
-        engagements = db.session.query(Engagements).join(Link).filter(Link.id==link_id).all()
+        data = request.get_json()
+        stub =data['id']
+
+        Analytics_data = db.session.query(Link).filter_by(stub=stub).all()
+        ana_data=[]
+        for ad in Analytics_data:
+                ana_data.append(ad.stub)
+                ana_data.append(ad.utm_source)
+                ana_data.append(ad.utm_medium) 
+                ana_data.append(ad.utm_campaign)
+                ana_data.append(ad.utm_term)
+                ana_data.append(ad.utm_content)
+                ana_data.append(ad.created_on)
+        
+
         return jsonify(
-            engagements = engagements,
+           ad=ana_data,
                 message = 'Fetching Analytics data successfully',
                 status = 200
             ), 200
     except Exception as e:
         return jsonify(
-            links = [],
             message = f'Fetching Analytics failed {e}',
             status = 400
         ), 400
 
-@links_bp.route('/links/engagements/<link_id>/create', methods = ['POST'])
-@login_required2()
-@cross_origin(supports_credentials=True)
-def create_engagement(link_id):
-    '''This method is routed when the user requests to create a new link.'''
-    try:
-        data = request.get_json()
-        utm_source=data.get('utm_source')
-        utm_medium=data.get('utm_medium')
-        utm_campaign=data.get('utm_campaign')
-        utm_term=data.get('utm_term')
-        utm_content=data.get('utm_content')
-
-        engagement = Engagements(link_id=link_id, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content)
-        db.session.add(engagement)
-        db.session.commit()
-
-        return jsonify(
-            engagement = engagement.to_json(),
-            message = 'Create Engagement Successful',
-            status = 201
-        ), 201
-    except Exception as e:
-        return jsonify(
-            message = f'Create Engagement Failed {e}',
-            status = 400
-        ), 400
