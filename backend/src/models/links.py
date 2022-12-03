@@ -25,21 +25,6 @@ class Link(db.Model):
 	# make a relationship with 'User' model
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
 
-    def __init__(self, id, user_id, stub, long_url, title, disabled, utm_source, utm_medium, utm_campaign, utm_term, utm_content, password_hash, expire_on):
-        self.id=id
-        self.user_id=user_id
-        self.stub=stub
-        self.long_url = long_url
-        self.title = title
-        self.disabled=disabled
-        self.utm_source=utm_source
-        self.utm_medium=utm_medium
-        self.utm_campaign=utm_campaign
-        self.utm_term=utm_term
-        self.utm_content=utm_content
-        self.password_hash = password_hash
-        self.expire_on=expire_on
-
     def to_json(self):
         return {
         'id': self.id,
