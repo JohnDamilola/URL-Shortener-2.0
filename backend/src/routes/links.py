@@ -205,9 +205,10 @@ def get_link_stats():
         total_count = db.session.query(Link).join(User).filter(User.id==user_id).count()
         total_enabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==False)).count()
         total_disabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==True)).count()
+        total_engagements = db.session.query(Engagements).join(Link).filter(Link.user_id==user_id).count()
          
         return jsonify(
-            links = ({'total_count': total_count, 'total_enabled': total_enabled, 'total_disabled': total_disabled}),
+            links = ({'total_count': total_count, 'total_enabled': total_enabled, 'total_disabled': total_disabled, 'total_engagements': total_engagements}),
             message = 'Fetching links successfully',
             status = 200
         ), 200
