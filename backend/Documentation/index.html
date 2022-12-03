@@ -37,6 +37,18 @@
 <h1>Welcome to URL Shortener 2.0’s documentation!<a class="headerlink" href="#welcome-to-url-shortener-2-0-s-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-auth"></span><dl class="py function">
+<dt class="sig sig-object py" id="auth.delete">
+<span class="sig-prename descclassname"><span class="pre">auth.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.update">
+<span class="sig-prename descclassname"><span class="pre">auth.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to update the their credentials.</p>
+</dd></dl>
+
 <span class="target" id="module-config"></span><span class="target" id="module-extensions"></span><span class="target" id="module-link"></span><dl class="py class">
 <dt class="sig sig-object py" id="link.Link">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">link.</span></span><span class="sig-name descname"><span class="pre">Link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disabled</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utm_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utm_medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utm_campaign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utm_term</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utm_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password_hash</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#link.Link" title="Permalink to this definition">¶</a></dt>
