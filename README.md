@@ -14,8 +14,7 @@
 <img src="https://github.com/JohnDamilola/URL-Shortener-2.0/actions/workflows/Coverage.yml/badge.svg"/> </a>
 <a href="https://app.codecov.io/gh/JohnDamilola/URL-Shortener-2.0" alt="Codecov">
 <img src="https://codecov.io/github/JohnDamilola/URL-Shortener-2.0/branch/main/graph/badge.svg"/> </a>
-<a href="https://zenodo.org/badge/latestdoi/539553646" alt="DOI">
-<img src="https://zenodo.org/badge/539553646.svg"/> </a>
+<a href="https://doi.org/10.5281/zenodo.7393108"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7393108.svg" alt="DOI"></a>
 <a href="https://img.shields.io/badge/python-v3.9+-yellow.svg" alt="Python version">
 <img src="https://img.shields.io/badge/python-v3.9+-yellow.svg"/> </a>
 <a href="https://img.shields.io/github/repo-size/JohnDamilola/URL-Shortener-2.0?color=brightgreen" alt="Repo size">

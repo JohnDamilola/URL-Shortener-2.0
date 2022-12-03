@@ -1,101 +1,112 @@
+from operator import and_
 from flask import Blueprint, jsonify               #import dependancies
-from flask import current_app as app
 from flask_cors import cross_origin
+from string import ascii_letters, digits
 from flask import request
+from random import choice
 try:
     from ..models.links import Link, db, load_link
+    from ..models.user import User, login_required2
+    from ..models.engagements import Engagements
 except ImportError:
     from models.links import Link, db, load_link
+    from models.user import User, login_required2
+    from models.engagements import Engagements
 
 links_bp = Blueprint(
     'links_bp', __name__
 )
 
-@links_bp.route('/link/<id>', methods = ['GET'])
+@links_bp.route('/links/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def getlink(id):
     '''This method is called when we want to fetch a single link, we pass user_id'''
     try:
-        single_link = Link.query.get(id)
+        link = Link.query.get(id)
         return jsonify(
-            single_link = single_link.stub,
+            link = link.to_json(),
             message = 'Fetched link successfully',
             status = 200
         ), 200
     except Exception as e:
         return jsonify(
-            decks = [],
+            message = f"An error occurred: {e}",
+            status = 400
+        ), 400
+        
+@links_bp.route('/links/stub/<stub>', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def get_link_by_stub(stub):
+    '''This method is called when we want to fetch a single link, we pass user_id'''
+    try:
+        link = db.session.query(Link).filter(Link.stub==stub).first()
+        return jsonify(
+            link = link.to_json(),
+            message = 'Fetched link successfully',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
             message = f"An error occurred: {e}",
             status = 400
         ), 400
 
 @links_bp.route('/links/all', methods = ['GET'])
+@login_required2()
 @cross_origin(supports_credentials=True)
 def getalllinks():
     '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
     if yes show all the decks made by the user.'''
     args = request.args
-    localId = args and args['localId']
+    user_id = args and args['user_id']
     try:
-        if localId:
-            all_links = db.session.query(Link).filter_by(user_id=localId).all()
-            links=[]
-            for link in all_links:
-                links.append(link.stub)
-            #for l in all_links.each():
-                #obj = l.val()
-                #obj['id'] = l.key()
-                #links.append(obj)
-                
-            return jsonify(
-                links = links,
-                message = 'Fetching links successfully',
-                status = 200
-            ), 200
-        else:
-             return jsonify(
-                links = "",
-                message = 'Please login to see all links',
-                status = 200
-            ), 200
+        links = db.session.query(Link).join(User).filter(User.id==user_id).all()    
+        return jsonify(
+            links = links,
+            message = 'Fetching links successfully',
+            status = 200
+        ), 200
     except Exception as e:
         return jsonify(
-            decks = [],
             message = f"An error occurred {e}",
             status = 400
         ), 400
 
-def create_shortlink(long_url):
-    # url_shortener = Shortener('Bitly', bitly_token = 'ACCESS_TOKEN') 
-    # return "url_shortener.short(long_url)"
-    return "url_shortener"+long_url[-5:]
+def create_shortlink():
+    CHARS = ascii_letters + digits
+    stub = "".join(choice(CHARS) for _ in range(10))
+    
+    return stub
 
 
-@links_bp.route('/link/create', methods = ['POST'])
+@links_bp.route('/links/create', methods = ['POST'])
+@login_required2()
 @cross_origin(supports_credentials=True)
 def create():
     '''This method is routed when the user requests to create a new link.'''
+    args = request.args
+    user_id = args and args['user_id']
     try:
         data = request.get_json()
-        id =data['id']
-        localId = data['user_id']
         long_url=data['long_url']
-        stub=create_shortlink(long_url)
-        title=data['title'] 
-        disabled=data['disabled']
-        utm_source=data['utm_source']
-        utm_medium=data['utm_medium']
-        utm_campaign=data['utm_campaign']
-        utm_term=data['utm_term']
-        utm_content=data['utm_content']
-        password_hash=data['password_hash'] 
-        expire_on=data['expire_on']
+        stub=create_shortlink()
+        title=data.get('title')
+        disabled=data.get('disabled')
+        utm_source=data.get('utm_source')
+        utm_medium=data.get('utm_medium')
+        utm_campaign=data.get('utm_campaign')
+        utm_term=data.get('utm_term')
+        utm_content=data.get('utm_content')
+        password_hash=data.get('password_hash') 
+        expire_on=data.get('expire_on')
 
-        new_link = Link(id=id, user_id=localId, stub=stub, long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
-        db.session.add(new_link)
+        link = Link(user_id=user_id, stub=stub, long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
+        link.user_id = user_id
+        db.session.add(link)
         db.session.commit()
 
         return jsonify(
+            link = link.to_json(),
             message = 'Create Link Successful',
             status = 201
         ), 201
@@ -105,43 +116,55 @@ def create():
             status = 400
         ), 400
 
-@links_bp.route('/link/update/<id>', methods = ['PATCH'])
+@links_bp.route('/links/update/<id>', methods = ['PATCH'])
+@login_required2()
 @cross_origin(supports_credentials=True)
 def update(id):
     '''This method is called when the user requests to update the link.'''
     try:
-        data = request.get_json()
-        id =data['id']
-        localId = data['user_id']
-        stub=data['stub']
+        request_data = request.get_json()
+        data = {k: v for k, v in request_data.items() if v is not None}
         long_url=data['long_url']
-        title=data['title']
-        disabled=data['disabled']
-        utm_source=data['utm_source'] 
-        utm_medium=data['utm_medium'] 
-        utm_campaign=data['utm_campaign'] 
-        utm_content=data['utm_content'] 
-        utm_term=data['utm_term'] 
-        password_hash=data['password_hash'] 
-        expire_on=data['expire_on'] 
+        stub=data.get('stub')
+        title=data.get('title')
+        disabled=data.get('disabled')
+        utm_source=data.get('utm_source')
+        utm_medium=data.get('utm_medium')
+        utm_campaign=data.get('utm_campaign')
+        utm_term=data.get('utm_term')
+        utm_content=data.get('utm_content')
+        password_hash=data.get('password_hash') 
+        expire_on=data.get('expire_on')
 
         link = load_link(id)
-        link.user_id=localId
-        link.stub=stub
-        link.long_url=long_url
-        link.title=title
-        link.disabled=disabled
-        link.utm_source=utm_source 
-        link.utm_medium=utm_medium 
-        link.utm_campaign=utm_campaign 
-        link.utm_content=utm_content 
-        link.utm_term=utm_term 
-        link.password_hash=password_hash 
-        link.expire_on=expire_on 
-        #db.session.query(Link).filter_by(id=id).update(id=id, user_id=localId, stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
+        if 'stub' in data:
+            link.stub=stub
+        if 'long_url' in data:
+            link.long_url=long_url 
+        if 'title' in data:
+            link.title=title
+        if 'disabled' in data:
+            link.disabled=disabled
+        if 'utm_source' in data:
+            link.utm_source=utm_source
+        if 'utm_medium' in data:
+            link.utm_medium=utm_medium
+        if 'utm_campaign' in data:
+            link.utm_campaign=utm_campaign
+        if 'utm_content' in data:
+            link.utm_content=utm_content
+        if 'utm_term' in data:
+            link.utm_term=utm_term
+        if 'password_hash' in data:
+            link.password_hash=password_hash
+        if 'expire_on' in data:
+            link.expire_on=expire_on
+        # db.session.query(Link).filter_by(id=id).update(stub=stub,long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium, utm_campaign=utm_campaign, utm_content=utm_content, utm_term=utm_term, password_hash=password_hash, expire_on=expire_on)
+        # db.session.update()
         db.session.commit()
 
         return jsonify(
+            link = link.to_json(),
             message = 'Update Link Successful',
             status = 201
         ), 201
@@ -151,7 +174,8 @@ def update(id):
             status = 400
         ), 400
 
-@links_bp.route('/link/delete/<id>', methods = ['DELETE'])
+@links_bp.route('/links/delete/<id>', methods = ['DELETE'])
+@login_required2()
 @cross_origin(supports_credentials=True)
 def delete(id):
     '''This method is called when the user requests to delete the link. Only the link id is required to delete the deck.'''
@@ -169,119 +193,39 @@ def delete(id):
         ), 400
     
     
-
-@links_bp.route('/links/count', methods = ['GET'])
+@links_bp.route('/links/stats', methods = ['GET'])
+@login_required2()
 @cross_origin(supports_credentials=True)
-def count():
-    '''This method is called when we want to fetch count of all created links of a particular user. Here, we check if the user is authenticated, 
+def get_link_stats():
+    '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
     if yes show all the decks made by the user.'''
-
-@links_bp.route('/links/engagements', methods = ['GET'])
-@cross_origin(supports_credentials=True)
-def getlinksengagement():
-    '''This method is called when we want to fetch the analytics of the links'''
     args = request.args
-    localId = args and args['localId']
+    user_id = args and args['user_id']
     try:
-        if localId:
-            all_links = db.session.query(Link).filter_by(user_id=localId).all()
-            links=[]
-            for link in all_links:
-                links.append(link.stub)
-            
-            counts=len(links)
-            #for l in all_links.each():
-                #obj = l.val()
-                #obj['id'] = l.key()
-                #links.append(obj)
-                
-            return jsonify(
-                counts = counts,
-                message = 'Number of links of user fetched successfully',
-            links = []
-            for link in all_links:
-                links.append(link.stub)
-                links.append(link.utm_source)
-                links.append(link.utm_medium) 
-                links.append(link.utm_campaign)
-                links.append(link.utm_term)
-                links.append(link.utm_content)
-                links.append(link.created_on)
-                
-            return jsonify(
-                links = links,
-                message = 'Fetching Analytics data successfully',
-                status = 200
-            ), 200
-        else:
-             return jsonify(
-                links = "",
-                message = 'Please login to see analytics data',
-                status = 200
-            ), 200
+        total_count = db.session.query(Link).join(User).filter(User.id==user_id).count()
+        total_enabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==False)).count()
+        total_disabled = db.session.query(Link).join(User).filter(and_(User.id==user_id, Link.disabled==True)).count()
+         
+        return jsonify(
+            links = ({'total_count': total_count, 'total_enabled': total_enabled, 'total_disabled': total_disabled}),
+            message = 'Fetching links successfully',
+            status = 200
+        ), 200
     except Exception as e:
         return jsonify(
-            links = [],
             message = f"An error occurred {e}",
             status = 400
         ), 400
-
-
-@links_bp.route('/links/enabled', methods = ['GET'])
+        
+@links_bp.route('/links/<link_id>/engagements', methods = ['GET'])
+@login_required2()
 @cross_origin(supports_credentials=True)
-def enabled():
-    '''This method is called when we want to fetch count of all enabled links of a particular user . Here, we check if the user is authenticated, 
-    if yes show all the decks made by the user.'''
-    args = request.args
-    localId = args and args['localId']
-    try:
-        if localId:
-            all_links = db.session.query(Link).filter_by(user_id=localId, disabled=False).all()
-            links=[]
-            for link in all_links:
-                links.append(link.stub)
-            
-            counts=len(links)
-            #for l in all_links.each():
-                #obj = l.val()
-                #obj['id'] = l.key()
-                #links.append(obj)
-                
-            return jsonify(
-                counts = counts,
-                message = 'Number of enabled links of user fetched successfully',
-                status = 200
-            ), 200
-        else:
-             return jsonify(
-                links = "",
-                message = 'Please login to see all links',
-            message = f"Fetching Analytics data failed {e}",
-            status = 400
-        ), 400
-
-@shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
-@cross_origin(supports_credentials=True)
-def getsinglelinkengagements():
+def get_single_link_engagements(link_id):
     '''This method is routed when the user requests analytics for a single link.'''
     try:
-        data = request.get_json()
-        stub =data['id']
-
-        Analytics_data = db.session.query(Link).filter_by(stub=stub).all()
-        ana_data=[]
-        for ad in Analytics_data:
-                ana_data.append(ad.stub)
-                ana_data.append(ad.utm_source)
-                ana_data.append(ad.utm_medium) 
-                ana_data.append(ad.utm_campaign)
-                ana_data.append(ad.utm_term)
-                ana_data.append(ad.utm_content)
-                ana_data.append(ad.created_on)
-        
-
+        engagements = db.session.query(Engagements).join(Link).filter(Link.id==link_id).all()
         return jsonify(
-           ad=ana_data,
+            engagements = engagements,
                 message = 'Fetching Analytics data successfully',
                 status = 200
             ), 200
@@ -289,5 +233,33 @@ def getsinglelinkengagements():
         return jsonify(
             links = [],
             message = f'Fetching Analytics failed {e}',
+            status = 400
+        ), 400
+
+@links_bp.route('/links/engagements/<link_id>/create', methods = ['POST'])
+@login_required2()
+@cross_origin(supports_credentials=True)
+def create(link_id):
+    '''This method is routed when the user requests to create a new link.'''
+    try:
+        data = request.get_json()
+        utm_source=data.get('utm_source')
+        utm_medium=data.get('utm_medium')
+        utm_campaign=data.get('utm_campaign')
+        utm_term=data.get('utm_term')
+        utm_content=data.get('utm_content')
+
+        engagement = Engagements(link_id=link_id, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content)
+        db.session.add(engagement)
+        db.session.commit()
+
+        return jsonify(
+            engagement = engagement.to_json(),
+            message = 'Create Engagement Successful',
+            status = 201
+        ), 201
+    except Exception as e:
+        return jsonify(
+            message = f'Create Engagement Failed {e}',
             status = 400
         ), 400

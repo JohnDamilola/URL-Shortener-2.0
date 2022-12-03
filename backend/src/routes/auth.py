@@ -76,8 +76,7 @@ def login():                                        #this method is used by regi
             ), 400
     except Exception as e:
         return jsonify(
-            message = f"An error occurred {e}",
-            # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed
+            message = f"An error occurred {e}",                     #if login is not successful, this message is displayed
             status = 500
         ), 500
     
@@ -95,8 +94,6 @@ def update(id):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
-        # user = User.query.filter_by(id=id).first()
-        # db.session.update(first_name=first_name, last_name=last_name)
         db.session.commit()
 
         return jsonify(
@@ -131,7 +128,17 @@ def delete(id):
 @login_required
 @cross_origin(supports_credentials=True)
 def logout():
-    logout_user()
+    try:
+        logout_user()
+        return jsonify(
+            message = 'Logout Successful',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
+            message = f'Logout Failed {e}',
+            status = 400
+        ), 400    
       
 if __name__ == '__main__':
     app.debug = True
