@@ -5,8 +5,6 @@ import Swal from "sweetalert2";
 import http from "utils/api";
 
 
-
-
 const stats = [
 	{
 		title: 'Total Links',
@@ -30,69 +28,10 @@ const stats = [
 	},
 ];
 
-const urll = 
-	{
-		stub: 'stub',
-		long_url: 'https://github.com/JohnDamilola/URL-Shortener-2.0/issues/26',
-		disabled: true,
-		password_hash: '123',
-		expire_on: '2022-05-10'
-	};
 let dateTime = new Date()
-export const isDisabled = urll.disabled;
-export const isExpired = new Date(urll.expire_on) < dateTime;
-const fetchURL = async () => {
-	// const [fetchingURL, setFetchingURL] = useState(false);
-	// const [url, setURL] = useState<URL>();
-	// setFetchingURL(true);
-	const params = "";
-	await http
-		// .get("/links/stub", {
-		// params,
-		// })
-		.get("")
-		.then((res) => {
-		const {url} = res.data || {};
-		
-		
-		if(isDisabled == false && urll.password_hash == "" && !isExpired){
-        	window.location.assign(urll.long_url);
-		}
-		if(isDisabled == true || isExpired){
-			window.location.assign("/dsfasdfasdf");
-		}
-		if(urll.password_hash != ""){
-			Swal.fire({
-				title: 'Enter password for authetication',
-				input: 'text',
-				inputAttributes: {
-				  autocapitalize: 'off'
-				},
-				showCancelButton: true,
-				confirmButtonText: 'Submit',
-				showLoaderOnConfirm: true,
-				preConfirm: (password) => {
-					if(password == urll.password_hash){
-						window.location.assign(urll.long_url);
-					}
-					else{
-						Swal.showValidationMessage(
-							`Incorect password. Request failed!`
-						  )
-					}
-				},
-			})
-		}
-		})
-		.catch((err) => {
-			Swal.fire({
-				icon: 'error',
-				title: 'URL Redirect Failed!',
-				text: 'An error occurred, please try again',
-				confirmButtonColor: '#221daf',
-			  })
-		});
-};
+export var isDisabled: boolean;
+export var isExpired: any;
+
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<number | null>(null);
@@ -163,6 +102,53 @@ const ViewDrawer = ({ openedLink, setOpenedLink }: any) => {
 };
 
 const LinkCardItem = ({ setOpenedLink }: any) => {
+	const fetchURL = async () => {
+		const stub = "llRIbB6nle";
+		await http
+			.get(`/links/stub/${stub}`)
+			.then((res) => {
+				const { link } = res.data || {};
+				// setLink(link);
+				isDisabled = link.disabled;
+				isExpired = new Date(link.expire_on) < dateTime;
+			if(isDisabled == false && link.password_hash == "" && !isExpired){
+				window.location.assign(link.long_url);
+			}
+			if(isDisabled == true || isExpired){
+				window.location.assign("/****");
+			}
+			if(link.password_hash != ""){
+				Swal.fire({
+					title: 'Enter password for authetication',
+					input: 'text',
+					inputAttributes: {
+					  autocapitalize: 'off'
+					},
+					showCancelButton: true,
+					confirmButtonText: 'Submit',
+					showLoaderOnConfirm: true,
+					preConfirm: (password) => {
+						if(password == link.password_hash){
+							window.location.assign(link.long_url);
+						}
+						else{
+							Swal.showValidationMessage(
+								`Incorect password. Request failed!`
+							  )
+						}
+					},
+				})
+			}
+			})
+			.catch((err) => {
+				Swal.fire({
+					icon: 'error',
+					title: 'URL Redirect Failed!',
+					text: 'An error occurred, please try again',
+					confirmButtonColor: '#221daf',
+				  })
+			});
+	};
 	return (
 		<div className="link-card">
 			<div className="d-flex justify-content-between">
