@@ -256,8 +256,7 @@ def enabled():
              return jsonify(
                 links = "",
                 message = 'Please login to see all links',
-            message = f"Fetching Analytics data failed {e}",
-            status = 400
+                status = 400
         ), 400
     except Exception as e:
         return jsonify(
@@ -267,7 +266,7 @@ def enabled():
         ), 400
 
 
-@shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
+@links_bp.route('/links/engagements/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def getsinglelinkengagements():
     '''This method is routed when the user requests analytics for a single link.'''
