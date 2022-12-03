@@ -169,11 +169,17 @@ def delete(id):
         ), 400
     
     
-    @links_bp.route('/links/count', methods = ['GET'])
+
+@links_bp.route('/links/count', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def count():
     '''This method is called when we want to fetch count of all created links of a particular user. Here, we check if the user is authenticated, 
     if yes show all the decks made by the user.'''
+
+@links_bp.route('/links/engagements', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def getlinksengagement():
+    '''This method is called when we want to fetch the analytics of the links'''
     args = request.args
     localId = args and args['localId']
     try:
@@ -192,17 +198,30 @@ def count():
             return jsonify(
                 counts = counts,
                 message = 'Number of links of user fetched successfully',
+            links = []
+            for link in all_links:
+                links.append(link.stub)
+                links.append(link.utm_source)
+                links.append(link.utm_medium) 
+                links.append(link.utm_campaign)
+                links.append(link.utm_term)
+                links.append(link.utm_content)
+                links.append(link.created_on)
+                
+            return jsonify(
+                links = links,
+                message = 'Fetching Analytics data successfully',
                 status = 200
             ), 200
         else:
              return jsonify(
                 links = "",
-                message = 'Please login to see all links',
+                message = 'Please login to see analytics data',
                 status = 200
             ), 200
     except Exception as e:
         return jsonify(
-            decks = [],
+            links = [],
             message = f"An error occurred {e}",
             status = 400
         ), 400
@@ -237,12 +256,38 @@ def enabled():
              return jsonify(
                 links = "",
                 message = 'Please login to see all links',
+            message = f"Fetching Analytics data failed {e}",
+            status = 400
+        ), 400
+
+@shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def getsinglelinkengagements():
+    '''This method is routed when the user requests analytics for a single link.'''
+    try:
+        data = request.get_json()
+        stub =data['id']
+
+        Analytics_data = db.session.query(Link).filter_by(stub=stub).all()
+        ana_data=[]
+        for ad in Analytics_data:
+                ana_data.append(ad.stub)
+                ana_data.append(ad.utm_source)
+                ana_data.append(ad.utm_medium) 
+                ana_data.append(ad.utm_campaign)
+                ana_data.append(ad.utm_term)
+                ana_data.append(ad.utm_content)
+                ana_data.append(ad.created_on)
+        
+
+        return jsonify(
+           ad=ana_data,
+                message = 'Fetching Analytics data successfully',
                 status = 200
             ), 200
     except Exception as e:
         return jsonify(
-            decks = [],
-            message = f"An error occurred {e}",
+            links = [],
+            message = f'Fetching Analytics failed {e}',
             status = 400
         ), 400
-
