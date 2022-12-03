@@ -239,7 +239,7 @@ def get_single_link_engagements(link_id):
 @links_bp.route('/links/engagements/<link_id>/create', methods = ['POST'])
 @login_required2()
 @cross_origin(supports_credentials=True)
-def create(link_id):
+def create_engagement(link_id):
     '''This method is routed when the user requests to create a new link.'''
     try:
         data = request.get_json()
