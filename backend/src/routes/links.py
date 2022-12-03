@@ -195,9 +195,9 @@ def getlinksengagement():
                 #obj['id'] = l.key()
                 #links.append(obj)
                 
-            return jsonify(
-                counts = counts,
-                message = 'Number of links of user fetched successfully',
+            #return jsonify(
+                #counts = counts,
+                #message = 'Number of links of user fetched successfully',
             links = []
             for link in all_links:
                 links.append(link.stub)
