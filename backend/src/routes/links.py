@@ -169,7 +169,14 @@ def delete(id):
         ), 400
     
     
-@shorten_links_bp.route('/links/engagements', methods = ['GET'])
+
+@links_bp.route('/links/count', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def count():
+    '''This method is called when we want to fetch count of all created links of a particular user. Here, we check if the user is authenticated, 
+    if yes show all the decks made by the user.'''
+
+@links_bp.route('/links/engagements', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def getlinksengagement():
     '''This method is called when we want to fetch the analytics of the links'''
@@ -178,6 +185,19 @@ def getlinksengagement():
     try:
         if localId:
             all_links = db.session.query(Link).filter_by(user_id=localId).all()
+            links=[]
+            for link in all_links:
+                links.append(link.stub)
+            
+            counts=len(links)
+            #for l in all_links.each():
+                #obj = l.val()
+                #obj['id'] = l.key()
+                #links.append(obj)
+                
+            return jsonify(
+                counts = counts,
+                message = 'Number of links of user fetched successfully',
             links = []
             for link in all_links:
                 links.append(link.stub)
@@ -201,7 +221,41 @@ def getlinksengagement():
             ), 200
     except Exception as e:
         return jsonify(
-            decks = [],
+            links = [],
+            message = f"An error occurred {e}",
+            status = 400
+        ), 400
+
+
+@links_bp.route('/links/enabled', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def enabled():
+    '''This method is called when we want to fetch count of all enabled links of a particular user . Here, we check if the user is authenticated, 
+    if yes show all the decks made by the user.'''
+    args = request.args
+    localId = args and args['localId']
+    try:
+        if localId:
+            all_links = db.session.query(Link).filter_by(user_id=localId, disabled=False).all()
+            links=[]
+            for link in all_links:
+                links.append(link.stub)
+            
+            counts=len(links)
+            #for l in all_links.each():
+                #obj = l.val()
+                #obj['id'] = l.key()
+                #links.append(obj)
+                
+            return jsonify(
+                counts = counts,
+                message = 'Number of enabled links of user fetched successfully',
+                status = 200
+            ), 200
+        else:
+             return jsonify(
+                links = "",
+                message = 'Please login to see all links',
             message = f"Fetching Analytics data failed {e}",
             status = 400
         ), 400
@@ -233,8 +287,7 @@ def getsinglelinkengagements():
             ), 200
     except Exception as e:
         return jsonify(
+            links = [],
             message = f'Fetching Analytics failed {e}',
             status = 400
         ), 400
-
-
