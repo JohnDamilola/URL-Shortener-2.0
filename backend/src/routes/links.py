@@ -197,7 +197,7 @@ def getlinksengagement():
                 
             #return jsonify(
                 #counts = counts,
-                #message = 'Number of links of user fetched successfully',
+                #message = 'Number of links of user fetched successfully'
             links = []
             for link in all_links:
                 links.append(link.stub)
