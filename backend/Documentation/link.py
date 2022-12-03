@@ -63,6 +63,3 @@ class Link(db.Model):
 
 def load_link(id):
     return Link.query.get(id)
-
-if __name__=="__main__":
-	pass
