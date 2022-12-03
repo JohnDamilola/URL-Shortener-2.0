@@ -259,6 +259,13 @@ def enabled():
             message = f"Fetching Analytics data failed {e}",
             status = 400
         ), 400
+    except Exception as e:
+        return jsonify(
+            links = [],
+            message = f"An error occurred {e}",
+            status = 400
+        ), 400
+
 
 @shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
