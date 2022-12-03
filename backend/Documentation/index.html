@@ -37,6 +37,12 @@
 <h1>Welcome to URL Shortener 2.0’s documentation!<a class="headerlink" href="#welcome-to-url-shortener-2-0-s-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-app"></span><dl class="py function">
+<dt class="sig sig-object py" id="app.create_app">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.create_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Flask application.</p>
+</dd></dl>
+
 <span class="target" id="module-auth"></span><dl class="py function">
 <dt class="sig sig-object py" id="auth.delete">
 <span class="sig-prename descclassname"><span class="pre">auth.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.delete" title="Permalink to this definition">¶</a></dt>
@@ -64,6 +70,63 @@ customized per-model by overriding <code class="xref py py-attr docutils literal
 </div>
 </dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-links"></span><dl class="py function">
+<dt class="sig sig-object py" id="links.count">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch count of all created links of a particular user. Here, we check if the user is authenticated, 
+if yes show all the decks made by the user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.create">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests to create a new link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.delete">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to delete the link. Only the link id is required to delete the deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.enabled">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch count of all enabled links of a particular user . Here, we check if the user is authenticated, 
+if yes show all the decks made by the user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getalllinks">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getalllinks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.getalllinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
+if yes show all the decks made by the user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getlink">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getlink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.getlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch a single link, we pass user_id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getlinksengagement">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getlinksengagement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.getlinksengagement" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch the analytics of the links</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getsinglelinkengagements">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getsinglelinkengagements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.getsinglelinkengagements" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests analytics for a single link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.update">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to update the link.</p>
 </dd></dl>
 
 <span class="target" id="module-user"></span><dl class="py class">
