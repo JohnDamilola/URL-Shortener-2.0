@@ -195,9 +195,9 @@ def getlinksengagement():
                 #obj['id'] = l.key()
                 #links.append(obj)
                 
-            return jsonify(
-                counts = counts,
-                message = 'Number of links of user fetched successfully',
+            #return jsonify(
+                #counts = counts,
+                #message = 'Number of links of user fetched successfully'
             links = []
             for link in all_links:
                 links.append(link.stub)
@@ -256,11 +256,17 @@ def enabled():
              return jsonify(
                 links = "",
                 message = 'Please login to see all links',
-            message = f"Fetching Analytics data failed {e}",
+                status = 400
+        ), 400
+    except Exception as e:
+        return jsonify(
+            links = [],
+            message = f"An error occurred {e}",
             status = 400
         ), 400
 
-@shorten_links_bp.route('/links/engagements/<id>', methods = ['GET'])
+
+@links_bp.route('/links/engagements/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def getsinglelinkengagements():
     '''This method is routed when the user requests analytics for a single link.'''
