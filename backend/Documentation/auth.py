@@ -8,7 +8,7 @@ try:
     from ..models.user import User, db, load_user
     from ..extensions import bcrypt
 except ImportError:
-    from models.user import User, db, load_user
+    from user import User, db, load_user
     from extensions import bcrypt
 import jwt
 
