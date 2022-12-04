@@ -10,11 +10,11 @@ class Engagements(db.Model):
  
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
 		
-    utm_source = db.Column(db.String(100))
-    utm_medium = db.Column(db.String(100))
-    utm_campaign = db.Column(db.String(100))
-    utm_term = db.Column(db.String(100))
-    utm_content = db.Column(db.String(100))
+    utm_source = db.Column(db.String(100), nullable=True)
+    utm_medium = db.Column(db.String(100), nullable=True)
+    utm_campaign = db.Column(db.String(100), nullable=True)
+    utm_term = db.Column(db.String(100), nullable=True)
+    utm_content = db.Column(db.String(100), nullable=True)
 
     created_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
     updated_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False, server_onupdate=db.func.now())
