@@ -15,20 +15,24 @@ class LinkTestApp(unittest.TestCase):
         """Test the create link route of our app"""
         _=self.app.post('/auth/register',json=dict(email='test6@gmail.com',first_name='test6_first',last_name='test6_last',password='password6'))
         with self.flask_app.app_context():
+            _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'))
             user=User.query.filter_by(email='test6@gmail.com').first()
             uid=user.id
             response=self.app.post('/links/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.com',title='Google',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+        print(response.status_code)
         assert response.status_code==201
     
     def test_link_route(self):
         """Test the get link route of our app"""
         _=self.app.post('/auth/register',json=dict(email='test7@gmail.com',first_name='test7_first',last_name='test7_last',password='password7'))
         with self.flask_app.app_context():
+            _=self.app.post('/auth/login',json=dict(email='test7@gmail.com',password='password7'))
             user=User.query.filter_by(email='test7@gmail.com').first()
             uid=user.id
             link_id=uuid.uuid4()
             _=self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/links/'+str(link_id))
+        #print(response.status_code)
         assert response.status_code==200
     
     def test_link_all_route(self):
