@@ -1,3 +1,5 @@
+
+
 from operator import and_
 from flask import Blueprint, jsonify               #import dependancies
 from flask_cors import cross_origin

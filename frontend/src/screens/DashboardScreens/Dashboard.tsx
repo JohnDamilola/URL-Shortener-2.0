@@ -2,9 +2,12 @@ import { Drawer, Table } from 'antd';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import http from 'utils/api';
+import { useEffect, useState } from 'react';
 import './styles.scss';
+
 const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
 var user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+
 const stats = [
 	{
 		title: 'Total Links',
@@ -27,6 +30,11 @@ const stats = [
 		icon: <i className="fa-solid fa-eye"></i>,
 	},
 ];
+
+let dateTime = new Date()
+export var isDisabled: boolean;
+export var isExpired: any;
+
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<number | null>(null);
@@ -175,6 +183,53 @@ const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
 	);
 };
 const LinkCardItem = ({ setOpenedLink }: any) => {
+	const fetchURL = async () => {
+		const stub = "llRIbB6nle";
+		await http
+			.get(`/links/stub/${stub}`)
+			.then((res) => {
+				const { link } = res.data || {};
+				// setLink(link);
+				isDisabled = link.disabled;
+				isExpired = new Date(link.expire_on) < dateTime;
+			if(isDisabled == false && link.password_hash == "" && !isExpired){
+				window.location.assign(link.long_url);
+			}
+			if(isDisabled == true || isExpired){
+				window.location.assign("/****");
+			}
+			if(link.password_hash != ""){
+				Swal.fire({
+					title: 'Enter password for authetication',
+					input: 'text',
+					inputAttributes: {
+					  autocapitalize: 'off'
+					},
+					showCancelButton: true,
+					confirmButtonText: 'Submit',
+					showLoaderOnConfirm: true,
+					preConfirm: (password) => {
+						if(password == link.password_hash){
+							window.location.assign(link.long_url);
+						}
+						else{
+							Swal.showValidationMessage(
+								`Incorect password. Request failed!`
+							  )
+						}
+					},
+				})
+			}
+			})
+			.catch((err) => {
+				Swal.fire({
+					icon: 'error',
+					title: 'URL Redirect Failed!',
+					text: 'An error occurred, please try again',
+					confirmButtonColor: '#221daf',
+				  })
+			});
+	};
 	return (
 		<div className="link-card">
 			<div className="d-flex justify-content-between">
@@ -205,6 +260,9 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 				<button className="btn btn-outline-primary" onClick={setOpenedLink}>
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
+				<button className="btn btn-outline-primary" onClick={() => fetchURL()}>
+					<i className="fa-solid fa-pen-to-square"></i> Redirect
+				</button>
 				<button className="btn btn-outline-danger">
 					<i className="fa-solid fa-trash"></i> Delete
 				</button>
@@ -212,3 +270,4 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 		</div>
 	);
 };
+

@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import { authRoutes, dashboardRoutes, homeRoutes} from './routes'
 import "swiper/css/bundle";
+import ShortUrlRedirectionPage from 'screens/ErrorScreens/ShortUrlRedirectionPage'
 
 const App = () => {
   const location = useLocation()
@@ -36,6 +37,7 @@ const App = () => {
             <Route path={path} element={element} key={index} />
           ))}
         </Route>
+        <Route path="*" element={<ShortUrlRedirectionPage />} />
       </Routes>
     </>
   )
