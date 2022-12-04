@@ -22,6 +22,7 @@ const App = () => {
     <>
       <Routes>
         <Route path='*' element={<RedirectionPage />} />
+        <Route path='a/:stub' element={<RedirectionPage />} />
         <Route element={<HomeLayout />}>
           {homeRoutes.map(({ path, element }: any, index: number) => (
             <Route path={path} element={element} key={index} />

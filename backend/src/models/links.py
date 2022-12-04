@@ -42,7 +42,7 @@ class Link(db.Model):
         'password_hash':self.password_hash,
         'created_on':self.created_on, 
         'updated_on':self.updated_on
-        }
+    }
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

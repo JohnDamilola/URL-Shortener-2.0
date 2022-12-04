@@ -1,5 +1,4 @@
 
-
 from operator import and_
 from flask import Blueprint, jsonify               #import dependancies
 from flask_cors import cross_origin
@@ -8,10 +7,12 @@ from flask import request
 from random import choice
 try:
     from ..models.links import Link, db, load_link
+    from ..models.links_anonymous import AnonymousLink
     from ..models.user import User, login_required2
     from ..models.engagements import Engagements
 except ImportError:
     from models.links import Link, db, load_link
+    from models.link_anonymous import AnonymousLink
     from models.user import User, login_required2
     from models.engagements import Engagements
 
@@ -42,6 +43,23 @@ def get_link_by_stub(stub):
     '''This method is called when we want to fetch a single link, we pass user_id'''
     try:
         link = db.session.query(Link).filter(Link.stub==stub).first()
+        return jsonify(
+            link = link.to_json(),
+            message = 'Fetched link successfully',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
+            message = f"An error occurred: {e}",
+            status = 400
+        ), 400
+        
+@links_bp.route('/links_anonymous/stub/<stub>', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def get_anonymous_link_by_stub(stub):
+    '''This method is called when we want to fetch a single link, we pass user_id'''
+    try:
+        link = db.session.query(AnonymousLink).filter(AnonymousLink.stub==stub).first()
         return jsonify(
             link = link.to_json(),
             message = 'Fetched link successfully',
@@ -110,6 +128,30 @@ def create():
 
         link = Link(user_id=user_id, stub=stub, long_url=long_url, title=title, disabled=disabled, utm_source=utm_source, utm_medium=utm_medium,utm_campaign=utm_campaign, utm_term=utm_term, utm_content=utm_content, password_hash=password_hash, expire_on=expire_on)
         link.user_id = user_id
+        db.session.add(link)
+        db.session.commit()
+
+        return jsonify(
+            link = link.to_json(),
+            message = 'Create Link Successful',
+            status = 201
+        ), 201
+    except Exception as e:
+        return jsonify(
+            message = f'Create Link Failed {e}',
+            status = 400
+        ), 400
+        
+@links_bp.route('/links/create_anonymous', methods = ['POST'])
+@cross_origin(supports_credentials=True)
+def create_anonymous():
+    '''This method is routed when the user requests to create a new link.'''
+    try:
+        data = request.get_json()
+        long_url=data['long_url']
+        stub=create_shortlink()
+
+        link = AnonymousLink(stub=stub, long_url=long_url)
         db.session.add(link)
         db.session.commit()
 
@@ -249,7 +291,6 @@ def get_single_link_engagements(link_id):
         ), 400
 
 @links_bp.route('/links/engagements/<link_id>/create', methods = ['POST'])
-@login_required2()
 @cross_origin(supports_credentials=True)
 def create_engagement(link_id):
     '''This method is routed when the user requests to create a new link.'''

@@ -6,6 +6,8 @@ import moment from 'moment';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './styles.scss';
 import toast, { Toaster } from 'react-hot-toast';
+import QRCode from "qrcode.react";
+
 
 export var isDisabled: boolean;
 export var isExpired: any;
@@ -14,6 +16,7 @@ const { Panel } = Collapse;
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<any | null>(null);
+  const [openedViewLink, setOpenedViewLink] = useState<any | null>(null);
 	const [openedCreateLink, setOpenedCreateLink] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [statsData, setStatsData] = useState<any>(null);
@@ -29,17 +32,17 @@ const Dashboard = () => {
 	}, []);
 
 	const fetchStats = async () => {
-		setIsLoading(true);
+		// setIsLoading(true);
 
 		await http
 			.get(`/links/stats?user_id=${user_id}`)
 			.then((res) => {
 				const { links } = res.data;
-				setIsLoading(false);
+				// setIsLoading(false);
 				setStatsData(links);
 			})
 			.catch((err) => {
-				setIsLoading(false);
+				// setIsLoading(false);
 			});
 	};
 
@@ -125,21 +128,21 @@ const Dashboard = () => {
 					</div>
 
 					<div className="row table-pane">
-						{linksData
+						{isLoading ? 'loading links' : linksData.length === 0 ? 'No links created yet' : linksData
 							.sort(function (a: any, b: any) {
 								return moment(b.created_on).diff(moment(a.created_on));
 							})
 							.map((item: any, index: number) => {
 								return (
 									<div className="col-md-12">
-										<LinkCardItem setOpenedLink={setOpenedLink} item={item} />
+										<LinkCardItem setOpenedLink={setOpenedLink} setOpenedViewLink={setOpenedViewLink} item={item} />
 									</div>
 								);
 							})}
 					</div>
 				</div>
 			</section>
-			<ViewDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
+			<ViewLinkDrawer openedLink={openedViewLink} setOpenedLink={setOpenedViewLink} />
 			<UpdateLinkDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
 			<CreateLinkDrawer openedCreateLink={openedCreateLink} setOpenedCreateLink={setOpenedCreateLink} />
 		</div>
@@ -148,12 +151,60 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-const ViewDrawer = ({ openedLink, setOpenedLink }: any) => {
+const ViewLinkDrawer = ({ openedLink, setOpenedLink }: any) => {
+	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
+	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+
+	const { id, long_url } = openedLink || {};
+	const [isLoading, setIsLoading] = useState(false);
+	const [payload, setPayload] = useState<any>(openedLink);
+  const [engagements, setEngagements] = useState<any[]>([]);
+
+	useEffect(() => {
+    if (openedLink) {
+      fetchLink();
+      fetchLinkEngagements();
+      setPayload(openedLink)
+    }
+	}, [openedLink]);
+
+	const fetchLink = async () => {
+		setIsLoading(true);
+		await http
+			.get(`/links/${id}`, payload)
+			.then((res) => {
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setIsLoading(false);
+			});
+	};
+
+  const fetchLinkEngagements = async () => {
+		setIsLoading(true);
+		await http
+			.get(`/links/${id}/engagements?user_id=${user_id}`, payload)
+			.then((res) => {
+        const _engagements = res.data?.engagements
+				setIsLoading(false);
+        setEngagements(_engagements)
+			})
+			.catch((err) => {
+				setIsLoading(false);
+			});
+	};
+
 	return (
-		<Drawer title="Basic Drawer" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
-			<p>Some contents...</p>
-			<p>Some contents...</p>
-			<p>Some contents...</p>
+		<Drawer title="URL Engagement Analytics" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
+			<div>
+				{isLoading ? (
+					'fetching link details'
+				) : (
+					<div>
+              <h3>No of visits: {engagements?.length}</h3>
+          </div>
+				)}
+			</div>
 		</Drawer>
 	);
 };
@@ -473,8 +524,10 @@ const UpdateLinkDrawer = ({ openedLink, setOpenedLink }: any) => {
 	);
 };
 
-const LinkCardItem = ({ setOpenedLink, item }: any) => {
+const LinkCardItem = ({ setOpenedLink, setOpenedViewLink, item }: any) => {
 	const { id, title, stub, long_url, created_on, disabled } = item || {};
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
 	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
 	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
@@ -495,6 +548,22 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 			},
 		});
 	};
+
+  const downloadQRCode = () => {
+    // Generate download with use canvas and stream
+    const canvas = document.getElementById("qr-gen") as HTMLCanvasElement;;
+    if (canvas) {
+      const pngUrl = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      let downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = `qrcode.png`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+  };
 
 	const handleDisableEnableLink = async (e: any) => {
 		e.preventDefault();
@@ -535,6 +604,7 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 			disabled: !disabled,
 		};
 
+    setIsDeleting(true);
 		await http
 			.delete(`/links/delete/be70a7ee-a918-4162-895e-5618b9fca387?user_id=${user_id}`)
 			.then((res) => {
@@ -544,6 +614,7 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 					text: 'You have successfully deleted this link',
 					confirmButtonColor: '#221daf',
 				}).then(() => {
+          setIsDeleting(false);
 					window.location.reload();
 				});
 			})
@@ -554,6 +625,7 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 					text: 'An error occurred, please try again',
 					confirmButtonColor: '#221daf',
 				});
+        setIsDeleting(false);
 			});
 	};
 
@@ -579,7 +651,7 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 				<b>Original URL:</b> {long_url}
 			</p>
 			<div className="btn-pane">
-				<button className="btn btn-outline-dark" onClick={setOpenedLink}>
+				<button className="btn btn-outline-dark" onClick={() => setOpenedViewLink(item)}>
 					<i className="fa-solid fa-eye"></i> View Engagements Analytics
 				</button>
 				<button
@@ -589,6 +661,10 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 					{!disabled ? <i className="fa-solid fa-link-slash"></i> : <i className="fa-solid fa-link"></i>}
 					{!disabled ? 'Disable Link' : 'Enable Link'}
 				</button>
+        <button className='btn btn-outline-dark'  onClick={downloadQRCode}>
+          <i className="fa-solid fa-download"></i>
+          Download QR Code
+        </button>
 				<button className="btn btn-outline-primary" onClick={() => setOpenedLink(item)}>
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
@@ -598,9 +674,18 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 					onConfirm={handleDeleteLink}
 				>
 					<button className="btn btn-outline-danger">
-						<i className="fa-solid fa-trash"></i> Delete
+						<i className="fa-solid fa-trash"></i> {isDeleting ? 'Deleting' : 'Delete'}
 					</button>
 				</Popconfirm>
+        <div style={{display: 'none'}}>
+          <QRCode
+            id="qr-gen"
+            value={long_url}
+            size={290}
+            level={"H"}
+            includeMargin={true}
+          />
+        </div>
 			</div>
 		</div>
 	);

@@ -37,6 +37,11 @@ const DashboardNavbar = ({ isDashboard }: any) => {
     />
   );
 
+  const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
+	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+	let first_name = (URLshortenerUser && JSON.parse(URLshortenerUser).first_name) || {};
+  let last_name = (URLshortenerUser && JSON.parse(URLshortenerUser).last_name) || {};
+
 	return (
 		<nav className="navbar dashboard-navbar navbar-expand-lg sticky-top">
 			<button className="collapse-btn" onClick={() => collapseSidebar()}>
@@ -53,7 +58,7 @@ const DashboardNavbar = ({ isDashboard }: any) => {
 								<a onClick={(e) => e.preventDefault()} style={{color: '#000'}}>
 									<Space>
 										<i className="fa-solid fa-user"></i>
-										John Damilola
+										{first_name}
 										<i className="fa-solid fa-caret-down"></i>
 									</Space>
 								</a>

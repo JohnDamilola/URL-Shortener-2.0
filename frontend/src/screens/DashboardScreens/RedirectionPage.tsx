@@ -25,27 +25,52 @@ import http from '../../utils/api';
 import "./styles.scss";
 
 const RedirectionPage = () => {
-  const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
-  var id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+  const { pathname } = useLocation()
+  const params = useParams() || {}
+  const stub = params?.stub || params['*']
 
-  const { pathname: stub } = useLocation()
   let dateTime = new Date();
+  const [endpoint1Called, setEndpoint1Called] = useState(false)
+  const [endpoint2Called, setEndpoint2Called] = useState(false)
 
   const [errorPage, setErrorPage] = useState<boolean>(false);
 
 
   useEffect(() => {
-    fetchURL()
+    if (!endpoint1Called) {
+      fetchURL()
+    }
   }, [])
 
+  const updateLinkEngagement = async (link_id: any, utm_source: any, utm_medium: any, utm_campaign: any, utm_term: any, utm_content: any) => {
+		if (!endpoint2Called) {
+      await http
+			.post(`/links/engagements/${link_id}/create`, {
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        utm_term,
+        utm_content
+      }).then(() => setEndpoint2Called(true))
+    }
+	};
+
   const fetchURL = async () => {
+    const url = pathname.startsWith('/a/') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
 		await http
-			.get(`/links/stub/${stub}`)
-			.then((res) => {
-				const { link } = res.data || {};
-        const { disabled, expire_on, long_url, password_hash } = link || {}
+			.get(url)
+			.then(async(res) => {
+        setEndpoint1Called(true)
+        const { link } = res.data || {};
+        const { id: link_id, disabled, expire_on, long_url, password_hash, utm_source, utm_medium, utm_campaign, utm_term, utm_content } = link || {}
+        if (pathname.startsWith('/a/')) {
+          return window.location.assign(long_url);
+        }
 				const isExpired = (expire_on && new Date(expire_on) > dateTime) || false;
 				if (disabled == false && !password_hash && !isExpired) {
+          if (!endpoint2Called) {
+            await updateLinkEngagement(link_id, utm_source, utm_medium, utm_campaign, utm_term, utm_content)
+          }
 					return window.location.assign(long_url);
 				}
 				else if (disabled == true || isExpired) {
@@ -82,10 +107,12 @@ const RedirectionPage = () => {
 			});
 	};
 
+  console.log(endpoint1Called, endpoint2Called)
+
   if (errorPage) {
     return <ShortUrlRedirectionPage />
   }
-  return null;
+  return <div></div>;
 };
 
 export default RedirectionPage;
