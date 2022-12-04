@@ -61,7 +61,7 @@ def login_required2():
         @wraps(f)
         def wrap(*args, **kwargs):
             # if user is not logged in, redirect to login page   
-            user_id = request.args.get('user_id')   
+            user_id = request.args.get('user_id')
             # get user via some ORM system
             user = User.query.filter_by(id=user_id).first()
             if not user_id or not user or not user.is_authenticated:
