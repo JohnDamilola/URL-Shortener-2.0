@@ -69,7 +69,7 @@ class LinkTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test10@gmail.com').first()
             uid=user.id
             link_id=uuid.uuid4()
-            response=self.app.patch('/links/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
+            response=self.app.patch('/links/update/'+str(link_id),query_string=dict(user_id=uid),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
         print("update invalid",response.status_code)
         assert response.status_code==400     
         
