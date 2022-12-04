@@ -63,8 +63,11 @@ def getalllinks():
     user_id = args and args['user_id']
     try:
         links = db.session.query(Link).join(User).filter(User.id==user_id).all()    
+        _links = []
+        for item in links:
+            _links.append(item.to_json())
         return jsonify(
-            links = links,
+            links = _links,
             message = 'Fetching links successfully',
             status = 200
         ), 200
@@ -227,8 +230,11 @@ def get_single_link_engagements(link_id):
     '''This method is routed when the user requests analytics for a single link.'''
     try:
         engagements = db.session.query(Engagements).join(Link).filter(Link.id==link_id).all()
+        _engagements = []
+        for item in engagements:
+            _engagements.append(item.to_json())
         return jsonify(
-            engagements = engagements,
+            engagements = _engagements,
                 message = 'Fetching Analytics data successfully',
                 status = 200
             ), 200

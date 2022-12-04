@@ -1,35 +1,8 @@
-import { Drawer, Table } from 'antd';
-import { useState } from 'react';
+import { Drawer } from 'antd';
 import Swal from 'sweetalert2';
 import http from 'utils/api';
 import { useEffect, useState } from 'react';
 import './styles.scss';
-
-const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
-var user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
-
-const stats = [
-	{
-		title: 'Total Links',
-		value: 12,
-		icon: <i className="fa-solid fa-lines-leaning"></i>,
-	},
-	{
-		title: 'Enabled Links',
-		value: 10,
-		icon: <i className="fa-solid fa-link"></i>,
-	},
-	{
-		title: 'Disabled Links',
-		value: 2,
-		icon: <i className="fa-solid fa-link-slash"></i>,
-	},
-	{
-		title: 'Link Visits',
-		value: 120,
-		icon: <i className="fa-solid fa-eye"></i>,
-	},
-];
 
 let dateTime = new Date()
 export var isDisabled: boolean;
@@ -38,6 +11,73 @@ export var isExpired: any;
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [statsData, setStatsData] = useState<any>(null);
+  const [linksData, setLinksData] = useState<any[]>([]);
+
+  const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
+  let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+  let first_name = (URLshortenerUser && JSON.parse(URLshortenerUser).first_name) || {};
+
+  useEffect(() => {
+    fetchStats()
+    fetchAllLinks()
+  }, [])
+
+  const fetchStats = async() => {
+    setIsLoading(true);
+
+    await http
+      .get(`/links/stats?user_id=${user_id}`)
+      .then((res) => {
+        const { links } = res.data;
+        setIsLoading(false);
+        setStatsData(links)
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  };
+
+  const fetchAllLinks = async() => {
+    setIsLoading(true);
+
+    await http
+      .get(`/links/all?user_id=${user_id}`)
+      .then((res) => {
+        const { links } = res.data;
+        setIsLoading(false);
+        setLinksData(links)
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  };
+
+  const {total_count, total_disabled, total_enabled, total_engagements} = statsData || {};
+
+  const stats = [
+    {
+      title: 'Total Links',
+      value: total_count || 0,
+      icon: <i className="fa-solid fa-lines-leaning"></i>,
+    },
+    {
+      title: 'Enabled Links',
+      value: total_enabled || 0,
+      icon: <i className="fa-solid fa-link"></i>,
+    },
+    {
+      title: 'Disabled Links',
+      value: total_disabled || 0,
+      icon: <i className="fa-solid fa-link-slash"></i>,
+    },
+    {
+      title: 'Link Visits',
+      value: total_engagements || 0,
+      icon: <i className="fa-solid fa-eye"></i>,
+    },
+  ];
 
 	return (
 		<div className="dashboard-page dashboard-commons">
@@ -48,7 +88,7 @@ const Dashboard = () => {
 							<div className="flex justify-between items-center">
 								<div className="welcome-pane">
 									<h3>
-										<b>Hey John, Welcome Back!</b> 👋
+										<b>Hey {first_name || ""}, Welcome Back!</b> 👋
 									</h3>
 									<p className="">Here's your dashboard stats as at today</p>
 								</div>
@@ -77,7 +117,7 @@ const Dashboard = () => {
 					</div>
 
 					<div className="row table-pane">
-						{[1, 2, 3, 4, 5].map(() => {
+						{linksData.map(() => {
 							return (
 								<div className="col-md-12">
 									<LinkCardItem setOpenedLink={setOpenedLink} />
@@ -111,6 +151,10 @@ const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
 	const [stub, setStub] = useState('');
 	const [long_url, setLongURL] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
+  let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+
 	const handleUpdateLink = async(e: any) =>{
 		e.preventDefault();
 		const payload = {
@@ -120,7 +164,6 @@ const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
 		};
 	
 		await http
-		//   .patch(`/links/update/${id}?user_id=${user_id}`, payload)
 			.patch(`/links/update/be70a7ee-a918-4162-895e-5618b9fca387?user_id=${user_id}`, payload)
 			.then((res) => {
 			const { id } = res.data;
