@@ -310,12 +310,20 @@
 }
 
 .create-deck-page {
-    // background: #221daf;
     .header-card {
         margin-top: 30px;
-        background: #46aa8c;
+        background: #147e5e;
         border-radius: 8px;
-        padding: 40px 40px 50px;
+        padding: 40px 40px 30px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    }
+    .danger-card {
+        margin-top: 30px;
+        background: #a31010;
+        border-radius: 8px;
+        padding: 40px 40px 30px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;

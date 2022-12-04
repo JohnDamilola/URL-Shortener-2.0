@@ -6,6 +6,8 @@ import moment from 'moment';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import './styles.scss';
 import toast, { Toaster } from 'react-hot-toast';
+import QRCode from "qrcode.react";
+
 
 export var isDisabled: boolean;
 export var isExpired: any;
@@ -153,29 +155,10 @@ const ViewLinkDrawer = ({ openedLink, setOpenedLink }: any) => {
 	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
 	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
 
-	const { id } = openedLink || {};
+	const { id, long_url } = openedLink || {};
 	const [isLoading, setIsLoading] = useState(false);
-	const [isUpdating, setIsUpdating] = useState(false);
 	const [payload, setPayload] = useState<any>(openedLink);
   const [engagements, setEngagements] = useState<any[]>([]);
-
-	const handleChange = (propertyName: string, e: any) => {
-		const _payload = { ...payload };
-		_payload[propertyName] = e.target.value;
-		setPayload(_payload);
-	};
-
-	const handleDateChange = (value: any, dateString: any) => {
-		const _payload = { ...payload };
-		_payload['expire_on'] = value;
-		setPayload(_payload);
-	};
-
-	const handleSwitchChange = (checked: boolean) => {
-		const _payload = { ...payload };
-		_payload['disabled'] = !checked;
-		setPayload(_payload);
-	};
 
 	useEffect(() => {
     if (openedLink) {
@@ -218,7 +201,7 @@ const ViewLinkDrawer = ({ openedLink, setOpenedLink }: any) => {
 					'fetching link details'
 				) : (
 					<div>
-              <h3>No of visits: {engagements.length}</h3>
+              <h3>No of visits: {engagements?.length}</h3>
           </div>
 				)}
 			</div>
@@ -566,6 +549,22 @@ const LinkCardItem = ({ setOpenedLink, setOpenedViewLink, item }: any) => {
 		});
 	};
 
+  const downloadQRCode = () => {
+    // Generate download with use canvas and stream
+    const canvas = document.getElementById("qr-gen") as HTMLCanvasElement;;
+    if (canvas) {
+      const pngUrl = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      let downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = `qrcode.png`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+  };
+
 	const handleDisableEnableLink = async (e: any) => {
 		e.preventDefault();
 		const payload = {
@@ -662,6 +661,10 @@ const LinkCardItem = ({ setOpenedLink, setOpenedViewLink, item }: any) => {
 					{!disabled ? <i className="fa-solid fa-link-slash"></i> : <i className="fa-solid fa-link"></i>}
 					{!disabled ? 'Disable Link' : 'Enable Link'}
 				</button>
+        <button className='btn btn-outline-dark'  onClick={downloadQRCode}>
+          <i className="fa-solid fa-download"></i>
+          Download QR Code
+        </button>
 				<button className="btn btn-outline-primary" onClick={() => setOpenedLink(item)}>
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
@@ -674,6 +677,15 @@ const LinkCardItem = ({ setOpenedLink, setOpenedViewLink, item }: any) => {
 						<i className="fa-solid fa-trash"></i> {isDeleting ? 'Deleting' : 'Delete'}
 					</button>
 				</Popconfirm>
+        <div style={{display: 'none'}}>
+          <QRCode
+            id="qr-gen"
+            value={long_url}
+            size={290}
+            level={"H"}
+            includeMargin={true}
+          />
+        </div>
 			</div>
 		</div>
 	);

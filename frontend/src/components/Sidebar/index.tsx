@@ -5,11 +5,6 @@ import { useProSidebar } from 'react-pro-sidebar';
 
 const Sidebar = ({ isDashboard }: any) => {
   const location = useLocation()
-	const handleLogout = () => {
-		window.localStorage.removeItem('URLshortenerUser');
-		window.location.replace('/');
-
-	};
 
   const { collapsed } = useProSidebar();
 
@@ -27,12 +22,6 @@ const Sidebar = ({ isDashboard }: any) => {
 				<div className="spacebar" />
 				<MenuItem routerLink={<Link to="/overview" />} active={isActivePath('/overview')} icon={<i className="fa-solid fa-gauge"></i> }>
 					Overview
-				</MenuItem>
-				<MenuItem routerLink={<Link to="/links" />} active={isActivePath('/links')} icon={<i className="fa-solid fa-link"></i>}>
-					Links
-				</MenuItem>
-				<MenuItem routerLink={<Link to="/analytics" />} active={isActivePath('/analytics')} icon={<i className="fa-solid fa-chart-simple"></i>}>
-					Analytics
 				</MenuItem>
 				<MenuItem routerLink={<Link to="/account-settings" />} active={isActivePath('/account-settings')} icon={<i className="fa-solid fa-gear"></i>}>
 					Account Settings
