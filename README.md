@@ -69,20 +69,23 @@ URL Shortener is a tool to help you create simple and easy-to-remember custom li
 </p>
 
 ## Features
-
 <ul>
+  <li>Anonymous short links creation (without login)</li>
   <li>User authentication</li>
-  <li>Edit and delete user account</li>
-  <li>Shorten links</li>
+  <li>Update and delete user account</li>
+  <li>Create Short links</li>
   <li>Track shortened links</li>
   <li>Edit/Delete shortened links</li>
-  <li>Disable/Enable shortened links</li>
-  <li>QR code of the shortened links</li>
+  <li>View engagement analytics - check number of visits of each shortened link</li>
+  <li>Set expiry date, Disable/Enable, Password protect created of each shortened link</li>
+  <li>Download QR code of each shortened links</li>
   <li>Redirect shortened links to original links</li>
-  <li>Track shortened links stats</li>
-  <li>View engagement analytics</li>
-  
+  <li>Links overview stats</li>
 </ul>
+
+## Scalability 
+URL-Shortener-2.0, greatly improve the scalability from the previous version [URL-Shortner]{https://github.com/CSC510-Group-5/URL-Shortner}. Firstly, Our application uses and follows RESTful API to provide a stateless software that does not share anything between requests. This means that there doesn't have to be (much) communication between servers, making our application horizontally scalable. Moreover, development teams can scale the product without much difficulty because there is a separation between the client and the server. Secondly, database(Firebase) is intergrated to provide concurrency; many users can use the application at the same time without corrupting the data. The database consists of adding more instances or nodes to the database in order to try to deal with a higher workload. This means that when our application needs a higher capacity when encounter heavier traffic, it simply adds more servers to the cluster.
+
 
 ## Contributions to the Project
 Please refer to the [Contributing.md](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/Contributing.md) if you want to contrbute to the FlashCards source code. Follow all the guidelines mentioned and raise a pull request for the developers to review before the code goes to the main source code.
