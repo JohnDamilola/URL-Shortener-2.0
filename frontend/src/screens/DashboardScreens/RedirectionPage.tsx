@@ -17,8 +17,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
+import ShortUrlRedirectionPage from "screens/ErrorScreens/ShortUrlRedirectionPage";
 import Swal from "sweetalert2";
 import http from '../../utils/api';
 import "./styles.scss";
@@ -29,6 +30,8 @@ const RedirectionPage = () => {
 
   const { pathname: stub } = useLocation()
   let dateTime = new Date();
+
+  const [errorPage, setErrorPage] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -42,8 +45,7 @@ const RedirectionPage = () => {
 				const { link } = res.data || {};
         const { disabled, expire_on, long_url, password_hash } = link || {}
 				const isExpired = (expire_on && new Date(expire_on) > dateTime) || false;
-        // console.log(disabled, (!expire_on || new Date(expire_on) > dateTime))
-				if (disabled == false && link.password_hash == '' && !isExpired) {
+				if (disabled == false && !password_hash && !isExpired) {
 					return window.location.assign(long_url);
 				}
 				else if (disabled == true || isExpired) {
@@ -54,7 +56,7 @@ const RedirectionPage = () => {
             confirmButtonColor: '#221daf',
           })
 				}
-				else if (password_hash != '') {
+				else if (password_hash) {
 					Swal.fire({
 						title: 'Enter password for authetication',
 						input: 'text',
@@ -75,20 +77,15 @@ const RedirectionPage = () => {
 				}
 			})
 			.catch((err) => {
-				Swal.fire({
-					icon: 'error',
-					title: 'Url does not exist!',
-					text: 'Please check the URL again',
-					confirmButtonColor: '#221daf',
-				});
+        setErrorPage(true)
+        // errorPage = <ShortUrlRedirectionPage />
 			});
 	};
 
-  return (
-   <div>
-
-    </div>
-  );
+  if (errorPage) {
+    return <ShortUrlRedirectionPage />
+  }
+  return null;
 };
 
 export default RedirectionPage;

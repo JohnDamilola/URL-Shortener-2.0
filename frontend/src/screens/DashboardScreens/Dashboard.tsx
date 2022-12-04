@@ -13,7 +13,7 @@ export var isExpired: any;
 const { Panel } = Collapse;
 
 const Dashboard = () => {
-	const [openedLink, setOpenedLink] = useState<number | null>(null);
+	const [openedLink, setOpenedLink] = useState<any | null>(null);
 	const [openedCreateLink, setOpenedCreateLink] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [statsData, setStatsData] = useState<any>(null);
@@ -86,7 +86,7 @@ const Dashboard = () => {
 	return (
 		<div className="dashboard-page dashboard-commons">
 			<section>
-      <Toaster/>
+				<Toaster />
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
@@ -140,7 +140,7 @@ const Dashboard = () => {
 				</div>
 			</section>
 			<ViewDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
-			<EditDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
+			<UpdateLinkDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
 			<CreateLinkDrawer openedCreateLink={openedCreateLink} setOpenedCreateLink={setOpenedCreateLink} />
 		</div>
 	);
@@ -154,92 +154,6 @@ const ViewDrawer = ({ openedLink, setOpenedLink }: any) => {
 			<p>Some contents...</p>
 			<p>Some contents...</p>
 			<p>Some contents...</p>
-		</Drawer>
-	);
-};
-
-const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
-	const [title, setTitle] = useState('');
-	const [stub, setStub] = useState('');
-	const [long_url, setLongURL] = useState('');
-	const [isSubmitting, setIsSubmitting] = useState(false);
-
-	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
-	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
-
-	const handleUpdateLink = async (e: any) => {
-		e.preventDefault();
-		const payload = {
-			title,
-			stub,
-			long_url,
-		};
-
-		await http
-			.patch(`/links/update/be70a7ee-a918-4162-895e-5618b9fca387?user_id=${user_id}`, payload)
-			.then((res) => {
-				const { id } = res.data;
-				Swal.fire({
-					icon: 'success',
-					title: 'Link Updated Successfully!',
-					text: 'You have successfully updated a link',
-					confirmButtonColor: '#221daf',
-				}).then(() => {
-					window.location.replace(``);
-				});
-			})
-			.catch((err) => {
-				Swal.fire({
-					icon: 'error',
-					title: 'Link Update Failed!',
-					text: 'An error occurred, please try again',
-					confirmButtonColor: '#221daf',
-				});
-			});
-	};
-	return (
-		<Drawer title="Edit URL" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
-			<div className="row justify-content-center mt-2">
-				<form className="col-md-12" onSubmit={handleUpdateLink}>
-					<div className="form-group">
-						<label>
-							<h5>Title</h5>
-						</label>
-						<input
-							type="text"
-							className="form-control"
-							onChange={(e) => setTitle(e.target.value)}
-							placeholder="Title"
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>
-							<h5>Stub</h5>
-						</label>
-						<textarea
-							className="form-control"
-							onChange={(e) => setStub(e.target.value)}
-							placeholder="URL-Shortener"
-							required
-						/>
-					</div>
-					<div className="form-group">
-						<label>
-							<h5>New URL</h5>
-						</label>
-						<textarea
-							className="form-control"
-							onChange={(e) => setLongURL(e.target.value)}
-							placeholder="https://github.com/JohnDamilola/URL-Shortener-2.0"
-							required
-						/>
-						<button className="btn btn-outline-primary col-md-6" type="submit">
-							<span className="">{isSubmitting ? 'Submitting...' : 'Submit'}</span>
-						</button>
-					</div>
-				</form>
-			</div>
 		</Drawer>
 	);
 };
@@ -362,7 +276,7 @@ const CreateLinkDrawer = ({ openedCreateLink, setOpenedCreateLink }: any) => {
 									/>
 								</div>
 							</Panel>
-							<Panel header="Short Link Availability" key="1">
+							<Panel header="Short Link Availability" key="2">
 								<div className="form-group">
 									<label>Password (optional)</label>
 									<Input onChange={(e) => handleChange('password_hash', e)} size="large" />
@@ -396,30 +310,191 @@ const CreateLinkDrawer = ({ openedCreateLink, setOpenedCreateLink }: any) => {
 	);
 };
 
+const UpdateLinkDrawer = ({ openedLink, setOpenedLink }: any) => {
+	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
+	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
+
+  console.log(openedLink)
+	const { id } = openedLink || {};
+	const [isLoading, setIsLoading] = useState(false);
+	const [isUpdating, setIsUpdating] = useState(false);
+	const [payload, setPayload] = useState<any>(openedLink);
+
+	const handleChange = (propertyName: string, e: any) => {
+		const _payload = { ...payload };
+		_payload[propertyName] = e.target.value;
+		setPayload(_payload);
+	};
+
+	const handleDateChange = (value: any, dateString: any) => {
+		const _payload = { ...payload };
+		_payload['expire_on'] = value;
+		setPayload(_payload);
+	};
+
+	const handleSwitchChange = (checked: boolean) => {
+		const _payload = { ...payload };
+		_payload['disabled'] = !checked;
+		setPayload(_payload);
+	};
+
+	useEffect(() => {
+    if (openedLink) {
+      fetchLink();
+      setPayload(openedLink)
+    }
+	}, [openedLink]);
+
+	const fetchLink = async () => {
+		setIsLoading(true);
+		await http
+			.get(`/links/${id}`, payload)
+			.then((res) => {
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setIsLoading(false);
+			});
+	};
+
+	const handleSubmit = async () => {
+		setIsUpdating(true);
+    if (payload.stub === openedLink.stub) {
+      delete payload.stub;
+    }
+		await http
+			.patch(`/links/update/${id}?user_id=${user_id}`, payload)
+			.then((res) => {
+				Swal.fire({
+					icon: 'success',
+					title: 'Link Updated Successfully!',
+					text: 'You have successfully updated this short link',
+					confirmButtonColor: '#221daf',
+				}).then(() => {
+					window.location.reload();
+				});
+				setIsUpdating(false);
+			})
+			.catch((err) => {
+				Swal.fire({
+					icon: 'error',
+					title: 'Link Update Failed!',
+					text: 'An error occurred, please try again',
+					confirmButtonColor: '#221daf',
+				});
+				setIsUpdating(false);
+			});
+	};
+
+
+	return (
+		<Drawer title="Update Short URL" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
+			<div>
+				{isLoading ? (
+					'fetching link details'
+				) : (
+					<form>
+						<div className="form-group">
+							<label>Title *</label>
+							<Input value={payload?.title} onChange={(e) => handleChange('title', e)} size="large" />
+						</div>
+						<div className="form-group">
+							<label>Long URL *</label>
+							<Input value={payload?.long_url} onChange={(e) => handleChange('long_url', e)} size="large" />
+						</div>
+						<div className="form-group">
+							<label>Custom end-link (optional)</label>
+							<Input value={payload?.stub} onChange={(e) => handleChange('stub', e)} size="large" />
+						</div>
+						<div className="form-group">
+							<span style={{ marginRight: '10px' }}>Enabled?</span>
+							<Switch defaultChecked onChange={handleSwitchChange} />
+						</div>
+						<div className="form-group">
+							<Collapse defaultActiveKey={['1']} onChange={() => null}>
+								<Panel header="UTM Parameters For Tracking (optional)" key="1">
+									<div className="form-group">
+										<label>UTM Source (optional)</label>
+										<Input value={payload?.utm_source} onChange={(e) => handleChange('utm_source', e)} size="large" />
+									</div>
+									<div className="form-group">
+										<label>UTM Medium (optional)</label>
+										<Input value={payload?.utm_medium} onChange={(e) => handleChange('utm_medium', e)} size="large" />
+									</div>
+									<div className="form-group">
+										<label>UTM Campaign (optional)</label>
+										<Input value={payload?.utm_campaign} onChange={(e) => handleChange('utm_campaign', e)} size="large" />
+									</div>
+									<div className="form-group">
+										<label>UTM Term (optional)</label>
+										<Input value={payload?.utm_term} onChange={(e) => handleChange('utm_term', e)} size="large" />
+									</div>
+									<div className="form-group">
+										<label>UTM Content (optional)</label>
+										<Input value={payload?.utm_content}
+											name="utm_content"
+											onChange={(e) => handleChange('utm_content', e)}
+											size="large"
+										/>
+									</div>
+								</Panel>
+								<Panel header="Short Link Availability" key="2">
+									<div className="form-group">
+										<label>Password (optional)</label>
+										<Input value={payload?.password_hash} onChange={(e) => handleChange('password_hash', e)} size="large" />
+									</div>
+									<div className="form-group">
+										<label>Expire on (optional)</label>
+										<DatePicker value={payload?.expire_on ? moment(payload.expire_on) : null} showTime onChange={handleDateChange} />
+									</div>
+								</Panel>
+							</Collapse>
+						</div>
+						<div className="form-group">
+							<Space>
+								<Button size={'large'} onClick={() => setOpenedLink(false)} disabled={isUpdating}>
+									Cancel
+								</Button>
+								<Button
+									size={'large'}
+									onClick={handleSubmit}
+									type="primary"
+									disabled={isUpdating}
+									loading={isUpdating}
+								>
+									Update
+								</Button>
+							</Space>
+						</div>
+					</form>
+				)}
+			</div>
+		</Drawer>
+	);
+};
+
 const LinkCardItem = ({ setOpenedLink, item }: any) => {
 	const { id, title, stub, long_url, created_on, disabled } = item || {};
 
 	const URLshortenerUser = window.localStorage.getItem('URLshortenerUser');
 	let user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
 
-  const handleCopy = async() => {
-    const text = `url-bit.web.app/${stub}`;
-    if ("clipboard" in navigator) {
-      await navigator.clipboard.writeText(text);
-    } else {
-      document.execCommand("copy", true, text);
-    }
-    toast('URL copied successfully!',
-      {
-        icon: '👏',
-        style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
-        },
-      }
-    );
-  }
+	const handleCopy = async () => {
+		const text = `url-bit.web.app/${stub}`;
+		if ('clipboard' in navigator) {
+			await navigator.clipboard.writeText(text);
+		} else {
+			document.execCommand('copy', true, text);
+		}
+		toast('URL copied successfully!', {
+			icon: '👏',
+			style: {
+				borderRadius: '10px',
+				background: '#333',
+				color: '#fff',
+			},
+		});
+	};
 
 	const handleDisableEnableLink = async (e: any) => {
 		e.preventDefault();
@@ -498,7 +573,7 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 				<a href={`/${stub}`} rel="noreferrer" target="_blank">
 					<p>url-bit.web.app/{stub}</p>
 				</a>
-				<i onClick={handleCopy} style={{cursor: 'pointer'}} className="fa-solid fa-copy"></i>
+				<i onClick={handleCopy} style={{ cursor: 'pointer' }} className="fa-solid fa-copy"></i>
 			</div>
 			<p style={{ overflowWrap: 'break-word' }}>
 				<b>Original URL:</b> {long_url}
@@ -507,14 +582,21 @@ const LinkCardItem = ({ setOpenedLink, item }: any) => {
 				<button className="btn btn-outline-dark" onClick={setOpenedLink}>
 					<i className="fa-solid fa-eye"></i> View Engagements Analytics
 				</button>
-				<button className={`btn ${!disabled ? 'btn-outline-danger' : 'btn-outline-success'}`} onClick={handleDisableEnableLink}>
+				<button
+					className={`btn ${!disabled ? 'btn-outline-danger' : 'btn-outline-success'}`}
+					onClick={handleDisableEnableLink}
+				>
 					{!disabled ? <i className="fa-solid fa-link-slash"></i> : <i className="fa-solid fa-link"></i>}
 					{!disabled ? 'Disable Link' : 'Enable Link'}
 				</button>
-				<button className="btn btn-outline-primary" onClick={setOpenedLink}>
+				<button className="btn btn-outline-primary" onClick={() => setOpenedLink(item)}>
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
-				<Popconfirm title="Are you sure？" icon={<QuestionCircleOutlined style={{ color: 'red' }} />} onConfirm={handleDeleteLink}>
+				<Popconfirm
+					title="Are you sure？"
+					icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+					onConfirm={handleDeleteLink}
+				>
 					<button className="btn btn-outline-danger">
 						<i className="fa-solid fa-trash"></i> Delete
 					</button>
