@@ -106,11 +106,11 @@ const Home = () => {
 			});
 	};
 
-	const handleCopy = async () => {
+	const handleCopy = async (text: any) => {
 		if ('clipboard' in navigator) {
-			await navigator.clipboard.writeText('Text which you want to copy');
+			await navigator.clipboard.writeText(text);
 		} else {
-			document.execCommand('copy', true, 'Text which you want to copy');
+			document.execCommand('copy', true, text);
 		}
 		toast('URL copied successfully!', {
 			icon: '👏',
@@ -153,8 +153,7 @@ const Home = () => {
 												<a href={`/a/${shortenedUrl}`} rel="noreferrer" target="_blank">
 													<p>url-bit.web.app/a/{shortenedUrl}</p>
 												</a>
-												<p>{shortenedUrl}</p>
-												<button onClick={handleCopy}>
+												<button onClick={() => handleCopy(`url-bit.web.app/a/${shortenedUrl}`)}>
 													Copy <i className="ml-2 fas fa-copy"></i>
 												</button>
 											</div>

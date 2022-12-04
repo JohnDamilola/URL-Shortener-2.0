@@ -25,7 +25,10 @@ import http from '../../utils/api';
 import "./styles.scss";
 
 const RedirectionPage = () => {
-  const { pathname: stub } = useLocation()
+  const { pathname } = useLocation()
+  const params = useParams() || {}
+  const stub = params?.stub || params['*']
+
   let dateTime = new Date();
   const [endpoint1Called, setEndpoint1Called] = useState(false)
   const [endpoint2Called, setEndpoint2Called] = useState(false)
@@ -53,8 +56,9 @@ const RedirectionPage = () => {
 	};
 
   const fetchURL = async () => {
+    const url = pathname.startsWith('a') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
 		await http
-			.get(`/links/stub/${stub}`)
+			.get(url)
 			.then(async(res) => {
         setEndpoint1Called(true)
 				const { link } = res.data || {};

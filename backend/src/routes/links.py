@@ -53,6 +53,23 @@ def get_link_by_stub(stub):
             message = f"An error occurred: {e}",
             status = 400
         ), 400
+        
+@links_bp.route('/links_anonymous/stub/<stub>', methods = ['GET'])
+@cross_origin(supports_credentials=True)
+def get_anonymous_link_by_stub(stub):
+    '''This method is called when we want to fetch a single link, we pass user_id'''
+    try:
+        link = db.session.query(AnonymousLink).filter(Link.stub==stub).first()
+        return jsonify(
+            link = link.to_json(),
+            message = 'Fetched link successfully',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
+            message = f"An error occurred: {e}",
+            status = 400
+        ), 400
 
 @links_bp.route('/links/all', methods = ['GET'])
 @login_required2()
