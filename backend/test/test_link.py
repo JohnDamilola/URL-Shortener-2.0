@@ -3,13 +3,13 @@ sys.path.append('backend/src')
 import unittest
 from models.user import User
 from models.links import Link, db
-from app import app
+from app import create_app, register_blueprints, register_extensions
 import datetime
 import uuid
 
 class LinkTestApp(unittest.TestCase):
     def setUp(self):
-        self.flask_app=app
+        self.flask_app=create_app()
         ctx = self.flask_app.test_request_context()
         ctx.push()
         self.app=self.flask_app.test_client()
