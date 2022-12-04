@@ -59,7 +59,7 @@ def get_link_by_stub(stub):
 def get_anonymous_link_by_stub(stub):
     '''This method is called when we want to fetch a single link, we pass user_id'''
     try:
-        link = db.session.query(AnonymousLink).filter(Link.stub==stub).first()
+        link = db.session.query(AnonymousLink).filter(AnonymousLink.stub==stub).first()
         return jsonify(
             link = link.to_json(),
             message = 'Fetched link successfully',

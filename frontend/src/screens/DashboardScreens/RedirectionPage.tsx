@@ -56,7 +56,7 @@ const RedirectionPage = () => {
 	};
 
   const fetchURL = async () => {
-    const url = pathname.startsWith('a') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
+    const url = pathname.startsWith('/a') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
 		await http
 			.get(url)
 			.then(async(res) => {
