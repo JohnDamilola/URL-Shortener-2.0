@@ -1,7 +1,7 @@
-import { Drawer } from 'antd';
 import Swal from 'sweetalert2';
-import http from 'utils/api';
+import { Drawer, Input } from 'antd';
 import { useEffect, useState } from 'react';
+import http from 'utils/api';
 import './styles.scss';
 
 let dateTime = new Date()
@@ -11,6 +11,7 @@ export var isExpired: any;
 
 const Dashboard = () => {
 	const [openedLink, setOpenedLink] = useState<number | null>(null);
+  const [openedCreateLink, setOpenedCreateLink] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const [statsData, setStatsData] = useState<any>(null);
   const [linksData, setLinksData] = useState<any[]>([]);
@@ -85,13 +86,14 @@ const Dashboard = () => {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<div className="flex justify-between items-center">
+							<div className="d-flex justify-content-between items-center">
 								<div className="welcome-pane">
 									<h3>
 										<b>Hey {first_name || ""}, Welcome Back!</b> 👋
 									</h3>
 									<p className="">Here's your dashboard stats as at today</p>
 								</div>
+                <button className='btn btn-main' onClick={() => setOpenedCreateLink(true)}>Shorten Link</button>
 							</div>
 						</div>
 					</div>
@@ -117,10 +119,10 @@ const Dashboard = () => {
 					</div>
 
 					<div className="row table-pane">
-						{linksData.map(() => {
+						{linksData.map((item: any, index: number) => {
 							return (
 								<div className="col-md-12">
-									<LinkCardItem setOpenedLink={setOpenedLink} />
+									<LinkCardItem setOpenedLink={setOpenedLink} item={item} />
 								</div>
 							);
 						})}
@@ -129,6 +131,7 @@ const Dashboard = () => {
 			</section>
 			<ViewDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
 			<EditDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
+      <CreateLinkDrawer openedCreateLink={openedCreateLink} setOpenedCreateLink={setOpenedCreateLink} />
 		</div>
 	);
 };
@@ -225,8 +228,34 @@ const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
 		</Drawer>
 	);
 };
-const LinkCardItem = ({ setOpenedLink }: any) => {
-	const fetchURL = async () => {
+	
+
+const CreateLinkDrawer = ({ openedCreateLink, setOpenedCreateLink }: any) => {
+	return (
+		<Drawer title="Create Short URL" placement="right" onClose={() => setOpenedCreateLink(false)} open={openedCreateLink}>
+			<div>
+        <form>
+          <div className='form-group'>
+            <label>Title</label>
+            <Input size="large" />
+          </div>
+          <div className='form-group'>
+            <label>Long URL</label>
+            <Input size="large" />
+          </div>
+          <div className='form-group'>
+            <label>Title</label>
+            <Input size="large" />
+          </div>
+        </form>
+      </div>
+		</Drawer>
+	);
+};
+
+const LinkCardItem = ({ setOpenedLink, item }: any) => {
+  const { title, stub, long_url } = item || {}
+  const fetchURL = async () => {
 		const stub = "llRIbB6nle";
 		await http
 			.get(`/links/stub/${stub}`)
@@ -277,7 +306,7 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 		<div className="link-card">
 			<div className="d-flex justify-content-between">
         <div className='col-lg-10'>
-				  <h5>ATH Members Database</h5>
+				  <h5>{title}</h5>
         </div>
         <div className='col-lg-2'>
           <p className="time-text">
@@ -286,12 +315,12 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
         </div>
 			</div>
 			<div className="url-pane">
-				<p>bit.ly/ATHMembers02</p>
+				<p>bit.ly/{stub}</p>
 				<i className="fa-solid fa-copy"></i>
 			</div>
 			<p style={{overflowWrap: 'break-word'}}>
 				<b>Original URL:</b>{' '}
-				https://tropical-ice-7c3.notion.site/b2576539b0354b6dbe930523ed26f405?v=d40dfd1c847142b2b6f73b8bc70b487cqwqeeq
+				{long_url}
 			</p>
 			<div className="btn-pane">
 				<button className="btn btn-outline-dark" onClick={setOpenedLink}>
