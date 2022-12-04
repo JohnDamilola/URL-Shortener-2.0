@@ -21,7 +21,7 @@ class LinkTestApp(unittest.TestCase):
         with self.app:
             _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'),follow_redirects=True)
             user=User.query.filter_by(email='test6@gmail.com').first()
-            login_user(user)
+            #login_user(user)
             uid=user.id
             response=self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.com',title='Google',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)), follow_redirects=True)
             print("create",response.status_code)
