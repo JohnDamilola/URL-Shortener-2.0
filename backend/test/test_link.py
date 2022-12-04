@@ -27,7 +27,7 @@ class LinkTestApp(unittest.TestCase):
         """Test the get link route of our app"""
         self.app.post('/auth/register',json=dict(email='test7@gmail.com',first_name='test7_first',last_name='test7_last',password='password7'))
         with self.app:
-            self.app.post('/auth/login',json=dict(email='test7@gmail.com',password='password7'))
+            self.app.post('/auth/login',json=dict(email='test7@gmail.com',password='password7'),follow_redirects=True)
             user=User.query.filter_by(email='test7@gmail.com').first()
             uid=user.id
             link_id=uuid.uuid4()
