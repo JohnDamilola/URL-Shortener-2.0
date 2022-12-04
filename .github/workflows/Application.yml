@@ -2,7 +2,7 @@ name: Python Application
 
 on:
   push:
-    branches: [ "33-fix-backend-tests" ]
+    branches: [ "fix-backend-tests" ]
 
 jobs:
   runner-job:
