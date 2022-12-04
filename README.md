@@ -68,6 +68,21 @@ URL Shortener is a tool to help you create simple and easy-to-remember custom li
   />
 </p>
 
+## Features
+
+<ul>
+  <li>User authentication</li>
+  <li>Edit and delete user account</li>
+  <li>Shorten links</li>
+  <li>Track shortened links</li>
+  <li>Edit/Delete shortened links</li>
+  <li>Disable/Enable shortened links</li>
+  <li>QR code of the shortened links</li>
+  <li>Redirect shortened links to original links</li>
+  <li>Track shortened links stats</li>
+  <li>View engagement analytics</li>
+  
+</ul>
 
 ## Contributions to the Project
 Please refer to the [Contributing.md](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/Contributing.md) if you want to contrbute to the FlashCards source code. Follow all the guidelines mentioned and raise a pull request for the developers to review before the code goes to the main source code.
