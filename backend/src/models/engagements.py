@@ -24,7 +24,7 @@ class Engagements(db.Model):
     def to_json(self):
         return {
         'id': self.id,
-        'user_id':self.user_id,
+        'link_id':self.link_id,
         'utm_source':self.utm_source,
         'utm_medium':self.utm_medium,
         'utm_campaign':self.utm_campaign,
