@@ -18,10 +18,10 @@ class LinkTestApp(unittest.TestCase):
     def test_create_route(self):
         """Test the create link route of our app"""
         _=self.app.post('/auth/register',json=dict(email='test6@gmail.com',first_name='test6_first',last_name='test6_last',password='password6'))
-        print(_.response.status_code)
+        print(_.status_code)
         with self.app:
             _=self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'),follow_redirects=True)
-            print(_.response.status_code)
+            print(_.status_code)
             user=User.query.filter_by(email='test6@gmail.com').first()
             print(user)
             login_user(user)
