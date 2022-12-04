@@ -24,7 +24,7 @@ class LinkTestApp(unittest.TestCase):
             db.session.commit()
             uid=user.id
             response=self.app.post('/links/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.com',title='Google',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)), follow_redirects=True)
-        print(response.status_code)
+        print("create",response.status_code)
         assert response.status_code==201
     
     def test_link_route(self):
@@ -37,7 +37,7 @@ class LinkTestApp(unittest.TestCase):
             link_id=uuid.uuid4()
             _=self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/links/'+str(link_id))
-        #print(response.status_code)
+        print("link",response.status_code)
         assert response.status_code==200
     
     def test_link_all_route(self):
@@ -50,6 +50,7 @@ class LinkTestApp(unittest.TestCase):
             _=self.app.post('/links/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.in',title='Google2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             _=self.app.post('/links/create',json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.com',title='Yahoo2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/links/all',query_string=dict(localId=uid))
+        print("all",response.status_code)
         assert response.status_code==200
         
     def test_link_update_route_valid(self):
@@ -61,6 +62,7 @@ class LinkTestApp(unittest.TestCase):
             link_id=uuid.uuid4()
             _=self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.com',title='Facebook',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.patch('/links/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
+        print("update valid",response.status_code)
         assert response.status_code==201
    
     def test_link_update_route_invalid(self):
@@ -71,6 +73,7 @@ class LinkTestApp(unittest.TestCase):
             uid=user.id
             link_id=uuid.uuid4()
             response=self.app.patch('/links/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
+        print("update invalid",response.status_code)
         assert response.status_code==400     
         
     
@@ -83,6 +86,7 @@ class LinkTestApp(unittest.TestCase):
             link_id=uuid.uuid4()
             _=self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.in',title='Facebook2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.delete('/links/delete/'+str(link_id))
+        print("delete valid",response.status_code)
         assert response.status_code==200
       
       
