@@ -39,6 +39,7 @@ class Link(db.Model):
         'utm_term':self.utm_term,
         'utm_content':self.utm_content,
         'expire_on':self.expire_on,
+        'password_hash':self.password_hash,
         'created_on':self.created_on, 
         'updated_on':self.updated_on
         }

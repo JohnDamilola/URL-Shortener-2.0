@@ -41,9 +41,9 @@ const RedirectionPage = () => {
 			.then((res) => {
 				const { link } = res.data || {};
         const { disabled, expire_on, long_url, password_hash } = link || {}
-				const isDisabled = link.disabled;
-				const isExpired = new Date(expire_on) < dateTime;
-				if (isDisabled == false && link.password_hash == '' && !isExpired) {
+				const isExpired = (expire_on && new Date(expire_on) > dateTime) || false;
+        // console.log(disabled, (!expire_on || new Date(expire_on) > dateTime))
+				if (disabled == false && link.password_hash == '' && !isExpired) {
 					return window.location.assign(long_url);
 				}
 				else if (disabled == true || isExpired) {
