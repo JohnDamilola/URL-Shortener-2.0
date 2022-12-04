@@ -1,7 +1,10 @@
 import { Drawer, Table } from 'antd';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
+import http from 'utils/api';
 import './styles.scss';
-
+const URLshortenerUser  = window.localStorage.getItem("URLshortenerUser");
+var user_id = (URLshortenerUser && JSON.parse(URLshortenerUser).id) || {};
 const stats = [
 	{
 		title: 'Total Links',
@@ -77,6 +80,7 @@ const Dashboard = () => {
 				</div>
 			</section>
 			<ViewDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
+			<EditDrawer openedLink={openedLink} setOpenedLink={setOpenedLink} />
 		</div>
 	);
 };
@@ -93,6 +97,83 @@ const ViewDrawer = ({ openedLink, setOpenedLink }: any) => {
 	);
 };
 
+
+const EditDrawer = ({ openedLink, setOpenedLink }: any) => {
+	const [title, setTitle] = useState('');
+	const [stub, setStub] = useState('');
+	const [long_url, setLongURL] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const handleUpdateLink = async(e: any) =>{
+		e.preventDefault();
+		const payload = {
+			title,
+			stub,
+			long_url
+		};
+	
+		await http
+		//   .patch(`/links/update/${id}?user_id=${user_id}`, payload)
+			.patch(`/links/update/be70a7ee-a918-4162-895e-5618b9fca387?user_id=${user_id}`, payload)
+			.then((res) => {
+			const { id } = res.data;
+			Swal.fire({
+				icon: 'success',
+				title: 'Link Updated Successfully!',
+				text: 'You have successfully updated a link',
+				confirmButtonColor: '#221daf',
+			}).then(() => {
+				window.location.replace(``);
+			})
+			})
+			.catch((err) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Link Update Failed!',
+				text: 'An error occurred, please try again',
+				confirmButtonColor: '#221daf',
+			})
+			});
+	}
+	return (
+		<Drawer title="Edit URL" placement="right" onClose={() => setOpenedLink(null)} open={openedLink}>
+			<div className="row justify-content-center mt-2">
+                  <form className="col-md-12" onSubmit={handleUpdateLink}>
+                    <div className="form-group">
+                      <label><h5>Title</h5></label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label><h5>Stub</h5></label>
+                      <textarea
+                        className="form-control"
+                        onChange={(e) => setStub(e.target.value)}
+                        placeholder="URL-Shortener"
+                        required
+                      />
+                    </div>
+					<div className="form-group">
+                      <label><h5>New URL</h5></label>
+                      <textarea
+                        className="form-control"
+                        onChange={(e) => setLongURL(e.target.value)}
+                        placeholder="https://github.com/JohnDamilola/URL-Shortener-2.0"
+                        required
+                      />
+					  <button className="btn btn-outline-primary col-md-6" type='submit'>
+                        <span className="">{isSubmitting ? 'Submitting...' : 'Submit'}</span>
+                      </button>
+                    </div>
+             	</form>
+			</div>
+		</Drawer>
+	);
+};
 const LinkCardItem = ({ setOpenedLink }: any) => {
 	return (
 		<div className="link-card">
@@ -116,12 +197,12 @@ const LinkCardItem = ({ setOpenedLink }: any) => {
 			</p>
 			<div className="btn-pane">
 				<button className="btn btn-outline-dark" onClick={setOpenedLink}>
-          <i className="fa-solid fa-eye"></i> View
+          			<i className="fa-solid fa-eye"></i> View
 				</button>
-        <button className="btn btn-outline-dark">
+        		<button className="btn btn-outline-dark">
 					<i className="fa-solid fa-share"></i> Share
 				</button>
-				<button className="btn btn-outline-primary">
+				<button className="btn btn-outline-primary" onClick={setOpenedLink}>
 					<i className="fa-solid fa-pen-to-square"></i> Edit
 				</button>
 				<button className="btn btn-outline-danger">
