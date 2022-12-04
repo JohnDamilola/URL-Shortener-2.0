@@ -68,3 +68,22 @@ code {
 .icon-style {
   // width: 20px !important;
 }
+
+.form-group {
+  margin-bottom: 20px !important;
+  label {
+    margin-bottom: 4px;
+  }
+  input {
+    height: 48px;
+    border-radius: 8px;
+  }
+  button {
+    border-radius: 8px;
+  }
+
+  .ant-picker {
+    display: block;
+    border-radius: 8px;
+  }
+}

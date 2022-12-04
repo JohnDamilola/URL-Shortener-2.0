@@ -94,7 +94,10 @@ def create():
     try:
         data = request.get_json()
         long_url=data['long_url']
-        stub=create_shortlink()
+        if data.get('stub'):
+            stub=data.get('stub')
+        else:
+            stub=create_shortlink()
         title=data.get('title')
         disabled=data.get('disabled')
         utm_source=data.get('utm_source')

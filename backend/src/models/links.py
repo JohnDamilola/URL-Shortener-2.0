@@ -19,7 +19,7 @@ class Link(db.Model):
     utm_term = db.Column(db.String(100), nullable=True)
     utm_content = db.Column(db.String(100), nullable=True)
     password_hash = db.Column(db.String(), nullable=True)
-    expire_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=True)
+    expire_on = db.Column(db.DateTime(timezone=True), nullable=True)
     created_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False)
     updated_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), nullable=False, server_onupdate=db.func.now())
 	# make a relationship with 'User' model

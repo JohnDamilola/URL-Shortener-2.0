@@ -104,9 +104,6 @@
             margin-bottom: 0px;
         }
     }
-    .form-group {
-        margin-bottom: 20px !important;
-    }
     .stats-card {
         padding: 20px 24px;
         border-radius: 12px;
@@ -184,7 +181,7 @@
             font-family: 'HW Nuckle Trial';
             margin-bottom: 8px;
             // color: #221daf;
-            color: #06612e;
+            color: #000;
         }
 
         .time-text {
@@ -208,7 +205,8 @@
             margin-bottom: 8px;
             gap: 20px;
             p {
-                color: #000 !important;
+                color: #221daf !important;
+                font-weight: 500;
             }
             i {
                 color: #000 !important;;

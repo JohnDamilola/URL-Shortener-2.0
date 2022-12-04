@@ -6,6 +6,7 @@ import { Route, Routes, useLocation } from 'react-router'
 import { authRoutes, dashboardRoutes, homeRoutes} from './routes'
 import "swiper/css/bundle";
 import ShortUrlRedirectionPage from 'screens/ErrorScreens/ShortUrlRedirectionPage'
+import RedirectionPage from "screens/DashboardScreens/RedirectionPage"
 
 const App = () => {
   const location = useLocation()
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path='*' element={<RedirectionPage />} />
         <Route element={<HomeLayout />}>
           {homeRoutes.map(({ path, element }: any, index: number) => (
             <Route path={path} element={element} key={index} />
@@ -37,7 +39,7 @@ const App = () => {
             <Route path={path} element={element} key={index} />
           ))}
         </Route>
-        <Route path="*" element={<ShortUrlRedirectionPage />} />
+        {/* <Route path="*" element={<ShortUrlRedirectionPage />} /> */}
       </Routes>
     </>
   )
