@@ -31,7 +31,8 @@ class LinkTestApp(unittest.TestCase):
             user=User.query.filter_by(email='test7@gmail.com').first()
             uid=user.id
             link_id=uuid.uuid4()
-            self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            _=self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            print(_.status_code)
             response=self.app.get('/links/'+str(link_id))
         print("link",response.status_code)
         assert response.status_code==200
