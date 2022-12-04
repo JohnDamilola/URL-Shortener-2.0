@@ -62,11 +62,8 @@ def login_required2():
         def wrap(*args, **kwargs):
             # if user is not logged in, redirect to login page   
             user_id = request.args.get('user_id')
-            print("user_id",user_id)
             # get user via some ORM system
             user = User.query.filter_by(id=user_id).first()
-            print("user",user)
-            print("authentication",user.is_authenticated)
             if not user_id or not user or not user.is_authenticated:
                 return jsonify(
                     message = "Please login first",
