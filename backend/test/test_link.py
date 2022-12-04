@@ -11,8 +11,8 @@ import uuid
 class LinkTestApp(unittest.TestCase):
     def setUp(self):
         self.flask_app=create_app()
-        ctx = self.flask_app.test_request_context()
-        ctx.push()
+        #ctx = self.flask_app.test_request_context()
+        #ctx.push()
         self.app=self.flask_app.test_client()
         
     def test_create_route(self):
