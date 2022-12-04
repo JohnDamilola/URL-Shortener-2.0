@@ -12,7 +12,7 @@ try:
     from ..models.engagements import Engagements
 except ImportError:
     from models.links import Link, db, load_link
-    from models.link_anonymous import AnonymousLink
+    from models.links_anonymous import AnonymousLink
     from models.user import User, login_required2
     from models.engagements import Engagements
 
