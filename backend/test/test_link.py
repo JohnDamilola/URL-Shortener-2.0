@@ -35,7 +35,7 @@ class LinkTestApp(unittest.TestCase):
         assert response.status_code==201
     """
     def test_link_route(self):
-        """Test the get link route of our app"""
+        '''Test the get link route of our app'''
         _=self.app.post('/auth/register',json=dict(email='test7@gmail.com',first_name='test7_first',last_name='test7_last',password='password7'))
         with self.flask_app.app_context():
             _=self.app.post('/auth/login',json=dict(email='test7@gmail.com',password='password7'))
@@ -48,7 +48,7 @@ class LinkTestApp(unittest.TestCase):
         assert response.status_code==200
     
     def test_link_all_route(self):
-        """Test the get all links route of our app"""
+        '''Test the get all links route of our app'''
         _=self.app.post('/auth/register',json=dict(email='test8@gmail.com',first_name='test8_first',last_name='test8_last',password='password8'))
         with self.flask_app.app_context():
             user=User.query.filter_by(email='test8@gmail.com').first()
@@ -61,7 +61,7 @@ class LinkTestApp(unittest.TestCase):
         assert response.status_code==200
         
     def test_link_update_route_valid(self):
-        """Test the update link route of our app with a valid link id"""
+        '''Test the update link route of our app with a valid link id'''
         _=self.app.post('/auth/register',json=dict(email='test9@gmail.com',first_name='test9_first',last_name='test9_last',password='password9'))
         with self.flask_app.app_context():
             user=User.query.filter_by(email='test9@gmail.com').first()
@@ -73,7 +73,7 @@ class LinkTestApp(unittest.TestCase):
         assert response.status_code==201
    
     def test_link_update_route_invalid(self):
-        """Test the update link route of our app with an invalid link id"""
+        '''Test the update link route of our app with an invalid link id'''
         _=self.app.post('/auth/register',json=dict(email='test10@gmail.com',first_name='test10_first',last_name='test10_last',password='password10'))
         with self.flask_app.app_context():
             user=User.query.filter_by(email='test10@gmail.com').first()
@@ -85,7 +85,7 @@ class LinkTestApp(unittest.TestCase):
         
     
     def test_link_delete_route_valid(self):
-        """Test the delete link route of our app with a valid link id"""
+        '''Test the delete link route of our app with a valid link id'''
         _=self.app.post('/auth/register',json=dict(email='test11@gmail.com',first_name='test11_first',last_name='test11_last',password='password11'))
         with self.flask_app.app_context():
             user=User.query.filter_by(email='test11@gmail.com').first()
