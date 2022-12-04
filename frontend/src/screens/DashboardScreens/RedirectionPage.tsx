@@ -38,14 +38,26 @@ const RedirectionPage = () => {
     fetchURL()
   }, [])
 
+  const updateLinkEngagement = async (utm_source: any, utm_medium: any, utm_campaign: any, utm_term: any, utm_content: any) => {
+		await http
+			.post(`/links/engagements/${id}/create`, {
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        utm_term,
+        utm_content
+      })
+	};
+
   const fetchURL = async () => {
 		await http
 			.get(`/links/stub/${stub}`)
-			.then((res) => {
+			.then(async(res) => {
 				const { link } = res.data || {};
-        const { disabled, expire_on, long_url, password_hash } = link || {}
+        const { disabled, expire_on, long_url, password_hash, utm_source, utm_medium, utm_campaign, utm_term, utm_content } = link || {}
 				const isExpired = (expire_on && new Date(expire_on) > dateTime) || false;
 				if (disabled == false && !password_hash && !isExpired) {
+          await updateLinkEngagement(utm_source, utm_medium, utm_campaign, utm_term, utm_content)
 					return window.location.assign(long_url);
 				}
 				else if (disabled == true || isExpired) {
