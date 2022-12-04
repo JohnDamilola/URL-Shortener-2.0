@@ -150,9 +150,9 @@ const Home = () => {
 									{!isLoading && shortenedUrl && (
 										<div className="result-pane">
 											<div className="link d-flex flex-wrap justify-content-between align-items-center">
-												<a href={`/a/${shortenedUrl}`} rel="noreferrer" target="_blank">
+												<Link to={`/a/${shortenedUrl}`} rel="noreferrer" target="_blank">
 													<p>url-bit.web.app/a/{shortenedUrl}</p>
-												</a>
+												</Link>
 												<button onClick={() => handleCopy(`url-bit.web.app/a/${shortenedUrl}`)}>
 													Copy <i className="ml-2 fas fa-copy"></i>
 												</button>

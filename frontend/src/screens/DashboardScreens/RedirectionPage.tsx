@@ -56,13 +56,16 @@ const RedirectionPage = () => {
 	};
 
   const fetchURL = async () => {
-    const url = pathname.startsWith('/a') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
+    const url = pathname.startsWith('/a/') ? `/links_anonymous/stub/${stub}` : `/links/stub/${stub}`
 		await http
 			.get(url)
 			.then(async(res) => {
         setEndpoint1Called(true)
-				const { link } = res.data || {};
+        const { link } = res.data || {};
         const { id: link_id, disabled, expire_on, long_url, password_hash, utm_source, utm_medium, utm_campaign, utm_term, utm_content } = link || {}
+        if (pathname.startsWith('/a/')) {
+          return window.location.assign(long_url);
+        }
 				const isExpired = (expire_on && new Date(expire_on) > dateTime) || false;
 				if (disabled == false && !password_hash && !isExpired) {
           if (!endpoint2Called) {
