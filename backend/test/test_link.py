@@ -30,20 +30,18 @@ class LinkTestApp(unittest.TestCase):
             self.app.post('/auth/login',json=dict(email='test7@gmail.com',password='password7'),follow_redirects=True)
             user=User.query.filter_by(email='test7@gmail.com').first()
             uid=user.id
-            _=self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
-            print(_.status_code)
+            self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(user_id=uid,long_url='https://yahoo.in',title='Yahoo',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             link_id=Link.query.filter_by(long_url='https://yahoo.in').first().id
             response=self.app.get('/links/'+str(link_id))
-        print("link",response.status_code)
         assert response.status_code==200
     
     def test_link_all_route(self):
         """Test the get all links route of our app"""
         self.app.post('/auth/register',json=dict(email='test8@gmail.com',first_name='test8_first',last_name='test8_last',password='password8'))
         with self.app:
+            self.app.post('/auth/login',json=dict(email='test8@gmail.com',password='password8'))
             user=User.query.filter_by(email='test8@gmail.com').first()
             uid=user.id
-            self.app.post('/auth/login',json=dict(email='test8@gmail.com',password='password8'))
             self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://google.in',title='Google2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(id=uuid.uuid4(),user_id=uid,long_url='https://yahoo.com',title='Yahoo2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             response=self.app.get('/links/all',query_string=dict(localId=uid))
@@ -54,10 +52,11 @@ class LinkTestApp(unittest.TestCase):
         """Test the update link route of our app with a valid link id"""
         self.app.post('/auth/register',json=dict(email='test9@gmail.com',first_name='test9_first',last_name='test9_last',password='password9'))
         with self.app:
+            self.app.post('/auth/login',json=dict(email='test9@gmail.com',password='password9'))
             user=User.query.filter_by(email='test9@gmail.com').first()
             uid=user.id
-            link_id=uuid.uuid4()
-            self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.com',title='Facebook',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            self.app.post('/links/create',json=dict(user_id=uid,long_url='https://facebook.com',title='Facebook',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            link_id=Link.query.filter_by(long_url='https://facebook.com').first().id
             response=self.app.patch('/links/update/'+str(link_id),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
         print("update valid",response.status_code)
         assert response.status_code==201
@@ -66,6 +65,7 @@ class LinkTestApp(unittest.TestCase):
         """Test the update link route of our app with an invalid link id"""
         self.app.post('/auth/register',json=dict(email='test10@gmail.com',first_name='test10_first',last_name='test10_last',password='password10'))
         with self.app:
+            self.app.post('/auth/login',json=dict(email='test10@gmail.com',password='password10'))
             user=User.query.filter_by(email='test10@gmail.com').first()
             uid=user.id
             link_id=uuid.uuid4()
@@ -78,10 +78,11 @@ class LinkTestApp(unittest.TestCase):
         """Test the delete link route of our app with a valid link id"""
         self.app.post('/auth/register',json=dict(email='test11@gmail.com',first_name='test11_first',last_name='test11_last',password='password11'))
         with self.app:
+            self.app.post('/auth/login',json=dict(email='test11@gmail.com',password='password11'))
             user=User.query.filter_by(email='test11@gmail.com').first()
             uid=user.id
-            link_id=uuid.uuid4()
-            self.app.post('/links/create',json=dict(id=link_id,user_id=uid,long_url='https://facebook.in',title='Facebook2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            self.app.post('/links/create',json=dict(user_id=uid,long_url='https://facebook.in',title='Facebook2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            link_id=Link.query.filter_by(long_url='https://facebook.in').first().id
             response=self.app.delete('/links/delete/'+str(link_id))
         print("delete valid",response.status_code)
         assert response.status_code==200
