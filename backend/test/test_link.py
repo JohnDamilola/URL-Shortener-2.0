@@ -1,6 +1,7 @@
 import sys
 sys.path.append('backend/src')
 import unittest
+from flask_login import login_user
 from models.user import User
 from models.links import Link, db
 from app import create_app, register_blueprints, register_extensions
@@ -20,6 +21,7 @@ class LinkTestApp(unittest.TestCase):
         with self.app:
             self.app.post('/auth/login',json=dict(email='test6@gmail.com',password='password6'),follow_redirects=True)
             user=User.query.filter_by(email='test6@gmail.com').first()
+            login_user(user)
             db.session.add(user)
             db.session.commit()
             uid=user.id
