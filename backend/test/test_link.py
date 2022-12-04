@@ -57,7 +57,6 @@ class LinkTestApp(unittest.TestCase):
             self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(user_id=uid,long_url='https://facebook.com',title='Facebook',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             link_id=Link.query.filter_by(long_url='https://facebook.com').first().id
             response=self.app.patch('/links/update/'+str(link_id),query_string=dict(user_id=uid),json=dict(id=link_id ,user_id=uid, stub='new_stub', long_url='new_long_url', title='new_title', disabled=False, utm_source='test6_source', utm_medium='test6_medium', utm_campaign='test6_campaign', utm_term='test6_term', utm_content='test6_content', password_hash='new_password', expire_on=datetime.datetime(2022,11,25)))
-        print("update valid",response.status_code)
         assert response.status_code==201
    
     def test_link_update_route_invalid(self):
@@ -82,20 +81,8 @@ class LinkTestApp(unittest.TestCase):
             self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(user_id=uid,long_url='https://facebook.in',title='Facebook2',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
             link_id=Link.query.filter_by(long_url='https://facebook.in').first().id
             response=self.app.delete('/links/delete/'+str(link_id),query_string=dict(user_id=uid))
-        print("delete valid",response.status_code)
         assert response.status_code==200
     
-    def test_link_delete_route_invalid(self):
-        """Test the delete link route of our app with a valid link id"""
-        self.app.post('/auth/register',json=dict(email='test12@gmail.com',first_name='test12_first',last_name='test12_last',password='password12'))
-        with self.app:
-            self.app.post('/auth/login',json=dict(email='test12@gmail.com',password='password12'))
-            user=User.query.filter_by(email='test12@gmail.com').first()
-            uid=user.id
-            link_id=uuid.uuid4()
-            response=self.app.delete('/links/delete/'+str(link_id),query_string=dict(user_id=uid))
-        print("delete invalid",response.status_code)
-        assert response.status_code==400
     
       
 #if __name__=="__main__":
