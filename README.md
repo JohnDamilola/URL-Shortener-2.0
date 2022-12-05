@@ -96,6 +96,13 @@ https://user-images.githubusercontent.com/17693596/205698074-88500484-e25a-44de-
 </ul>
 
 ## Future Scope
+<ul>
+  <li>Display charts to show engagement analytics using UTM parameters</li>
+  <li>Bulk shortened links creation</li>
+  <li>Country/Region targeting</li>
+  <li>Link expiration by number of visits</li>
+  <li>Tags for links to organize them in dashboard</li>
+</ul>
 
 ## Scalability 
 URL-Shortener-2.0, greatly improve the scalability from the previous version [URL-Shortner](https://github.com/CSC510-Group-5/URL-Shortner). Firstly, the team introducted <b>identity and access management</b> that centralizes user identity and improves the scalability. Secondly, Our application uses and follows <b>RESTful API</b> to provide a stateless software that does not share anything between requests. This means that there doesn't have to be (much) communication between servers, making our application horizontally scalable. Moreover, development teams can scale the product without much difficulty because there is a separation between the client and the server. Thirdly, <b>database(Firebase)</b> is intergrated to provide concurrency; many users can use the application at the same time without corrupting the data. The database consists of adding more instances or nodes to the database in order to try to deal with a higher workload. This means that when our application needs a higher capacity when encounter heavier traffic, it simply adds more servers to the cluster.
