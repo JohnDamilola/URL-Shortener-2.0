@@ -1,5 +1,5 @@
 # [Repository](https://github.com/JohnDamilola/FlashCards)
-|Notes          |             Score =  272/290         |Evidence|
+|Notes          |             Score =  273/290         |Evidence|
 |---------------|-------------------------------|------|
 |Video1|N/A|N/A|
 |Video2|3|| 
@@ -13,7 +13,7 @@
 |Docs: what: point descriptions of each class/function (in isolation) |3|All functions and classes have descriptions |
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3||
 |Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3||
-|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3|[|
+|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3||
 |Use of version control tools|3|GIT is used|
 |Use of style checkers |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
 |Use of code formatters. |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
@@ -27,25 +27,25 @@
 |Chat channel: exists|3|Whatsapp: |
 |Test cases: a large proportion of the issues related to handling failing cases.|3||
 |Evidence that the whole team is using the same tools: everyone can get to all tools and files|3| Everyone is using the same tools|
-|Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)|3|https://github.com/JohnDamilola/FlashCards/blob/main/backend/requirements.txt|
+|Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)|3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/backend/requirements.txt|
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)|3|Everyone is using the same tools|
-|Evidence that the members of the team are working across multiple places in the code base|3|https://github.com/JohnDamilola/FlashCards/commits/main|
-|Short release cycles |3|The team commits very frequently. https://github.com/JohnDamilola/FlashCards/graphs/commit-activity Releases: https://github.com/JohnDamilola/FlashCards/releases|
-|Does your website and documentation provide a clear, high-level overview of your software?|3|Website: https://flashcards-519da.web.app/  Backend API: https://github.com/JohnDamilola/FlashCards/blob/main/backend/api-docs.md  Repo:https://github.com/JohnDamilola/FlashCards|
-|Does your website and documentation clearly describe the type of user who should use your software?|3|https://github.com/JohnDamilola/FlashCards/blob/main/README.md|
-|Do you publish case studies to show how your software has been used by yourself and others?|3|https://github.com/JohnDamilola/FlashCards#watch-flashcards-in-action|
-|Is the name of your project/software unique?|2|https://github.com/JohnDamilola/FlashCards|
+|Evidence that the members of the team are working across multiple places in the code base|3|https://github.com/JohnDamilola/URL-Shortener-2.0/commits/main|
+|Short release cycles |3|The team commits very frequently. https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/commit-activity Releases: https://github.com/JohnDamilola/URL-Shortener-2.0/releases|
+|Does your website and documentation provide a clear, high-level overview of your software?|3|Website:  Backend API:  Repo:https://github.com/JohnDamilola/URL-Shortener-2.0|
+|Does your website and documentation clearly describe the type of user who should use your software?|3|https://github.com/JohnDamilola/URL-Shortener-2.0#readme|
+|Do you publish case studies to show how your software has been used by yourself and others?|3||
+|Is the name of your project/software unique?|3|https://github.com/JohnDamilola/URL-Shortener-2.0|
 |Is your project/software name free from trademark violations?|3|Yes, it is free from trademark violations|
 |Is your software available as a package that can be deployed without building it?|3|No|
 |Is your software available for free?|3|Yes, it is available for free.|
-|Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository?|3|https://github.com/JohnDamilola/FlashCards|
-|Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?|3|Github: https://github.com/JohnDamilola/FlashCards|
-|Is your documentation clearly available on your website or within your software?|3|Yes: (https://github.com/JohnDamilola/FlashCards/tree/main/backend/Documentation)|
-|Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?|3|Yes:Backend: https://github.com/JohnDamilola/FlashCards/blob/main/backend/Readme.md Frontend: https://github.com/JohnDamilola/FlashCards/blob/main/frontend/README.md|
-|If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software?|3|Yes:Backend: https://github.com/JohnDamilola/FlashCards/blob/main/backend/Readme.md Frontend: https://github.com/JohnDamilola/FlashCards/blob/main/frontend/README.md|
-|Do you provide a comprehensive guide to all your software’s commands, functions and options?|3|Yes:Backend: https://github.com/JohnDamilola/FlashCards/blob/main/backend/Readme.md Frontend: https://github.com/JohnDamilola/FlashCards/blob/main/frontend/README.md|
+|Is your source code publicly available to download, either as a downloadable bundle or via access to a source code repository?|3|https://github.com/JohnDamilola/URL-Shortener-2.0|
+|Is your software hosted in an established, third-party repository likeGitHub (https://github.com), BitBucket (https://bitbucket.org),LaunchPad (https://launchpad.net) orSourceForge (https://sourceforge.net)?|3|Github: https://github.com/JohnDamilola/URL-Shortener-2.0|
+|Is your documentation clearly available on your website or within your software?|3|Yes: (https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/backend/Documentation)|
+|Does your documentation include a "quick start" guide, that provides a short overview of how to use your software with some basic examples of use?|3|Yes:Backend: https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/backend/README.md Frontend: https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/frontend#readme|
+|If you provide more extensive documentation, does this provide clear, step-by-step instructions on how to deploy and use your software?|3|Yes:Backend: https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/backend/README.md Frontend: https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/frontend#readme|
+|Do you provide a comprehensive guide to all your software’s commands, functions and options?|3|Yes:Backend: https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/backend/README.md  Frontend: https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/frontend#readme|
 |Do you provide troubleshooting information that describes the symptoms and step-by-step solutions for problems and error messages?|0|No|
-|If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation?|3|Yes: Under Getting started & Installation https://github.com/JohnDamilola/FlashCards |
+|If your software can be used as a library, package or service by other software, do you provide comprehensive API documentation?|3|Yes: Under Getting started & Installation https://github.com/JohnDamilola/URL-Shortener-2.0 |
 |Do you store your documentation under revision control with your source code?|3|Yes https://github.com/JohnDamilola/FlashCards/tree/main/backend/Documentation|
 |Do you publish your release history e.g. release data, version numbers, key features of each release etc. on your web site or in your documentation?|3|Yes: https://github.com/JohnDamilola/FlashCards/releases|
 |Does your software describe how a user can get help with using your software?|3|Yes: (https://github.com/JohnDamilola/FlashCards#readme)|
