@@ -1,6 +1,8 @@
+from functools import wraps
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin
+from flask import g, jsonify, request, redirect
 try:
  from ..extensions import db
 except ImportError:
@@ -44,3 +46,33 @@ class User(db.Model, UserMixin):
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
+
+@login_manager.request_loader
+def load_user_from_request(request):
+    user_id = request.args.get('user_id')
+    if user_id:
+        user = User.query.filter_by(id=user_id).first()
+        if user and user.is_authenticated:
+            return user
+    return None
+
+def login_required2():
+    def decorator(f):
+        @wraps(f)
+        def wrap(*args, **kwargs):
+            # if user is not logged in, redirect to login page   
+            user_id = request.args.get('user_id')
+            # get user via some ORM system
+            user = User.query.filter_by(id=user_id).first()
+            if not user_id or not user or not user.is_authenticated:
+                return jsonify(
+                    message = "Please login first",
+                    status = 401
+                ), 401
+            # make user available down the pipeline via flask.g
+            g.user = user
+            # finally call f. f() now haves access to g.user
+            return f(*args, **kwargs)
+    
+        return wrap
+    return decorator
