@@ -1,3 +1,27 @@
+#
+#MIT License
+#
+#Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+
+
 import datetime
 from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
@@ -8,7 +32,7 @@ try:
     from ..models.user import User, db, load_user
     from ..extensions import bcrypt
 except ImportError:
-    from user import User, db, load_user
+    from models.user import User, db, load_user
     from extensions import bcrypt
 import jwt
 
@@ -18,7 +42,8 @@ auth_bp = Blueprint(
 
 @auth_bp.route('/auth/register', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def register():                                       #this method is used to create new users and register them in firebase
+def register():
+    """This method is used to create new users and register them"""
     try:
         data = request.get_json()
         email = data['email']
@@ -46,7 +71,8 @@ def register():                                       #this method is used to cr
 
 @auth_bp.route('/auth/login', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def login():                                        #this method is used by registered users to sign in to their account
+def login():
+    """This method is used by registered users to sign in to their account"""
     try:
         data = request.get_json()
         email = data['email']
@@ -76,8 +102,7 @@ def login():                                        #this method is used by regi
             ), 400
     except Exception as e:
         return jsonify(
-            message = f"An error occurred {e}",
-            # message = 'An error occurred, please try again',               #if login is not successful, this message is displayed
+            message = f"An error occurred {e}",                     #if login is not successful, this message is displayed
             status = 500
         ), 500
     
@@ -95,8 +120,6 @@ def update(id):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
-        # user = User.query.filter_by(id=id).first()
-        # db.session.update(first_name=first_name, last_name=last_name)
         db.session.commit()
 
         return jsonify(
@@ -113,7 +136,7 @@ def update(id):
 @auth_bp.route('/user/delete/<id>', methods = ['DELETE'])
 @cross_origin(supports_credentials=True)
 def delete(id):
-    '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
+    '''This method is called when the user requests to delete the their account. Only the user id is required to delete the account.'''
     try:
         db.session.query(User).filter_by(id=id).delete()
         db.session.commit()
@@ -131,8 +154,15 @@ def delete(id):
 @login_required
 @cross_origin(supports_credentials=True)
 def logout():
-    logout_user()
-      
-if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    """This method is used when the user wants to logout of their account"""
+    try:
+        logout_user()
+        return jsonify(
+            message = 'Logout Successful',
+            status = 200
+        ), 200
+    except Exception as e:
+        return jsonify(
+            message = f'Logout Failed {e}',
+            status = 400
+        ), 400    
