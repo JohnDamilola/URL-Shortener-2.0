@@ -35,10 +35,10 @@ try:
     from ..models.user import User, login_required2
     from ..models.engagements import Engagements
 except ImportError:
-    from models.links import Link, db, load_link
-    from models.links_anonymous import AnonymousLink
-    from models.user import User, login_required2
-    from models.engagements import Engagements
+    from link_model import Link, db, load_link
+    from links_anonymous import AnonymousLink
+    from user import User, login_required2
+    from engagements import Engagements
 
 links_bp = Blueprint(
     'links_bp', __name__
