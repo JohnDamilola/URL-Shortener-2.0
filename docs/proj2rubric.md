@@ -89,15 +89,15 @@
 |If your software is developed as an open source project (and, not just a project developing open source software), do you have a governance model?|3|yes: Agile|
 |Do you accept contributions (e.g. bug fixes, enhancements, documentation updates, tutorials) from people who are not part of your project?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/Contributing.md|
 |Do you have a contributions policy?|3|Yes|
-|Is your contributions' policy publicly available?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/Contributing.md|
+|Is your contributions' policy publicly available?|3|Yes: https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/Contributing.md|
 |Do contributors keep the copyright/IP of their contributions?|N/A|N/A|
 |Does your website and documentation clearly state the copyright owners of your software and documentation?|3|Yes: https://tldrlegal.com/license/mit-license|
-|Does each of your source code files include a copyright statement?|3|Yes- https://github.com/JohnDamilola/FlashCards/blob/main/images/licence_header_srcfiles.png|
+|Does each of your source code files include a copyright statement?|3|Yes- |
 |Does your website and documentation clearly state the licence of your software?|3|Yes: https://tldrlegal.com/license/mit-license|
 |Is your software released under an open source licence?|3|Yes: https://tldrlegal.com/license/mit-license|
 |Is your software released under an OSI-approved open-source licence?|3|Yes: https://tldrlegal.com/license/mit-license|
-|Does each of your source code files include a licence header?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/images/licence_header_srcfiles.png|
-|Do you have a recommended citation for your software?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/CITATION.cff|
-|Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/README.md|
-|Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/README.md|
-|Do you make timely announcements of the deprecation of components, APIs, etc.?|3|Yes: https://github.com/JohnDamilola/FlashCards/blob/main/README.md|
+|Does each of your source code files include a licence header?|3|Yes: |
+|Do you have a recommended citation for your software?|3|Yes: https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/CITATION.cff|
+|Does your website or documentation include a project roadmap (a list of project and development milestones for the next 3, 6 and 12 months)?|3|Yes: https://github.com/JohnDamilola/URL-Shortener-2.0#readme|
+|Does your website or documentation describe how your project is funded, and the period over which funding is guaranteed?|3|Yes: https://github.com/JohnDamilola/URL-Shortener-2.0#readme|
+|Do you make timely announcements of the deprecation of components, APIs, etc.?|3|Yes: https://github.com/JohnDamilola/URL-Shortener-2.0#readme|
