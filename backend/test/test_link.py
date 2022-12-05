@@ -34,6 +34,12 @@ class LinkTestApp(unittest.TestCase):
             link_id=Link.query.filter_by(long_url='https://yahoo.in').first().id
             response=self.app.get('/links/'+str(link_id))
         assert response.status_code==200
+        
+    def test_link_route_invalid(self):
+        """Test the get link route of our app with an invalid id"""
+        link_id=uuuid.uuid4()
+        response=self.app.get('/links/'+str(link_id))
+        assert response.status_code=400
     
     def test_link_all_route(self):
         """Test the get all links route of our app"""
