@@ -1,5 +1,9 @@
 <p align="center">
-  URL Shortener 2.0
+  <img
+    width="200"
+    src="https://url-bit.web.app/static/media/logo.30eecb4c1eb5969c5aa3.png"
+    alt="URL Shortener 2.0"
+  />
 </p>
 
 <p align="center">
@@ -31,7 +35,7 @@
 
 
 ## Description
-URL Shortener is a tool to help you create simple and easy-to-remember custom links from long URLs and to also track link performance and impact.
+Do you wish you could convert your long urls to a short and easy-to-remember custom one, and also track the number of visits, and be in total control of your links (e.g. password-protect, disable/enable, set expiry dates). Also do you wish to track engagements using UTM parameters, then URL Shortener 2.0. is that tool you need.
 
 ## Watch URL-Shortener-2.0 in Action
 
@@ -50,8 +54,8 @@ URL Shortener is a tool to help you create simple and easy-to-remember custom li
 - Frontend [See README.md](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/frontend/README.md)
 
 ## Demo Links
-- Backend API Endpoint URL: https://url-shortener-server-api.herokuapp.com/ [Docs](https://splendid-crush-9a3.notion.site/API-Endpoints-58013a6640204491858ada2541ae623a)
-- Frontend: https://url-bit.web.app/
+- Backend Base API Endpoint URL: https://url-shortener-server-api.herokuapp.com/ Check out [Docs](https://splendid-crush-9a3.notion.site/API-Endpoints-58013a6640204491858ada2541ae623a)
+- Frontend Web App: https://url-bit.web.app/
 
 ## Current Screens
 <p>
@@ -68,20 +72,28 @@ URL Shortener is a tool to help you create simple and easy-to-remember custom li
   />
 </p>
 
-## Features
+## Phase 1 Features
 <ul>
   <li>Anonymous short links creation (without login)</li>
+   <li>Edit/Delete shortened links</li>
+   <li>Redirect shortened links to original links</li>
+</ul>
+
+## Phase 2 Features
+<ul>
   <li>User authentication</li>
   <li>Update and delete user account</li>
-  <li>Create Short links</li>
-  <li>Track shortened links</li>
-  <li>Edit/Delete shortened links</li>
-  <li>View engagement analytics - check number of visits of each shortened link</li>
+  <li>Create Short links (from authenticated account) asides from anonymous</li>
+  <li>Edit/Delete shortened links (from authenticated account)</li>
+  <li>Track link engagement analytics - check number of visits of each shortened link</li>
+  <li>Set up UTM parameters for shortened link to track link engagements, medium, channels, source etc.</li>
   <li>Set expiry date, Disable/Enable, Password protect created of each shortened link</li>
   <li>Download QR code of each shortened links</li>
-  <li>Redirect shortened links to original links</li>
-  <li>Links overview stats</li>
+  <li>Redirect shortened links to original links (both for anonymously created links & logged in user created ones)</li>
+  <li>View overview stats of all your links in one place</li>
 </ul>
+
+## Future Scope
 
 ## Scalability 
 URL-Shortener-2.0, greatly improve the scalability from the previous version [URL-Shortner](https://github.com/CSC510-Group-5/URL-Shortner). Firstly, the team introducted <b>identity and access management</b> that centralizes user identity and improves the scalability. Secondly, Our application uses and follows <b>RESTful API</b> to provide a stateless software that does not share anything between requests. This means that there doesn't have to be (much) communication between servers, making our application horizontally scalable. Moreover, development teams can scale the product without much difficulty because there is a separation between the client and the server. Thirdly, <b>database(Firebase)</b> is intergrated to provide concurrency; many users can use the application at the same time without corrupting the data. The database consists of adding more instances or nodes to the database in order to try to deal with a higher workload. This means that when our application needs a higher capacity when encounter heavier traffic, it simply adds more servers to the cluster.
