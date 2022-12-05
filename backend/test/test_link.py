@@ -89,6 +89,18 @@ class LinkTestApp(unittest.TestCase):
             response=self.app.delete('/links/delete/'+str(link_id),query_string=dict(user_id=uid))
         assert response.status_code==200
     
+    def test_link_stub_route_valid(self):
+        """Test the stub route of our app, with a valid stub"""
+        self.app.post('/auth/register',json=dict(email='test12@gmail.com',first_name='test12_first',last_name='test12_last',password='password12'))
+        with self.app:
+            self.app.post('/auth/login',json=dict(email='test12@gmail.com',password='password12'))
+            user=User.query.filter_by(email='test12@gmail.com').first()
+            uid=user.id
+            self.app.post('/links/create',query_string=dict(user_id=uid),json=dict(user_id=uid,long_url='https://microsoft.com',title='Microsoft',disabled=False,utm_source='test6_source',utm_medium='test6_medium',utm_campaign='test6_campaign',utm_term='test6_term',utm_content='test6_content',password_hash='link_password',expire_on=datetime.datetime(2022,11,25)))
+            stub=Link.query.filter_by(long_url='https://facebook.in').first().stub
+            response=self.app.get('/links/stub/'+str(stub))
+        assert response.status_code==200
+            
     
       
 #if __name__=="__main__":
