@@ -100,7 +100,14 @@ class LinkTestApp(unittest.TestCase):
             stub=Link.query.filter_by(long_url='https://microsoft.com').first().stub
             response=self.app.get('/links/stub/'+str(stub))
         assert response.status_code==200
-            
+    
+    
+    def test_link_stub_route_invalid(self):
+        """Test the stub route of our app, with a valid stub"""
+        stub="test"
+        response=self.app.get('/links/stub/'+str(stub))
+        assert response.status_code==400
+    
     
       
 #if __name__=="__main__":
