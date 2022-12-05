@@ -1,4 +1,4 @@
-# [Repository](https://github.com/JohnDamilola/FlashCards)
+# [Repository](https://github.com/JohnDamilola/URL-Shortener-2.0)
 |Notes          |             Score =  282/285         |Evidence|
 |---------------|-------------------------------|------|
 |Video1|3|[Watch URL Shortener in Action](https://github.com/JohnDamilola/URL-Shortener-2.0#watch-url-shortener-20-in-action)|
@@ -13,7 +13,7 @@
 |Number of commits|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/commit-activity|
 |Number of commits: by different people|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/contributors|
 |Issues reports: there are **many**|3|https://github.com/JohnDamilola/URL-Shortener-2.0/issues|
-|Issues are being closed|3|https://github.com/JohnDamilola/FlashCards/issues?q=is%3Aissue+is%3Aclosed|
+|Issues are being closed|3|https://github.com/JohnDamilola/URL-Shortener-2.0/issues?q=is%3Aissue+is%3Aclosed|
 |DOI badge: exists|3|https://zenodo.org/record/7393108#.Y41DHezMK3I|
 |Docs: doco generated, format not ugly |3|https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/backend/Documentation|
 |Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3|https://github.com/JohnDamilola/URL-Shortener-2.0#demo-links|
@@ -52,7 +52,7 @@
 |Does your website and documentation describe what support, if any, you provide to users and developers?|3|Yes https://github.com/JohnDamilola/URL-Shortener-2.0/#help|
 |Does your project have an e-mail address or forum that is solely for supporting users?|3|Yes: Under Help (https://github.com/JohnDamilola/URL-Shortener-2.0/#help)|
 |Are e-mails to your support e-mail address received by more than one person?|3|Yes: Under Help (https://github.com/JohnDamilola/URL-Shortener-2.0/#help) |
-|Does your project have a ticketing system to manage bug reports and feature requests?|3|https://github.com/JohnDamilola/FlashCards/issues|
+|Does your project have a ticketing system to manage bug reports and feature requests?|3|https://github.com/JohnDamilola/URL-Shortener-2.0/issues|
 |Is your project's ticketing system publicly visible to your users, so they can view bug reports and feature requests?|3|(https://github.com/JohnDamilola/URL-Shortener-2.0/issues)|
 |Is your software’s architecture and design modular?|3|Yes|
 |Does your software use an accepted coding standard or convention?|3|Yes|
