@@ -121,7 +121,7 @@ def getalllinks():
 
 def create_shortlink():
     CHARS = ascii_letters + digits
-    stub = "".join(choice(CHARS) for _ in range(10))
+    stub = "".join(choice(CHARS) for _ in range(12))
     
     return stub
 
