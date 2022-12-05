@@ -37,6 +37,24 @@
 <h1>Welcome to URL Shortener 2.0’s documentation!<a class="headerlink" href="#welcome-to-url-shortener-2-0-s-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<span class="target" id="module-app"></span><dl class="py function">
+<dt class="sig sig-object py" id="app.create_app">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.create_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Flask application.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.register_blueprints">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">register_blueprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.register_blueprints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register Blueprints to the flask app</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.register_extensions">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">register_extensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.register_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register Extensions to the flask app</p>
+</dd></dl>
+
 <span class="target" id="module-auth"></span><dl class="py function">
 <dt class="sig sig-object py" id="auth.delete">
 <span class="sig-prename descclassname"><span class="pre">auth.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.delete" title="Permalink to this definition">¶</a></dt>
@@ -82,6 +100,73 @@ customized per-model by overriding <code class="xref py py-attr docutils literal
 </div>
 </dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-links"></span><dl class="py function">
+<dt class="sig sig-object py" id="links.create">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests to create a new link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.create_anonymous">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">create_anonymous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.create_anonymous" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests to create a new link anonymously.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.create_engagement">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">create_engagement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.create_engagement" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests to create a new engagement for a link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.delete">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to delete the link. Only the link id is required to delete the deck.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.get_anonymous_link_by_stub">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">get_anonymous_link_by_stub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.get_anonymous_link_by_stub" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch a single link anonymously using the stub</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.get_link_by_stub">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">get_link_by_stub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stub</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.get_link_by_stub" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch a single link using the stub</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.get_link_stats">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">get_link_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.get_link_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch the stats of all the links of a particular user. Here, we check if the user is authenticated.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.get_single_link_engagements">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">get_single_link_engagements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.get_single_link_engagements" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is routed when the user requests analytics for a single link.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getalllinks">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getalllinks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#links.getalllinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
+if yes show all the links made by the user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.getlink">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">getlink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.getlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when we want to fetch a single link, we pass link_id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="links.update">
+<span class="sig-prename descclassname"><span class="pre">links.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#links.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the user requests to update the link.</p>
 </dd></dl>
 
 <span class="target" id="module-user"></span><dl class="py class">
