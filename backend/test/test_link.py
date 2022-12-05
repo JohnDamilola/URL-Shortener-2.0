@@ -37,7 +37,7 @@ class LinkTestApp(unittest.TestCase):
         
     def test_link_route_invalid(self):
         """Test the get link route of our app with an invalid id"""
-        link_id=uuuid.uuid4()
+        link_id=uuid.uuid4()
         response=self.app.get('/links/'+str(link_id))
         assert response.status_code==400
     
