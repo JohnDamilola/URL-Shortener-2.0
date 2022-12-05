@@ -22,11 +22,17 @@ Welcome to URL Shortener 2.0's documentation!
 .. automodule:: extensions
    :members:
 
-.. automodule:: link
+.. automodule:: link_model
    :members:
    
 .. automodule:: links
    :members:
 
 .. automodule:: user
+   :members:
+
+.. automodule:: engagements
+   :members:
+
+.. automodule:: links_anonymous
    :members:
