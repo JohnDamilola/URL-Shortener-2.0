@@ -1,8 +1,8 @@
 # [Repository](https://github.com/JohnDamilola/FlashCards)
-|Notes          |             Score =  273/290         |Evidence|
+|Notes          |             Score =  282/285         |Evidence|
 |---------------|-------------------------------|------|
-|Video1|3|https://user-images.githubusercontent.com/17693596/205698074-88500484-e25a-44de-bebf-1c17ca358f13.mp4|
-|Bonus: Xfold improvement|3||
+|Video1|3|[Watch URL Shortener in Action](https://github.com/JohnDamilola/URL-Shortener-2.0#watch-url-shortener-20-in-action)|
+|Bonus: Xfold improvement|3|[Scalability](https://github.com/JohnDamilola/URL-Shortener-2.0#scalability)|
 |Workload is spread over the whole team (one team member is often Xtimes more productive than the others... but nevertheless, here is a track record that everyone is contributing a lot)|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/contributors|
 |Number of commits|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/commit-activity|
 |Number of commits: by different people|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/contributors|
@@ -11,9 +11,9 @@
 |DOI badge: exists|3|https://zenodo.org/record/7393108#.Y41DHezMK3I|
 |Docs: doco generated, format not ugly |3|https://github.com/JohnDamilola/URL-Shortener-2.0/tree/main/backend/Documentation|
 |Docs: what: point descriptions of each class/function (in isolation) |3|All functions and classes have descriptions |
-|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3||
-|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3||
-|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3||
+|Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z|3|https://github.com/JohnDamilola/URL-Shortener-2.0#demo-links|
+|Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing|3|https://github.com/JohnDamilola/URL-Shortener-2.0#description|
+|Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code.|3|[Watch URL Shortener in Action](https://github.com/JohnDamilola/URL-Shortener-2.0#watch-url-shortener-20-in-action)|
 |Use of version control tools|3|GIT is used|
 |Use of style checkers |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
 |Use of code formatters. |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
@@ -24,8 +24,8 @@
 |Test cases are routinely executed|3|github action:https://github.com/JohnDamilola/URL-Shortener-2.0/actions |
 |The files CONTRIBUTING.md lists coding standards and lots of tips on how to extend the system without screwing things up|3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/Contributing.md|
 |Issues are discussed before they are closed|3|https://github.com/JohnDamilola/URL-Shortener-2.0/issues/28|
-|Chat channel: exists|3|Whatsapp: |
-|Test cases: a large proportion of the issues related to handling failing cases.|3||
+|Chat channel: exists|3|[Whatsapp](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/docs/ChatChannel.png) |
+|Test cases: a large proportion of the issues related to handling failing cases.|3|https://github.com/JohnDamilola/URL-Shortener-2.0/issues/33|
 |Evidence that the whole team is using the same tools: everyone can get to all tools and files|3| Everyone is using the same tools|
 |Evidence that the whole team is using the same tools (e.g. config files in the repo, updated by lots of different people)|3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/backend/requirements.txt|
 |Evidence that the whole team is using the same tools (e.g. tutor can ask anyone to share screen, they demonstrate the system running on their computer)|3|Everyone is using the same tools|
@@ -33,7 +33,7 @@
 |Short release cycles |3|The team commits very frequently. https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/commit-activity Releases: https://github.com/JohnDamilola/URL-Shortener-2.0/releases|
 |Does your website and documentation provide a clear, high-level overview of your software?|3|Website:  Backend API:  Repo:https://github.com/JohnDamilola/URL-Shortener-2.0|
 |Does your website and documentation clearly describe the type of user who should use your software?|3|https://github.com/JohnDamilola/URL-Shortener-2.0#readme|
-|Do you publish case studies to show how your software has been used by yourself and others?|3||
+|Do you publish case studies to show how your software has been used by yourself and others?|3|https://github.com/JohnDamilola/URL-Shortener-2.0#watch-url-shortener-20-in-action|
 |Is the name of your project/software unique?|3|https://github.com/JohnDamilola/URL-Shortener-2.0|
 |Is your project/software name free from trademark violations?|3|Yes, it is free from trademark violations|
 |Is your software available as a package that can be deployed without building it?|3|No|
