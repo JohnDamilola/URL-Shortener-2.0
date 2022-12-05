@@ -1,7 +1,7 @@
 # [Repository](https://github.com/JohnDamilola/FlashCards)
 |Notes          |             Score =  273/290         |Evidence|
 |---------------|-------------------------------|------|
-|Video1|3||
+|Video1|3|https://user-images.githubusercontent.com/17693596/205698074-88500484-e25a-44de-bebf-1c17ca358f13.mp4|
 |Bonus: Xfold improvement|3||
 |Workload is spread over the whole team (one team member is often Xtimes more productive than the others... but nevertheless, here is a track record that everyone is contributing a lot)|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/contributors|
 |Number of commits|3|https://github.com/JohnDamilola/URL-Shortener-2.0/graphs/commit-activity|
