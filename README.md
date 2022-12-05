@@ -128,8 +128,4 @@ Email any queries to the contributors -
 4. [Leo Hsiang](https://github.com/leoohsiang)
 5. [Damilola Babalola](https://github.com/JohnDamilola)
 
-## License
-[MIT](https://tldrlegal.com/license/mit-license)
 
-## Funding
-Our project at the moment is not funded by any organization/individual.
