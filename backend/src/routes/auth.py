@@ -1,3 +1,27 @@
+#
+#MIT License
+#
+#Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+
+
 import datetime
 from flask import Blueprint, jsonify               #import dependancies
 from flask import current_app as app
@@ -18,7 +42,8 @@ auth_bp = Blueprint(
 
 @auth_bp.route('/auth/register', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def register():                                       #this method is used to create new users and register them in firebase
+def register():
+    """This method is used to create new users and register them"""
     try:
         data = request.get_json()
         email = data['email']
@@ -46,7 +71,8 @@ def register():                                       #this method is used to cr
 
 @auth_bp.route('/auth/login', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def login():                                        #this method is used by registered users to sign in to their account
+def login():
+    """This method is used by registered users to sign in to their account"""
     try:
         data = request.get_json()
         email = data['email']
@@ -110,7 +136,7 @@ def update(id):
 @auth_bp.route('/user/delete/<id>', methods = ['DELETE'])
 @cross_origin(supports_credentials=True)
 def delete(id):
-    '''This method is called when the user requests to delete the their account. Only the link id is required to delete the deck.'''
+    '''This method is called when the user requests to delete the their account. Only the user id is required to delete the account.'''
     try:
         db.session.query(User).filter_by(id=id).delete()
         db.session.commit()
@@ -128,6 +154,7 @@ def delete(id):
 @login_required
 @cross_origin(supports_credentials=True)
 def logout():
+    """This method is used when the user wants to logout of their account"""
     try:
         logout_user()
         return jsonify(
