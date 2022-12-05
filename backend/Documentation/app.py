@@ -43,9 +43,9 @@ try:
 except ImportError:
     from config import config
     from extensions import db, bcrypt
-    from routes.auth import auth_bp
-    from routes.links import links_bp
-    from models.user import User, login_manager
+    from auth import auth_bp
+    from links import links_bp
+    from user import User, login_manager
 
 def create_app():
     """Create Flask application."""
