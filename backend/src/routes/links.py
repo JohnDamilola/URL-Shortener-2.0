@@ -1,3 +1,27 @@
+#
+#MIT License
+#
+#Copyright (c) 2022 John Damilola, Leo Hsiang, Swarangi Gaurkar, Kritika Javali, Aaron Dias Barreto
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+
+
 
 from operator import and_
 from flask import Blueprint, jsonify               #import dependancies
@@ -23,7 +47,7 @@ links_bp = Blueprint(
 @links_bp.route('/links/<id>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def getlink(id):
-    '''This method is called when we want to fetch a single link, we pass user_id'''
+    '''This method is called when we want to fetch a single link, we pass link_id'''
     try:
         link = Link.query.get(id)
         return jsonify(
@@ -40,7 +64,7 @@ def getlink(id):
 @links_bp.route('/links/stub/<stub>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def get_link_by_stub(stub):
-    '''This method is called when we want to fetch a single link, we pass user_id'''
+    '''This method is called when we want to fetch a single link using the stub'''
     try:
         link = db.session.query(Link).filter(Link.stub==stub).first()
         return jsonify(
@@ -57,7 +81,7 @@ def get_link_by_stub(stub):
 @links_bp.route('/links_anonymous/stub/<stub>', methods = ['GET'])
 @cross_origin(supports_credentials=True)
 def get_anonymous_link_by_stub(stub):
-    '''This method is called when we want to fetch a single link, we pass user_id'''
+    '''This method is called when we want to fetch a single link anonymously using the stub'''
     try:
         link = db.session.query(AnonymousLink).filter(AnonymousLink.stub==stub).first()
         return jsonify(
@@ -76,7 +100,7 @@ def get_anonymous_link_by_stub(stub):
 @cross_origin(supports_credentials=True)
 def getalllinks():
     '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
-    if yes show all the decks made by the user.'''
+    if yes show all the links made by the user.'''
     args = request.args
     user_id = args and args['user_id']
     try:
@@ -145,7 +169,7 @@ def create():
 @links_bp.route('/links/create_anonymous', methods = ['POST'])
 @cross_origin(supports_credentials=True)
 def create_anonymous():
-    '''This method is routed when the user requests to create a new link.'''
+    '''This method is routed when the user requests to create a new link anonymously.'''
     try:
         data = request.get_json()
         long_url=data['long_url']
@@ -247,8 +271,7 @@ def delete(id):
 @login_required2()
 @cross_origin(supports_credentials=True)
 def get_link_stats():
-    '''This method is called when we want to fetch all of the links of a particular user. Here, we check if the user is authenticated, 
-    if yes show all the decks made by the user.'''
+    '''This method is called when we want to fetch the stats of all the links of a particular user. Here, we check if the user is authenticated.'''
     args = request.args
     user_id = args and args['user_id']
     try:
@@ -293,7 +316,7 @@ def get_single_link_engagements(link_id):
 @links_bp.route('/links/engagements/<link_id>/create', methods = ['POST'])
 @cross_origin(supports_credentials=True)
 def create_engagement(link_id):
-    '''This method is routed when the user requests to create a new link.'''
+    '''This method is routed when the user requests to create a new engagement for a link.'''
     try:
         data = request.get_json()
         utm_source=data.get('utm_source')
