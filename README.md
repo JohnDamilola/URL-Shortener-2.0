@@ -59,19 +59,13 @@ https://user-images.githubusercontent.com/17693596/205698074-88500484-e25a-44de-
 - Backend Base API Endpoint URL: https://url-shortener-server-api.herokuapp.com/ Check out [Docs](https://splendid-crush-9a3.notion.site/API-Endpoints-58013a6640204491858ada2541ae623a)
 - Frontend Web App: https://url-bit.web.app/
 
-## Current Screens
+## Some of our Current Screens
 <p>
-  <img
-    width="100%"
-    src="./frontend/src/assets/images/1.png"
-    alt="Demo Screens 1"
-  />
+  <img width="500" alt="Screenshot 2022-12-05 at 21 55 01" src="https://user-images.githubusercontent.com/17693596/205799317-b398a44c-8dde-4b05-a14e-ab506ff788b0.png">
+<img width="500" alt="Screenshot 2022-12-05 at 21 55 16" src="https://user-images.githubusercontent.com/17693596/205799321-4d75cce8-bc23-4f9b-be0f-37418967b0ae.png">
+<img width="500" alt="Screenshot 2022-12-05 at 21 56 24" src="https://user-images.githubusercontent.com/17693596/205799342-025d752d-1121-402e-b02c-0d6f7b1574ef.png">
+<img width="500" alt="Screenshot 2022-12-05 at 21 56 59" src="https://user-images.githubusercontent.com/17693596/205799354-b9f7bb54-06ff-444b-bc4e-d9fb3dc6ccd8.png">
 
-  <img
-    width="100%"
-    src="./frontend/src/assets/images/2.png"
-    alt="Demo Screens 2"
-  />
 </p>
 
 ## Phase 1 Features
@@ -105,7 +99,7 @@ https://user-images.githubusercontent.com/17693596/205698074-88500484-e25a-44de-
 </ul>
 
 ## Scalability 
-URL-Shortener-2.0, greatly improve the scalability from the previous version [URL-Shortner](https://github.com/CSC510-Group-5/URL-Shortner). Firstly, the team introducted <b>identity and access management</b> that centralizes user identity and improves the scalability. Secondly, Our application uses and follows <b>RESTful API</b> to provide a stateless software that does not share anything between requests. This means that there doesn't have to be (much) communication between servers, making our application horizontally scalable. Moreover, development teams can scale the product without much difficulty because there is a separation between the client and the server. Thirdly, <b>database(Firebase)</b> is intergrated to provide concurrency; many users can use the application at the same time without corrupting the data. The database consists of adding more instances or nodes to the database in order to try to deal with a higher workload. This means that when our application needs a higher capacity when encounter heavier traffic, it simply adds more servers to the cluster.
+[See here](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/docs/scalability.md)
 
 
 ## Contributions to the Project
