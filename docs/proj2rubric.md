@@ -2,7 +2,7 @@
 |Notes          |             Score =  282/285         |Evidence|
 |---------------|-------------------------------|------|
 |Video1|3|[Watch URL Shortener in Action](https://github.com/JohnDamilola/URL-Shortener-2.0#watch-url-shortener-20-in-action)|
-|Bonus: Xfold improvement|3|[Scalability](https://github.com/JohnDamilola/URL-Shortener-2.0#scalability)|
+|Bonus: Xfold improvement|3|[Scalability Readme](https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/docs/scalability.md)|
 |Docs: what: point descriptions of each class/function (in isolation) |3|All functions and classes have descriptions |
 |Use of style checkers |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
 |Use of code formatters. |3|https://github.com/JohnDamilola/URL-Shortener-2.0/blob/main/.github/workflows/Application.yml|
